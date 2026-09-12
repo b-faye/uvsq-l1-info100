@@ -1,0 +1,1059 @@
+\documentclass[10pt]{beamer}
+
+\usepackage{verbatim}
+%\usepackage[latin1]{inputenc}
+\usepackage{amssymb,amsmath,amsfonts,url}
+\usepackage{graphicx,color}
+\usepackage{pgf,pgfarrows,pgfnodes,pgfautomata,pgfheaps,pgfshade}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+
+\usepackage[all]{xy}
+\usepackage{amstext}
+\usepackage{xspace}
+\usepackage{mdwtab}
+
+
+\mode<article> {
+  \usepackage{fullpage}
+  \usepackage{hyperref}
+  \setjobnamebeamerversion{advancedcourse.beamer}
+}
+
+
+\usepackage{listings}
+\usepackage{xcolor}
+
+\lstset{
+	language=Python,
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{blue},
+	commentstyle=\color{gray},
+	stringstyle=\color{green!50!black},
+	showstringspaces=false,
+	frame=single,
+	numbers=none
+}
+\lstset{
+	language=Python,
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{blue},
+	commentstyle=\color{gray},
+	stringstyle=\color{green!50!black},
+	showstringspaces=false,
+	frame=single,
+	numbers=none,
+	literate=
+	{é}{{\'e}}1
+	{è}{{\`e}}1
+	{ê}{{\^e}}1
+	{ë}{{\"e}}1
+	{à}{{\`a}}1
+	{â}{{\^a}}1
+	{ä}{{\"a}}1
+	{ù}{{\`u}}1
+	{û}{{\^u}}1
+	{ü}{{\"u}}1
+	{ô}{{\^o}}1
+	{ö}{{\"o}}1
+	{î}{{\^i}}1
+	{ï}{{\"i}}1
+	{ç}{{\c c}}1
+}
+
+
+
+\newcommand{\alertonce}[1]{\addtocounter{beamerpauses}{-1}\alert<+>{#1}}
+\newcommand{\alerttwice}[1]{\addtocounter{beamerpauses}{-1}\alert<+-+(1)>{#1}}
+
+%\newcommand{\subsubsubsection}[1]{\noindent\textbf{#1}}
+
+\newcommand{\cfbox}[1]{\begin{center}\fbox{#1}\end{center}}
+\newcommand{\cbox}[1]{\begin{center} #1 \end{center}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\graphicspath{{Graphics/}}
+%\input def_0.tex
+
+%\input{StyleSlides.tex}
+\mode<presentation> {
+    \usepackage{beamerthemeBoadilla}
+
+  \beamertemplatetransparentcovereddynamic
+  \beamertemplateballitem
+}
+
+
+\title[IN100 Cours 1]{\textbf{Fondements informatiques I}\\
+Cours 1: Variables et types}
+
+\author[]{Sorina Ionica \texttt{sorina.ionica@uvsq.fr} \\~\\Bilal FAYE  \texttt{bilal.faye@uvsq.fr}}
+
+
+\institute{}
+
+\date{}
+
+
+%\setbeamercolor{normal text}{fg=black}
+
+\begin{document}
+
+
+\frame{\titlepage}
+
+
+\frame[containsverbatim]{
+	\frametitle{Qu'est-ce qu'un algorithme ?}
+	
+	\begin{alertblock}{Un algorithme}
+		Un algorithme est une méthode composée d'une suite finie d'étapes précises et ordonnées permettant de résoudre un problème.
+		
+		Pour décrire un algorithme, on précise :
+		
+		\begin{itemize}
+			\item Entrées (Input) : les données dont on dispose au départ
+			\item Traitement : les étapes à effectuer, dans un ordre précis
+			\item Sortie (Output) : le résultat obtenu
+		\end{itemize}
+	\end{alertblock}
+	
+	\begin{exampleblock}{Exemple : calculer la moyenne de 3 notes}
+		\small
+		\begin{verbatim}
+			Input : 12, 15 et 17
+			Output : la moyenne des trois notes
+			
+			Additionner les trois notes : 12 + 15 + 17 = 44
+			Diviser la somme par 3 : 44/3 = 14,67
+			
+			Renvoyer 14,67
+		\end{verbatim}
+	\end{exampleblock}
+	
+}
+
+\frame[containsverbatim]{
+	\frametitle{De l'algorithme au programme}
+	
+	Un \textbf{programme} est un ensemble d'instructions que l'ordinateur peut exécuter.
+	
+	\vspace{0.2cm}
+	
+	Pour écrire un programme, on utilise un \textcolor{blue}{langage de programmation}.
+	
+	\vspace{0.2cm}
+
+\begin{exampleblock}{L'algorithme précédent en Python}
+\begin{lstlisting}[language=Python]
+# Input : Les données en entrée
+note1 = 12
+note2 = 15
+note3 = 17
+# Traitement : Additionner les trois notes
+somme = note1 + note2 + note3
+# Traitement : Diviser la somme par 3
+moyenne = somme / 3
+# Output : Afficher le résultat
+print(moyenne)
+\end{lstlisting}
+\end{exampleblock}
+\vspace{0.1cm}
+$\rightarrow$ Un langage de programmation permet de traduire
+un algorithme en instructions exécutables par l'ordinateur.
+
+}
+
+
+\frame{
+	\frametitle{Pourquoi programmer ?}
+	
+	
+	\begin{block}{Un algorithme devient utile lorsqu'il est exécuté par une machine.}
+		Le programme traduit l'algorithme dans un \textbf{langage de programmation}
+		que l'ordinateur peut comprendre et exécuter.
+	\end{block}
+	
+	\vspace{0.35cm}
+	
+	\begin{columns}[T]
+		\begin{column}{0.48\textwidth}
+			\textbf{Exemples de programmes}
+			
+			\begin{itemize}
+				\item Application web
+				\item GPS et navigation
+				\item Jeux vidéo
+				\item Applications mobiles
+				\item Réseaux sociaux
+				\item Intelligence artificielle
+			\end{itemize}
+		\end{column}
+		
+		\begin{column}{0.48\textwidth}
+			\textbf{Langages de programmation}
+			
+			\begin{itemize}
+				\item Python
+				\item Java
+				\item C / C++
+				\item JavaScript
+				\item C\#
+				\item Kotlin / Swift
+			\end{itemize}
+		\end{column}
+	\end{columns}
+	
+	\vspace{0.3cm}
+	
+	\begin{exampleblock}{À retenir}
+		\centering
+		\textbf{Problème}
+		$\;\longrightarrow\;$ 
+		\textbf{Algorithme}
+		$\;\longrightarrow\;$ 
+		\textbf{Programme}
+		$\;\longrightarrow\;$ 
+		\textbf{Exécution par l'ordinateur}
+	\end{exampleblock}
+	
+	
+}
+
+
+\frame{
+	
+	\begin{block}{Dans cette UE}
+		Nous utiliserons \textbf{Python} pour écrire nos programmes.
+	\end{block}
+	
+	\vspace{0.3cm}
+	
+	\begin{columns}[T]
+		\begin{column}{0.48\textwidth}
+			\textbf{Quelques repères}
+			
+			\begin{itemize}
+				\item Créé par Guido van Rossum
+				\item Première version en 1991
+				\item Langage multiplateforme
+			\end{itemize}
+		\end{column}
+		
+		\begin{column}{0.48\textwidth}
+			\textbf{Quelques caractéristiques}
+			
+			\begin{itemize}
+				\item Gratuit et open-source
+				\item Windows, Linux, macOS, Android...
+				\item Langage interprété
+			\end{itemize}
+		\end{column}
+	\end{columns}
+	
+	\vspace{0.3cm}
+	
+	\begin{exampleblock}{Langage interprété}
+		Les instructions sont exécutées par un \textit{interpréteur},
+		au fur et à mesure de l'exécution du programme.
+	\end{exampleblock}
+	
+	
+}
+
+\begin{frame}[containsverbatim]
+\frametitle{Les variables}
+
+\begin{block}{Qu'est-ce qu'une variable ?}
+	Une \textbf{variable} est un nom associé à une valeur dans un programme.
+\end{block}
+	
+	\vspace{0.25cm}
+
+\begin{exampleblock}{Exemple en Python}
+\begin{lstlisting}[language=Python]
+x = 2              # x prend la valeur 2
+y = x              # y prend la valeur de x
+print(x)           # affiche 2
+print(y)           # affiche 2
+y = 3              # y prend maintenant la valeur 3
+print(x, y)        # affiche 2 3
+\end{lstlisting}
+\end{exampleblock}
+
+\vspace{0.15cm}
+\begin{center}
+	 \begin{itemize}
+	 	\item Ici, \texttt{x} et \texttt{y} sont des variables de type entier.
+	 	\item Modifier \texttt{y} ne modifie pas \texttt{x}.
+	 	\item \textit{Règle de style :} on met un espace après une virgule, mais pas avant.
+	 \end{itemize}
+
+\end{center}
+\end{frame}
+\begin{frame}[containsverbatim]
+\frametitle{Échanger deux variables}
+\begin{block}{Objectif}
+Échanger les valeurs de deux variables sans perdre aucune valeur.
+\end{block}
+
+\vspace{0.25cm}
+
+\begin{exampleblock}{Première méthode : incorrecte}
+\begin{lstlisting}[language=Python]
+x = 2
+y = 3
+x = y       # x prend la valeur de y
+y = x       # y prend la valeur de x
+print(x, y) # affiche 3 3
+\end{lstlisting}
+\end{exampleblock}
+\vspace{0.15cm}
+\begin{center}
+\textbf{Problème :} la valeur initiale de \texttt{x} est perdue.
+\end{center}
+\end{frame}
+
+\begin{frame}[containsverbatim]
+\frametitle{Échanger deux variables}
+\begin{block}{Objectif}
+	Échanger les valeurs de deux variables sans perdre aucune valeur.
+\end{block}
+\vspace{0.25cm}
+\begin{exampleblock}{Deuxième méthode : avec une variable temporaire}
+\begin{lstlisting}[language=Python]
+x = 2
+y = 3
+z = x       # sauvegarder la valeur de x
+x = y       # x prend la valeur de y
+y = z       # y récupère l'ancienne valeur de x
+print(x, y) # affiche 3 2
+\end{lstlisting}
+\end{exampleblock}
+\vspace{0.15cm}
+\begin{center}
+	\textbf{Idée :} utiliser \texttt{z} pour conserver temporairement une valeur.
+\end{center}
+\end{frame}
+
+\begin{frame}[containsverbatim]
+	\frametitle{Échanger deux variables}
+	
+	\begin{block}{Objectif}
+		Échanger les valeurs de deux variables sans perdre aucune valeur.
+	\end{block}
+	\vspace{0.25cm}
+	
+\begin{exampleblock}{Troisième méthode : avec un tuple}
+\begin{lstlisting}[language=Python]
+x = 2
+y = 3
+x, y = y, x   # échange des deux valeurs
+print(x, y)   # affiche 3 2
+\end{lstlisting}
+\end{exampleblock}
+	\vspace{0.15cm}
+	\begin{center}
+		\textbf{En Python :} plusieurs valeurs peuvent être affectées simultanément.
+	\end{center}
+\end{frame}
+
+\begin{frame}[containsverbatim]
+	\frametitle{Règles de nommage des variables}
+	\begin{block}{Comment choisir un nom de variable ?}
+		Un nom de variable doit être \textbf{valide}, \textbf{lisible} et \textbf{explicite}.
+	\end{block}
+	\vspace{0.25cm}
+	\begin{columns}[T]
+		\begin{column}{0.48\textwidth}
+			\textbf{Règles à respecter}
+			
+			\begin{itemize}
+				\item Lettres : \texttt{a-z}, \texttt{A-Z}
+				\item Chiffres : \texttt{0-9}
+				\item Souligné : \texttt{\_}
+				\item Pas d'espace ni de caractère accentué
+				\item Le nom ne commence pas par un chiffre
+			\end{itemize}
+		\end{column}
+		\begin{column}{0.48\textwidth}
+			\textbf{Attention}
+			
+			\begin{itemize}
+				\item Python est sensible à la casse
+				\item \texttt{toto} $\neq$ \texttt{toTo}
+				\item Ne pas utiliser de mot réservé
+				\item Éviter les noms trop courts ou peu explicites
+			\end{itemize}
+		\end{column}
+	\end{columns}
+	
+	\vspace{0.25cm}
+	
+\begin{exampleblock}{Exemples}
+	\centering
+	\textcolor{green!60!black}{\textbf{\checkmark Valide :}}
+	\quad \texttt{age} \quad \texttt{nom\_etudiant} \quad \texttt{note1}
+	
+	
+	\vspace{0.15cm}
+	
+	\textcolor{red}{\textbf{\texttimes Non valide :}}
+	\quad \texttt{1note} \quad \texttt{nom etudiant} \quad \texttt{note-éleve}
+	
+	\vspace{0.15cm}
+	
+	\textcolor{red}{\textbf{\texttimes À éviter :}}
+	\quad \texttt{print}
+	\quad -- mot déjà utilisé par Python
+	
+	
+\end{exampleblock}
+\end{frame}
+
+\begin{comment}
+\frame[containsverbatim]{\frametitle{Régles de nommage des variables}
+	
+	Recommandations annexes
+	\begin{itemize}
+		\item sauf exceptions, donner un nom explicite aux variables tel \texttt{nb\_de\_vie}
+		\item suivre cet exemple, cad séparer les mots par des  \texttt{\_}  sans majuscules
+		\item éviter d'autres formes telles NbDeVie; au moins être cohérent dans tout le programme
+	\end{itemize}
+}
+\end{comment}
+
+\begin{frame}[containsverbatim]
+\frametitle{Les types de données}
+
+\begin{block}{Qu'est-ce qu'un type de donnée ?}
+Le \textbf{type} d'une donnée détermine :
+\begin{itemize}
+\item les valeurs qu'elle peut prendre ;
+\item les opérations que l'on peut lui appliquer.
+\end{itemize}
+\end{block}
+
+\vspace{0.15cm}
+
+\begin{exampleblock}{Les principaux types que nous allons manipuler au début}
+\begin{lstlisting}[language=Python]
+a = 5             # entier (int)
+b = 3.14          # nombre flottant (float)
+c = True          # booleen (bool)
+d = "Bonjour"     # chaine de caracteres (str)
+\end{lstlisting}
+\end{exampleblock}
+
+\vspace{0.1cm}
+
+\begin{block}{En Python}
+Le typage est \textbf{dynamique et implicite} :
+\begin{itemize}
+\item le type est déterminé automatiquement lors de l'affectation ;
+\item une même variable peut changer de type au cours du programme.
+\end{itemize}
+\end{block}
+\end{frame}
+\begin{frame}[containsverbatim]
+\frametitle{Les types de données}
+
+\begin{block}{Connaître le type d'une donnée}
+Pour connaître le type d'une donnée, on peut utiliser la fonction
+\texttt{type()}.
+\end{block}
+
+\vspace{0.2cm}
+
+\begin{exampleblock}{Exemple en Python}
+\begin{lstlisting}[language=Python]
+a = 5
+b = 3.14
+c = True
+d = "Bonjour"
+print(type(a))       # <class 'int'>
+print(type(b))       # <class 'float'>
+print(type(c))       # <class 'bool'>
+print(type(d))       # <class 'str'>
+\end{lstlisting}
+\end{exampleblock}
+
+\end{frame}
+
+
+\begin{frame}[containsverbatim]
+\frametitle{Les nombres}
+
+En Python, on manipule principalement deux types de nombres :
+
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\begin{block}{Entiers \texttt{int}}
+Nombres sans partie décimale.
+
+\textbf{Précision arbitraire} : Python peut représenter
+des entiers très grands.
+\end{block}
+\end{column}
+
+\begin{column}{0.48\textwidth}
+\begin{block}{Flottants \texttt{float}}
+Nombres avec une partie décimale.
+
+Le \textbf{point} est utilisé comme séparateur décimal.
+\end{block}
+\end{column}
+\end{columns}
+
+\vspace{0.25cm}
+
+\begin{exampleblock}{Exemples}
+\begin{lstlisting}[language=Python]
+x = 12          # int
+y = 3.14        # float
+z = 2e+20       # float : 2 x 10^20
+\end{lstlisting}
+\end{exampleblock}
+
+\begin{center}
+\textbf{Notation scientifique :} \texttt{2e+20} signifie $2 \times 10^{20}$.
+\end{center}
+
+\end{frame}
+\begin{frame}[containsverbatim]
+\frametitle{Opérateurs arithmétiques}
+
+Sur les nombres, Python permet d'utiliser les opérateurs arithmétiques
+usuels :
+
+\begin{center}
+\begin{tabular}{c|c|c}
+\textbf{Opérateur} & \textbf{Opération} & \textbf{Exemple} \\ \hline
+\texttt{+} & Addition & \texttt{5 + 2} \\
+\texttt{-} & Soustraction & \texttt{5 - 2} \\
+\texttt{*} & Multiplication & \texttt{5 * 2} \\
+\texttt{/} & Division & \texttt{5 / 2} \\
+\texttt{**} & Puissance & \texttt{5 ** 2} \\
+\texttt{\%} & Reste & \texttt{5 \% 2}
+\end{tabular}
+\end{center}
+
+\vspace{0.3cm}
+
+\begin{exampleblock}{Exemple}
+\begin{lstlisting}[language=Python]
+a = 5 + 2       # 7
+b = 5 * 2       # 10
+c = 5 ** 2      # 25
+d = 5 % 2       # 1
+\end{lstlisting}
+\end{exampleblock}
+
+\end{frame}
+
+\begin{frame}[containsverbatim]
+\frametitle{Division et reste}
+
+\begin{block}{Trois opérateurs à distinguer}
+\begin{itemize}
+\item \texttt{/} : division flottante
+\item \texttt{//} : division entière
+\item \texttt{\%} : reste de la division
+\end{itemize}
+\end{block}
+
+\vspace{0.2cm}
+
+\begin{exampleblock}{Exemple}
+\begin{lstlisting}[language=Python]
+print(11 / 2)    # 5.5
+print(11 // 2)   # 5
+print(11 % 2)    # 1
+\end{lstlisting}
+\end{exampleblock}
+
+\vspace{0.15cm}
+
+\begin{center}
+$11 = 2 \times 5 + 1$
+
+\vspace{0.1cm}
+
+\textbf{Quotient : } 5
+\qquad
+\textbf{Reste : } 1
+\end{center}
+
+\end{frame}
+
+
+\begin{frame}[containsverbatim]
+\frametitle{Résultats des opérations numériques}
+
+Le type du résultat dépend des types utilisés dans l'expression.
+
+\begin{exampleblock}{Entiers et flottants}
+\begin{lstlisting}[language=Python]
+print(type(5 + 2))       # <class 'int'>
+print(type(5 + 2.0))     # <class 'float'>
+print(type(7 * 1.0))     # <class 'float'>
+print(type(10 ** 2))     # <class 'int'>
+\end{lstlisting}
+\end{exampleblock}
+
+\vspace{0.15cm}
+
+\begin{alertblock}{À retenir}
+La présence d'un \texttt{float} dans une opération numérique
+peut conduire à un résultat de type \texttt{float}.
+\end{alertblock}
+\end{frame}
+\begin{frame}[containsverbatim]
+\frametitle{Opérateurs d'affectation augmentés}
+
+Les opérateurs d'affectation augmentés permettent de modifier
+une variable à partir de sa valeur actuelle.
+
+\begin{exampleblock}{Ajouter une valeur}
+\begin{lstlisting}[language=Python]
+a = 2
+b = 3
+a += b       # équivaut à : a = a + b
+print(a)     # 5
+\end{lstlisting}
+\end{exampleblock}
+
+\vspace{0.2cm}
+
+\begin{exampleblock}{Incrémenter une variable}
+\begin{lstlisting}[language=Python]
+a += 1       # équivaut à : a = a + 1
+print(a)     # 6
+\end{lstlisting}
+\end{exampleblock}
+
+\begin{center}
+\texttt{-=} \qquad \texttt{*=} \qquad \texttt{/=} \qquad \texttt{//=} \qquad \texttt{\%=}
+\end{center}
+
+\end{frame}
+
+\begin{frame}[containsverbatim]
+\frametitle{Conversion de types}
+
+Une donnée peut être convertie dans un autre type lorsque cela
+est possible et pertinent.
+
+\begin{block}{Deux fonctions de conversion}
+\begin{itemize}
+\item \texttt{int()} : conversion en entier
+\item \texttt{float()} : conversion en flottant
+\end{itemize}
+\end{block}
+
+\vspace{0.2cm}
+
+\begin{exampleblock}{Exemple}
+\begin{lstlisting}[language=Python]
+x = 3
+y = 3.14
+a = float(x)       # 3 devient 3.0
+b = int(y)         # 3.14 devient 3
+print(type(a))     # <class 'float'>
+print(type(b))     # <class 'int'>
+\end{lstlisting}
+\end{exampleblock}
+
+\begin{alertblock}{Attention}
+\texttt{int()} ne fait pas un arrondi : la partie décimale est supprimée.
+\end{alertblock}
+\end{frame}
+
+\begin{frame}[containsverbatim]
+\frametitle{La précision des nombres flottants}
+
+Un nombre flottant est généralement représenté en machine
+par une approximation en \textbf{base 2}.\newline
+
+
+La précision étant limitée, certains nombres décimaux
+ne peuvent pas être représentés exactement.
+
+\vspace{0.2cm}
+
+\begin{exampleblock}{Un résultat surprenant}
+\begin{lstlisting}[language=Python]
+print(0.1 + 0.2)
+# 0.30000000000000004
+print(0.1 + 0.2 == 0.3)
+# False
+\end{lstlisting}
+\end{exampleblock}
+
+\vspace{0.15cm}
+
+\begin{alertblock}{À retenir}
+Un \texttt{float} est souvent une \textbf{approximation} de la valeur
+mathématique souhaitée.
+\end{alertblock}
+
+\end{frame}
+
+
+\begin{frame}[containsverbatim]
+\frametitle{Le type booléen}
+
+\begin{block}{Une valeur booléenne}
+Une donnée de type \texttt{bool} ne peut prendre que deux valeurs :
+\[
+\texttt{True} \qquad \text{ou} \qquad \texttt{False}
+\]
+\end{block}
+
+\vspace{0.2cm}
+
+Les booléens permettent notamment de représenter le résultat
+d'une \textbf{condition}.
+
+\begin{exampleblock}{Exemple}
+\begin{lstlisting}[language=Python]
+a = 5 < 2
+print(a)           # False
+print(type(a))     # <class 'bool'>
+\end{lstlisting}
+\end{exampleblock}
+
+\vspace{0.15cm}
+
+\begin{center}
+\textbf{Une comparaison produit une valeur booléenne.}
+\end{center}
+
+\end{frame}
+
+
+\begin{frame}[containsverbatim]
+\frametitle{Les opérateurs de comparaison}
+
+Les opérateurs de comparaison permettent de comparer deux valeurs.
+Le résultat est toujours un booléen : \texttt{True} ou \texttt{False}.
+
+\vspace{0.2cm}
+
+\begin{center}
+\begin{tabular}{c|c|c}
+\textbf{Opérateur} & \textbf{Signification} & \textbf{Exemple} \\ \hline
+\texttt{>}  & supérieur à & \texttt{5 > 2} \\
+\texttt{<}  & inférieur à & \texttt{5 < 2} \\
+\texttt{>=} & supérieur ou égal à & \texttt{5 >= 5} \\
+\texttt{<=} & inférieur ou égal à & \texttt{5 <= 2} \\
+\texttt{==} & égal à & \texttt{5 == 5} \\
+\texttt{!=} & différent de & \texttt{5 != 2}
+\end{tabular}
+\end{center}
+
+\vspace{0.25cm}
+
+\begin{exampleblock}{Exemple en Python}
+\begin{lstlisting}[language=Python]
+age = 20
+print(age >= 18)       # True
+print(age == 20)       # True
+print(age != 20)       # False
+\end{lstlisting}
+\end{exampleblock}
+
+\end{frame}
+
+\begin{frame}[containsverbatim]
+\frametitle{Les opérateurs logiques}
+
+Les opérateurs logiques permettent de \textbf{combiner ou modifier}
+des valeurs booléennes.
+
+\vspace{0.2cm}
+
+\begin{columns}[T]
+\begin{column}{0.31\textwidth}
+\begin{block}{\texttt{not}}
+Inverse une valeur.
+
+\[
+\texttt{not True = False}
+\]
+\[
+\texttt{not False = True}
+\]
+\end{block}
+\end{column}
+
+\begin{column}{0.31\textwidth}
+\begin{block}{\texttt{and}}
+\texttt{True} seulement si
+les deux valeurs sont vraies.
+
+\[
+\texttt{True and True}
+=\texttt{True}
+\]
+
+
+\end{block}
+\end{column}
+
+\begin{column}{0.31\textwidth}
+\begin{block}{\texttt{or}}
+\texttt{True} si au moins
+une valeur est vraie.
+
+\[
+\texttt{True or False}
+=\texttt{True}
+\]
+\end{block}
+\end{column}
+\end{columns}
+
+\vspace{0.25cm}
+
+\begin{exampleblock}{Exemple}
+\begin{lstlisting}[language=Python]
+age = 20
+majeur = age >= 18
+print(majeur and True)      # True
+print(majeur and False)     # False
+print(not majeur)           # False
+\end{lstlisting}
+\end{exampleblock}
+
+\end{frame}
+
+
+\begin{frame}[containsverbatim]
+\frametitle{Construire une expression logique}
+
+Une expression logique peut combiner plusieurs comparaisons
+avec \texttt{and}, \texttt{or} et \texttt{not}.
+
+\vspace{0.2cm}
+
+\begin{exampleblock}{Exemple}
+\begin{lstlisting}[language=Python]
+a = -0.5
+p = (a <= 0)          # True
+q = (a > 1)            # False
+r = (a < 3)            # True
+s = (a != 2)           # True
+res = p or (q and r and s)
+print(res)             # True
+\end{lstlisting}
+\end{exampleblock}
+
+\vspace{0.15cm}
+
+\begin{center}
+\texttt{p} est vrai, donc \texttt{p or (...)} est vrai.
+\end{center}
+
+\vspace{0.1cm}
+
+\begin{alertblock}{À retenir}
+Une expression logique peut être construite à partir de
+\textbf{comparaisons} et d'\textbf{opérateurs logiques}.
+\end{alertblock}
+
+\end{frame}
+
+\begin{frame}[containsverbatim]
+\frametitle{Les chaînes de caractères}
+
+\begin{block}{Qu'est-ce qu'une chaîne de caractères ?}
+Une \textbf{chaîne de caractères} (\texttt{str}) est une suite de caractères
+écrite entre guillemets simples ou doubles.
+\end{block}
+
+\vspace{0.2cm}
+
+\begin{exampleblock}{Exemples}
+\begin{lstlisting}[language=Python]
+s1 = "Bonjour"
+s2 = 'Python'
+s3 = "Bonjour Python"
+print(s1)
+print(type(s1))       # <class 'str'>
+\end{lstlisting}
+\end{exampleblock}
+
+\vspace{0.1cm}
+
+\begin{center}
+\textbf{Simple ou double guillemets :} les deux sont possibles.
+\end{center}
+
+\end{frame}
+
+\begin{frame}[containsverbatim]
+\frametitle{Opérations sur les chaînes}
+
+Les chaînes de caractères peuvent être manipulées avec plusieurs
+opérations simples.
+
+\begin{exampleblock}{Exemple}
+\begin{lstlisting}[language=Python]
+s = "Bonjour"
+print(s + " Python")   # concaténation
+print(s * 3)           # répétition
+print(len(s))          # longueur : 7
+\end{lstlisting}
+\end{exampleblock}
+
+\vspace{0.2cm}
+
+\begin{block}{À retenir}
+\begin{itemize}
+\item \texttt{+} assemble deux chaînes ;
+\item \texttt{*} répète une chaîne ;
+\item \texttt{len()} donne le nombre de caractères.
+\end{itemize}
+\end{block}
+
+\end{frame}
+
+\begin{frame}[containsverbatim]
+\frametitle{Accéder aux caractères d'une chaîne}
+
+Une chaîne est une suite de caractères.
+Chaque caractère possède une \textbf{position}, appelée indice.
+
+\begin{exampleblock}{Exemple}
+\begin{lstlisting}[language=Python]
+s = "Python"
+print(s[0])       # P
+print(s[1])       # y
+print(s[5])       # n
+\end{lstlisting}
+\end{exampleblock}
+
+\vspace{0.15cm}
+
+\begin{center}
+\texttt{P \;\; y \;\; t \;\; h \;\; o \;\; n}
+
+\vspace{0.1cm}
+
+\texttt{0 \;\; 1 \;\; 2 \;\; 3 \;\; 4 \;\; 5}
+\end{center}
+
+\vspace{0.1cm}
+
+\begin{alertblock}{Attention}
+En Python, le premier indice est \textbf{0}.
+\end{alertblock}
+
+\end{frame}
+
+\begin{frame}[containsverbatim]
+\frametitle{Quelques fonctions pour les chaînes}
+
+Une chaîne de caractères possède des \textbf{fonctions} permettant de la manipuler.
+
+\begin{exampleblock}{Exemple}
+\begin{lstlisting}[language=Python]
+s = "bonjour"
+print(s.upper())       # "BONJOUR"
+print(s.capitalize())  # "Bonjour"
+print(s.replace("jour", "soir"))
+\end{lstlisting}
+\end{exampleblock}
+
+\vspace{0.15cm}
+
+\begin{block}{Fonctions}
+Une fonction peut être associée à une donnée.
+
+\vspace{0.1cm}
+
+La notation \texttt{s.upper()} signifie :
+\textbf{appliquer la méthode \texttt{upper()} à \texttt{s}}.
+\end{block}
+
+\end{frame}
+
+
+\begin{frame}[containsverbatim]
+\frametitle{Lire une donnée au clavier}
+
+La fonction \texttt{input()} permet de récupérer une donnée
+saisie par l'utilisateur.
+
+\begin{exampleblock}{Lire un texte}
+\begin{lstlisting}[language=Python]
+nom = input("Entrez votre nom : ")
+print("Bonjour", nom)
+\end{lstlisting}
+\end{exampleblock}
+
+\vspace{0.15cm}
+
+\begin{alertblock}{Attention}
+\texttt{input()} renvoie toujours une \textbf{chaîne de caractères}
+(\texttt{str}), même si l'utilisateur saisit un nombre.
+\end{alertblock}
+
+\begin{exampleblock}{Lire un entier}
+\begin{lstlisting}[language=Python]
+age = input("Entrez votre âge : ")
+age = int(age)       # conversion en entier
+print(age + 1)
+\end{lstlisting}
+\end{exampleblock}
+
+\end{frame}
+
+\begin{frame}
+	\frametitle{À retenir : les types de données}
+	
+	\begin{block}{Les types de base}
+		\centering
+		\texttt{int} \quad
+		\texttt{float} \quad
+		\texttt{bool} \quad
+		\texttt{str}
+	\end{block}
+	
+	\vspace{0.2cm}
+	
+	\begin{columns}[T]
+		\begin{column}{0.48\textwidth}
+			\textbf{En Python}
+			\begin{itemize}
+				\item Le type est déterminé automatiquement.
+				\item Une variable peut changer de type.
+				\item \texttt{type()} permet de connaître un type.
+				\item \texttt{int()}, \texttt{float()} et \texttt{str()}
+				permettent de convertir une donnée.
+			\end{itemize}
+		\end{column}
+		
+		\begin{column}{0.48\textwidth}
+			\textbf{Opérations essentielles}
+			\begin{itemize}
+				\item Nombres : \texttt{+}, \texttt{-}, \texttt{*}, \texttt{/}, \texttt{//}, \texttt{\%}, \texttt{**}
+				\item Booléens : \texttt{and}, \texttt{or}, \texttt{not}
+				\item Chaînes : \texttt{+}, \texttt{*}, \texttt{len()}
+				\item Comparaisons : \texttt{<}, \texttt{>}, \texttt{==}, \texttt{!=}, ...
+			\end{itemize}
+		\end{column}
+	\end{columns}
+	
+	\vspace{0.25cm}
+	
+	\begin{exampleblock}{Idée essentielle}
+		\centering
+		\textbf{Le type d'une donnée détermine les opérations que l'on peut effectuer sur celle-ci.}
+	\end{exampleblock}
+	
+\end{frame}
+
+\end{document}

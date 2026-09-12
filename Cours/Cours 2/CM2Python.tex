@@ -1,0 +1,794 @@
+\documentclass[10pt]{beamer}
+
+\usepackage{verbatim}
+%\usepackage[latin1]{inputenc}
+\usepackage{amssymb,amsmath,amsfonts,url}
+\usepackage{graphicx,color}
+\usepackage{pgf,pgfarrows,pgfnodes,pgfautomata,pgfheaps,pgfshade}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+
+\usepackage[all]{xy}
+\usepackage{amstext}
+\usepackage{xspace}
+\usepackage{mdwtab}
+
+
+\mode<article> {
+  \usepackage{fullpage}
+  \usepackage{hyperref}
+  \setjobnamebeamerversion{advancedcourse.beamer}
+}
+
+
+
+
+
+
+
+
+\usepackage{listings}
+\usepackage{xcolor}
+
+\lstset{
+	language=Python,
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{blue},
+	commentstyle=\color{gray},
+	stringstyle=\color{green!50!black},
+	showstringspaces=false,
+	frame=single,
+	numbers=none
+}
+\lstset{
+	language=Python,
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{blue},
+	commentstyle=\color{gray},
+	stringstyle=\color{green!50!black},
+	showstringspaces=false,
+	frame=single,
+	numbers=none,
+	literate=
+	{é}{{\'e}}1
+	{è}{{\`e}}1
+	{ê}{{\^e}}1
+	{ë}{{\"e}}1
+	{à}{{\`a}}1
+	{â}{{\^a}}1
+	{ä}{{\"a}}1
+	{ù}{{\`u}}1
+	{û}{{\^u}}1
+	{ü}{{\"u}}1
+	{ô}{{\^o}}1
+	{ö}{{\"o}}1
+	{î}{{\^i}}1
+	{ï}{{\"i}}1
+	{ç}{{\c c}}1
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newcommand{\alertonce}[1]{\addtocounter{beamerpauses}{-1}\alert<+>{#1}}
+\newcommand{\alerttwice}[1]{\addtocounter{beamerpauses}{-1}\alert<+-+(1)>{#1}}
+
+%\newcommand{\subsubsubsection}[1]{\noindent\textbf{#1}}
+
+\newcommand{\cfbox}[1]{\begin{center}\fbox{#1}\end{center}}
+\newcommand{\cbox}[1]{\begin{center} #1 \end{center}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\graphicspath{{Graphics/}}
+%\input def_0.tex
+
+%\input{StyleSlides.tex}
+\mode<presentation> {
+    \usepackage{beamerthemeBoadilla}
+
+  \beamertemplatetransparentcovereddynamic
+  \beamertemplateballitem
+}
+
+
+\title[IN100 Cours 2]{\textbf{Fondements informatiques I}\\
+Cours 2: Structures conditionnelles}
+
+\author[]{Sorina Ionica \texttt{sorina.ionica@uvsq.fr} \\~\\Bilal FAYE  \texttt{bilal.faye@uvsq.fr} }
+
+
+\institute{}
+
+\date{}
+
+
+%\setbeamercolor{normal text}{fg=black}
+
+\begin{document}
+
+
+\frame{\titlepage}
+
+
+
+\begin{frame}[containsverbatim]
+	\frametitle{Les structures conditionnelles}
+	
+	\begin{block}{À quoi servent-elles ?}
+		Une structure conditionnelle permet d'exécuter certaines instructions
+		\textbf{seulement si une condition est vérifiée}.
+	\end{block}
+	
+	\vspace{0.25cm}
+	
+	
+	\begin{exampleblock}{Exemple}
+		\begin{center}
+			\makebox[0.7\textwidth][l]{%
+				\textbf{Si} le solde est suffisant
+				$\;\longrightarrow\;$ accepter la transaction.}
+			
+			\vspace{0.1cm}
+			
+			\makebox[0.7\textwidth][l]{%
+				\textbf{Sinon}
+				$\;\longrightarrow\;$ rejeter la transaction.}
+		\end{center}
+	\end{exampleblock}
+
+	
+	\vspace{0.25cm}
+	
+	\begin{block}{En Python}
+		Une condition est une expression qui produit une valeur booléenne :
+		\texttt{True} ou \texttt{False}.
+	\end{block}
+	
+	\vspace{0.2cm}
+	
+	\begin{exampleblock}{Les trois formes que nous allons voir}
+		\centering
+		\texttt{if}
+		\qquad
+		\texttt{if ... else}
+		\qquad
+		\texttt{if ... elif ... else}
+	\end{exampleblock}
+	
+\end{frame}
+
+
+
+\begin{frame}[containsverbatim]
+	\frametitle{L'instruction \texttt{if}}
+	
+	\begin{block}{Principe}
+		Jusqu'à présent, les instructions étaient exécutées
+		\textbf{dans l'ordre}, les unes après les autres.
+		
+		\vspace{0.1cm}
+		
+		Avec \texttt{if}, certaines instructions sont exécutées
+		\textbf{uniquement si une condition est vraie}.
+	\end{block}
+	
+	\vspace{0.25cm}
+	
+\begin{alertblock}{Syntaxe}
+\begin{lstlisting}[language=Python]
+if <condition>:
+	instruction1
+	instruction2
+\end{lstlisting}
+\end{alertblock}
+	
+	\vspace{0.15cm}
+	
+	\begin{exampleblock}{Bloc d'instructions}
+		Les instructions \textbf{indentées} sous le \texttt{if}
+		forment un même bloc.
+		
+		\vspace{0.1cm}
+		
+		L'indentation permet à Python d'identifier les instructions
+		qui appartiennent au bloc conditionnel.
+	\end{exampleblock}
+	
+\end{frame}
+
+
+\begin{frame}[containsverbatim]
+	\frametitle{L'instruction \texttt{if} : un exemple}
+	
+	
+\begin{exampleblock}{Exemple}
+\begin{lstlisting}[language=Python]
+meteo = "pluie"
+if meteo == "pluie":
+	print("parapluie")
+	print("impermeable")
+print("Bonne journée !")
+\end{lstlisting}
+\end{exampleblock}
+
+	
+	\vspace{0.15cm}
+	
+	\begin{block}{Que se passe-t-il ?}
+		\begin{itemize}
+			\item \texttt{meteo == "pluie"} vérifie si \texttt{meteo} vaut \texttt{"pluie"}.
+			\item Cette condition renvoie \texttt{True} ou \texttt{False}.
+			\item Les deux \texttt{print} indentés sont exécutés si la condition est vraie.
+			\item \texttt{print("Bonne journée !")} n'est pas indenté : il est exécuté dans tous les cas.
+		\end{itemize}
+	\end{block}
+	
+	
+\end{frame}
+
+
+\begin{frame}[containsverbatim]
+	\frametitle{L'instruction \texttt{if}-\texttt{else}}
+	
+	
+	\begin{block}{Principe}
+		La structure \texttt{if}-\texttt{else} permet de choisir entre
+		\textbf{deux blocs d'instructions} :
+		
+		\begin{itemize}
+			\item le bloc \texttt{if} si la condition est vraie ;
+			\item le bloc \texttt{else} sinon.
+		\end{itemize}
+	\end{block}
+	
+	\vspace{0.2cm}
+	
+\begin{alertblock}{Syntaxe}
+\begin{lstlisting}[language=Python]
+if <condition>:
+	instruction(s)
+else:
+	instruction(s)
+\end{lstlisting}
+\end{alertblock}
+	
+	
+	\vspace{0.15cm}
+	
+	\begin{exampleblock}{À retenir}
+		\begin{itemize}
+			\item \texttt{else} est au même niveau d'indentation que \texttt{if}.
+			\item \texttt{else} est suivi de deux points \texttt{:}.
+			\item Un seul des deux blocs est exécuté.
+		\end{itemize}
+	\end{exampleblock}
+
+	
+\end{frame}
+\begin{frame}[containsverbatim]
+	\frametitle{L'instruction \texttt{if}-\texttt{else} : un exemple}
+	
+\begin{exampleblock}{Exemple}
+\begin{lstlisting}[language=Python]
+meteo = "froid"
+if meteo == "pluie":
+	print("parapluie")
+	print("impermeable")
+else:
+	print("t-shirt")
+	print("shorts")
+print("Bonne journée !")
+\end{lstlisting}
+\end{exampleblock}
+	
+	
+	\vspace{0.15cm}
+	
+	\begin{block}{Que se passe-t-il ?}
+		\begin{itemize}
+			\item \texttt{meteo == "pluie"} est faux : le bloc \texttt{else} est exécuté.
+			\item Les instructions du bloc \texttt{if} ne sont donc pas exécutées.
+			\item \texttt{print("Bonne journée !")} n'est pas indenté :
+			il est exécuté après le \texttt{if}-\texttt{else}.
+		\end{itemize}
+	\end{block}
+	
+	
+\end{frame}
+\begin{frame}[containsverbatim]
+	\frametitle{L'instruction \texttt{elif}}
+	
+	
+	\begin{block}{Principe}
+		\texttt{elif} permet de tester une \textbf{nouvelle condition}
+		lorsque la condition précédente est fausse.
+		On peut ainsi enchaîner plusieurs conditions.
+	\end{block}
+	
+	
+\begin{alertblock}{Syntaxe}
+\begin{lstlisting}[language=Python]
+if <condition>:
+	instruction(s)
+elif <condition>:
+	instruction(s)
+else:
+	instruction(s)
+\end{lstlisting}
+\end{alertblock}
+	
+
+	
+	\begin{exampleblock}{À retenir}
+		\begin{itemize}
+			\item \texttt{elif} est au même niveau d'indentation que \texttt{if}. Il est toujours suivi d'une condition et de \texttt{:}. On peut utiliser plusieurs \texttt{elif}. 
+			\item \texttt{else}, s'il est présent, est placé à la fin.
+		\end{itemize}
+	\end{exampleblock}
+	
+	
+\end{frame}
+
+
+\begin{frame}[containsverbatim]
+	\frametitle{L'instruction \texttt{elif} : un exemple}
+	
+	
+\begin{exampleblock}{Exemple}
+\begin{lstlisting}[language=Python]
+meteo = "froid"
+if meteo == "pluie":
+	print("parapluie")
+	print("impermeable")
+elif meteo == "froid":
+	print("pull")
+	print("echarpe")
+else:
+	print("t-shirt")
+	print("shorts")
+print("Bonne journée !")
+\end{lstlisting}
+\end{exampleblock}
+	
+\begin{itemize}
+	\item Il est possible de mettre autant de \texttt{elif} que l'on souhaite après une condition \texttt{if}.
+	\item  Les instructions \texttt{elif} et \texttt{else} sont facultatives : lorsqu'une instruction en \texttt{if} ou \texttt{elif} est définie, il n'est pas obligatoire de prévoir un \texttt{else} après.
+\end{itemize}
+	
+	
+\end{frame}
+
+\begin{frame}[containsverbatim]
+	\frametitle{Exercice : trouver l'erreur}
+	
+	
+	\begin{block}{Quel est le problème dans ce code ?}
+		Observez attentivement l'ordre des instructions et l'indentation.
+	\end{block}
+	
+	\vspace{0.2cm}
+	
+	\begin{exampleblock}{Code}
+		\begin{lstlisting}[language=Python]
+meteo = "froid"
+if meteo == "froid":
+	print("echarpe")
+print("Bonne journée !")
+elif meteo == "froid" or meteo == "venteux":
+	print("manteau")
+	print("Bonne journée !")
+else:
+	print("t-shirt")
+print("Bonne journée !")
+		\end{lstlisting}
+	\end{exampleblock}
+	
+	
+	\begin{alertblock}{Question}
+		\centering
+		\textbf{Pourquoi ce code provoque-t-il une erreur ?}
+	\end{alertblock}
+	
+	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Les conditions et les opérateurs de comparaison}
+	
+	
+	\begin{block}{Principe}
+		Les opérateurs de comparaison permettent de construire une condition.
+		
+		Le résultat est toujours \texttt{True} ou \texttt{False}.
+	\end{block}
+	
+	\vspace{0.2cm}
+	
+	\begin{center}
+		\begin{tabular}{|c|l|}
+			\hline
+			\textbf{Opérateur} & \textbf{Signification} \\
+			\hline
+			\texttt{<}  & strictement inférieur à \\
+			\hline
+			\texttt{>}  & strictement supérieur à \\
+			\hline
+			\texttt{<=} & inférieur ou égal à \\
+			\hline
+			\texttt{>=} & supérieur ou égal à \\
+			\hline
+			\texttt{==} & égal à \\
+			\hline
+			\texttt{!=} & différent de \\
+			\hline
+		\end{tabular}
+	\end{center}
+	
+	\vspace{0.2cm}
+	
+	\begin{exampleblock}{Exemple}
+		\centering
+		\texttt{a >= b}
+		$\;\longrightarrow\;$ \texttt{True} si $a$ est supérieur ou égal à $b$,
+		\texttt{False} sinon.
+	\end{exampleblock}
+	
+	
+\end{frame}
+
+\begin{frame}[containsverbatim]
+	\frametitle{Exemple}
+	
+
+\begin{exampleblock}{Vérifier si une transaction est possible}
+\begin{lstlisting}[language=Python]
+solde = 20.0
+prix_achat_hors_taxe = 19.0
+taxe = 1.0
+if solde >= prix_achat_hors_taxe * taxe:
+	print("Transaction possible")
+else:
+	print("Transaction impossible")
+print("Fin")
+\end{lstlisting}
+\end{exampleblock}
+	
+	
+	\vspace{0.1cm}
+	
+	\begin{block}{À retenir}
+		Dans la condition, la multiplication est effectuée avant la comparaison :
+		\[
+		19.0 \times 1.08 = 20.52
+		\]
+		Donc $20.0 \geq 20.52$ est faux.
+	\end{block}
+	
+	
+\end{frame}
+\begin{frame}[containsverbatim]
+	\frametitle{Priorité des opérateurs}
+	
+	
+	\begin{center}
+		\begin{tabular}{|c|}
+			\hline
+			\textbf{Du plus prioritaire au moins prioritaire} \\
+			\hline
+			\texttt{()} \\
+			\hline
+			\texttt{**} \\
+			\hline
+			\texttt{*}, \texttt{/}, \texttt{//}, \texttt{\%} \\
+			\hline
+			\texttt{==}, \texttt{!=}, \texttt{<}, \texttt{>}, \texttt{<=}, \texttt{>=} \\
+			\hline
+			\texttt{not} \\
+			\hline
+			\texttt{and} \\
+			\hline
+			\texttt{or} \\
+			\hline
+		\end{tabular}
+	\end{center}
+	
+	\vspace{0.15cm}
+	
+	\begin{exampleblock}{Exercice}
+Pour $a=3$ et $b=2$, que valent les expressions suivantes ?
+
+\begin{lstlisting}[language=Python]
+a, b = 3, 2
+a + b * 2
+a > 0 and b * 2 == 4
+not a > 0 or b > 5
+not (a > 0 and b > 5)
+2 ** 3 // 4
+17 // 5 + 17 % 5
+\end{lstlisting}
+\end{exampleblock}
+	
+\end{frame}
+\begin{frame}[containsverbatim]
+	\frametitle{Évaluation paresseuse avec \texttt{and} et \texttt{or}}
+
+	\begin{block}{Principe}
+		Python évalue les expressions de gauche à droite et
+		\textbf{s'arrête dès que le résultat est connu}.
+	\end{block}
+	
+	\vspace{0.2cm}
+	
+	\begin{columns}[T]
+		\begin{column}{0.48\textwidth}
+			\begin{alertblock}{\texttt{x and y}}
+				Si \texttt{x} est \texttt{False},
+				\texttt{y} n'est pas évalué.
+				
+				\vspace{0.1cm}
+				
+				\centering
+				\texttt{False and ...}
+			\end{alertblock}
+		\end{column}
+		
+		\begin{column}{0.48\textwidth}
+			\begin{alertblock}{\texttt{x or y}}
+				Si \texttt{x} est \texttt{True},
+				\texttt{y} n'est pas évalué.
+				
+				\vspace{0.1cm}
+				
+				\centering
+				\texttt{True or ...}
+			\end{alertblock}
+		\end{column}
+	\end{columns}
+	
+	\vspace{0.15cm}
+	
+\begin{exampleblock}{Exemple}
+\begin{lstlisting}[language=Python]
+False and (10 / 0)   # pas d'erreur
+True or (10 / 0)     # pas d'erreur
+\end{lstlisting}
+\end{exampleblock}
+	
+\end{frame}
+\begin{frame}[containsverbatim]
+	\frametitle{Exemples avec \texttt{and}}
+	
+	
+	\begin{exampleblock}{Premier cas}
+\begin{lstlisting}[language=Python]	
+x = 0
+if x != 0 and 2 // x == 2:
+	print("Test réussi")
+print("Fin")
+\end{lstlisting}
+		\centering
+		\textbf{Pas d'erreur :} \texttt{x != 0} est faux, donc la division n'est pas évaluée.
+	\end{exampleblock}
+	
+	
+	\vspace{0.15cm}
+	
+	\begin{exampleblock}{Deuxième cas}
+\begin{lstlisting}[language=Python]
+x = 0
+if 2 // x == 2 and x != 0:
+	print("Test réussi")
+print("Fin")
+\end{lstlisting}
+\centering
+\textbf{Erreur :} la division est évaluée en premier.
+\end{exampleblock}
+	
+\end{frame}
+\begin{frame}[containsverbatim]
+	\frametitle{Exemples avec \texttt{or}}
+	
+	
+	\begin{exampleblock}{Premier cas}
+\begin{lstlisting}[language=Python]
+x = 0
+if x == 0 or 2 // x == 2:
+	print("Test réussi")
+print("Fin")
+\end{lstlisting}
+		\centering
+		\textbf{Pas d'erreur :} \texttt{x == 0} est vrai,
+		donc la division n'est pas évaluée.
+	\end{exampleblock}
+	
+	
+
+	
+	\begin{exampleblock}{Deuxième cas}
+\begin{lstlisting}[language=Python]
+x = 0
+if 2 // x == 2 or x == 0:
+	print("Test réussi")
+\end{lstlisting}
+		\centering
+		\textbf{Erreur :} la division est évaluée en premier.
+	\end{exampleblock}
+	
+	
+
+	
+	\begin{block}{À retenir}
+		Avec \texttt{and} comme avec \texttt{or}, l'ordre des conditions
+		peut changer le résultat de l'évaluation.
+	\end{block}
+	
+	
+\end{frame}
+\begin{frame}[containsverbatim]
+	\frametitle{La portée des variables}
+	
+	
+	\begin{block}{Définition}
+		La \textbf{portée} (\textit{scope}) d'une variable désigne
+		les endroits du programme où l'on peut utiliser cette variable.
+	\end{block}
+	
+	\vspace{0.15cm}
+	
+	\begin{exampleblock}{Exemple}
+\begin{lstlisting}[language=Python]
+num1 = 1
+num2 = 2
+resultat = "résultat non connu"
+if num1 < num2:
+	resultat = "num2 est plus grand que num1"
+print(resultat)   # resultat est toujours accessible
+\end{lstlisting}
+	\end{exampleblock}
+	
+	
+	\vspace{0.1cm}
+	
+	\begin{alertblock}{À retenir}
+		En Python, un bloc \texttt{if} ne crée pas une nouvelle portée :
+		\texttt{resultat} reste accessible après le \texttt{if}.
+	\end{alertblock}
+
+	
+\end{frame}
+
+\begin{frame}[containsverbatim]
+	\frametitle{La portée des variables : attention}
+	
+	
+\begin{exampleblock}{Que se passe-t-il ?}
+\begin{lstlisting}[language=Python]
+num1 = 2
+num2 = 1
+if num1 < num2:
+	maximum = num2
+print(maximum)
+\end{lstlisting}
+\end{exampleblock}
+	
+	
+	\vspace{0.15cm}
+	
+	\begin{alertblock}{Erreur}
+		La condition est fausse : le bloc \texttt{if} n'est pas exécuté.
+		
+		\texttt{maximum} n'est donc jamais créée.
+		
+		$\rightarrow$ \texttt{print(maximum)} provoque une erreur.
+	\end{alertblock}
+	
+	
+\end{frame}
+
+
+\begin{frame}[containsverbatim]
+	\frametitle{Instructions \texttt{if} imbriquées}
+	
+
+	\begin{block}{Principe}
+		Un \texttt{if} peut être placé à l'intérieur d'un autre \texttt{if}.
+		Le second \texttt{if} est alors exécuté seulement si le premier est vrai.
+	\end{block}
+	
+	\vspace{0.15cm}
+	
+	\begin{exampleblock}{Exemple}
+		\begin{lstlisting}[language=Python]
+num1, num2 = 2, 5
+maximum = num1
+if num1 < num2:
+	maximum = num2
+	num3 = 3
+	if num2 < num3:
+		maximum = num3
+print(maximum)
+		\end{lstlisting}
+	\end{exampleblock}
+	
+	
+	
+	\begin{alertblock}{À vous de réfléchir}
+		Que vaut \texttt{maximum} à la fin ?
+		
+		À quel endroit \texttt{num3} est-elle créée ?
+	\end{alertblock}
+	
+	
+\end{frame}
+
+
+
+\begin{frame}[containsverbatim]
+	\frametitle{Qu'affiche ce programme ?}
+
+	
+\begin{exampleblock}{}
+\begin{lstlisting}[language=Python]
+solde = 21.0
+taxe = 1.08
+prix = 19.0
+nom_carte = "Daniel Dupont"
+nom_client = "Daniel Dupont"
+vendeur = "Fred"
+vendeurs = ["Maria", "Yoann", "Emilie", "Tia"]
+decouvert = True
+if solde <= prix * taxe and not decouvert:
+	print("Transaction refusée")
+else:
+	if nom_carte != nom_client:
+		print("Client non valide")
+	else:
+		if vendeur not in vendeurs:
+			print("Vendeur non autorisé")
+		else:
+			print("Transaction approuvée")
+\end{lstlisting}
+\end{exampleblock}
+	
+	\centering
+	\textit{Suivez les conditions une par une pour trouver le résultat.}
+	
+	
+\end{frame}
+
+
+
+
+
+\end{document}
+
+\frame[containsverbatim]{\frametitle{Pour aller plus loin ...}
+
+\begin{alertblock}
+\begin{verbatim}
+meteo="pluie"
+match meteo: 
+	case "pluie": 
+		print("parapluie")
+	case "soleil"; 
+		print("t-shirt")
+	case "froid"
+		print("manteau")			
+\end{verbatim}
+\end{alertblock}
+
+
