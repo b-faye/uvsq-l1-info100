@@ -1,0 +1,320 @@
+\documentclass[10pt]{beamer}
+
+\usepackage{verbatim}
+%\usepackage[latin1]{inputenc}
+\usepackage{amssymb,amsmath,amsfonts,url}
+\usepackage{graphicx,color}
+\usepackage{pgf,pgfarrows,pgfnodes,pgfautomata,pgfheaps,pgfshade}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+
+\usepackage[all]{xy}
+\usepackage{amstext}
+\usepackage{xspace}
+\usepackage{mdwtab}
+
+
+\mode<article> {
+  \usepackage{fullpage}
+  \usepackage{hyperref}
+  \setjobnamebeamerversion{advancedcourse.beamer}
+}
+
+
+
+
+
+\newcommand{\alertonce}[1]{\addtocounter{beamerpauses}{-1}\alert<+>{#1}}
+\newcommand{\alerttwice}[1]{\addtocounter{beamerpauses}{-1}\alert<+-+(1)>{#1}}
+
+%\newcommand{\subsubsubsection}[1]{\noindent\textbf{#1}}
+
+\newcommand{\cfbox}[1]{\begin{center}\fbox{#1}\end{center}}
+\newcommand{\cbox}[1]{\begin{center} #1 \end{center}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\graphicspath{{Graphics/}}
+%\input def_0.tex
+
+%\input{StyleSlides.tex}
+\mode<presentation> {
+    \usepackage{beamerthemeBoadilla}
+
+  \beamertemplatetransparentcovereddynamic
+  \beamertemplateballitem
+}
+
+
+\title[IN100 Cours 4]{\textbf{Fondements informatiques I}\\
+Cours 4: Fonctions}
+
+\author[]{Sorina Ionica \texttt{sorina.ionica@uvsq.fr} \\~\\Sandrine Vial  \texttt{sandrine.vial@uvsq.fr} }
+
+
+\institute{}
+
+\date{}
+
+
+%\setbeamercolor{normal text}{fg=black}
+
+\begin{document}
+
+
+\frame{\titlepage}
+
+
+\frame[containsverbatim]{
+\frametitle{Les fonctions}
+
+
+\begin{itemize}
+\item Il est très fréquent d'utiliser la même
+fonctionnalité plusieurs fois.
+\item La librairie standard de Python ou des librairies externes
+vont vous fournir des fonctions déj\`a codées.
+\end{itemize}
+
+\begin{exampleblock}{Exemples}
+\begin{verbatim}
+import math
+
+x=2
+math.sqrt(x)
+math.cos(x)
+print(x)
+chaine="hello"
+x=len(chaine)
+\end{verbatim}
+\end{exampleblock}
+
+}
+
+
+\frame[containsverbatim]{
+\frametitle{Les fonctions}
+
+
+En mathématique une fonction s'écrit $f: x \rightarrow  f(x)$. \\
+\vspace{0.2 cm}
+
+ Il y a trois parties dans la fonction: $f$ son \emph{nom}, $x$ son \emph{argument}
+et \emph{f(x)} son image (valeur/résultat).\\
+\vspace{0.2 cm}
+
+Quelques exemples que vous connaissez bien: 
+
+\begin{columns}
+\column{5 cm}
+\begin{eqnarray*}
+ f(x) &=& ax + b \\
+ f(x,y) &= &x + y
+\end{eqnarray*}
+
+\column{5 cm}
+\begin{eqnarray*}
+f(x) &= & x^2\\ 
+f(x)&=&2^x\\
+f(x) & =& |x|\\
+\end{eqnarray*}
+\end{columns}
+}
+
+
+
+
+\frame[containsverbatim]{
+\frametitle{Définir une fonction en Python}
+
+
+\begin{alertblock}{Syntaxe}
+\begin{verbatim}
+def nom_fonction(arg 1, arg2, ..., argn)
+       instruction1 
+       instruction 2
+       ...
+       instruction n 
+
+\end{verbatim}
+\end{alertblock}
+
+
+\begin{itemize}
+
+\item  Une fonction est introduite grâce au mot clé \texttt{def}
+\item
+On indique ensuite son nom et on donne sa liste d'arguments entre parenthèses
+\item
+Le corps de la fonction est un  \emph{bloc d'instructions}, donc indenté, qui vient
+après sa déclaration. 
+ \end{itemize}
+
+
+
+}
+
+\frame[containsverbatim]{
+\frametitle{Définir une fonction en Python}
+
+
+
+\begin{exampleblock}{Un premier exemple}
+\begin{verbatim}
+def multiplie(x):
+   """ Cette fonction multiplie son argument par 2 et l'affiche"""
+   print(x*2)
+
+multiplie(7)
+multiplie("aaa")
+\end{verbatim}
+\end{exampleblock}
+
+\vspace{0.5 cm}
+
+\begin{itemize}
+
+\item Le bloc de la fonction peut être précédé d'un commentaire, appelé
+\textbf{docstring} qui sert \`a générer la documentation automatique de
+\texttt{help()}. Un docstring est entouré de trois guillemets:
+\texttt{"""\ docstring\ """}.
+ \end{itemize}
+
+
+
+}
+\frame[containsverbatim]{
+\frametitle{\'Ecrire une fonction}
+
+\begin{itemize}
+ \item Les fonctions retournent une \textbf{valeur},  donnée après le mot
+clé \texttt{return}. 
+\item Même les fonctions qui n'ont pas d'instruction
+\texttt{return}, ou qui terminent en finissant d'exécuter le bloc de code sans
+atteindre un \texttt{return}, retournent la valeur \texttt{None}.
+\end{itemize}
+
+
+\begin{alertblock}{Syntaxe}
+\begin{verbatim}
+def nom_fonction(arg 1, arg2, ..., argn):
+       instruction1 
+       instruction 2
+       ...
+       return objet
+
+\end{verbatim}
+\end{alertblock}
+
+\begin{columns}
+\column{5 cm}
+\begin{exampleblock}{Avec \texttt{return}}
+\begin{verbatim}
+def multiplie(x):
+        return x*2
+        
+print(type(multiplie(2)))            
+\end{verbatim}
+\end{exampleblock}
+
+\column{5 cm}
+\begin{exampleblock}{Sans \texttt{return}}
+\begin{verbatim}
+def multiplie(x):
+       print(x*2)
+       
+print(type(multiplie(2)))      
+\end{verbatim}
+\end{exampleblock}
+\end{columns}
+}
+
+
+\frame[containsverbatim]{
+\frametitle{Signature d'une fonction}
+
+\begin{itemize}
+\item En programmation, la \emph{signature d'une fonction} est donnée par son nom, les paramètres, leur type et le type renvoyé. 
+\item En Python, pas besoin de donner le type renvoyé lors de la déclaration, ni le type des paramètres. 
+\end{itemize}
+
+\vspace{0.5 cm}
+
+Que se passe-t-il lors de l'appel de la fonction? 
+
+\vspace{0.5 cm}
+
+\begin{exampleblock}{}
+\begin{verbatim}
+def somme(x,y):
+    return x+y
+    
+print(somme("hello", 1))    
+\end{verbatim}
+
+\end{exampleblock}
+
+
+}
+
+
+
+
+\frame[containsverbatim]{
+\frametitle{Sortir de la fonction}
+
+\begin{itemize}
+ \item  Attention, une fonction termine dès qu'elle atteint le mot clé \texttt{return}. 
+ \item  C'est utile pour gérer le flot d'exécution d'une fonction. 
+ \end{itemize}
+
+\begin{exampleblock}{Exemple}
+\small{
+\begin{verbatim}
+def un():
+    return 1
+    print("je ne serai jamais atteint")      
+un()
+
+def cherche(x,l):
+    for elem in l:
+        1 / elem #erreur quand elem vaut 0
+        if(x == elem):
+            return 1
+    return 0
+
+cherche(10, [1,10,0]) #la valeur 0  pas atteinte car on trouve 10 avant
+\end{verbatim}
+}
+\end{exampleblock}
+
+}
+
+
+
+\frame[containsverbatim]{
+\frametitle{Type de return}
+
+\begin{itemize}
+\item En Python, on peut utiliser des types de retour complexes (contrairement \`a C par exemple).
+\item On peut par exemple renvoyer des tuples de valeurs, ce qui est souvent pratique.
+\end{itemize}
+
+\vspace{0.5 cm}
+
+\begin{exampleblock}{Exemple}
+\begin{verbatim}
+def ordonne(a, b):
+    if a < b:
+        return a, b
+    else:
+        return b, a
+    
+print(ordonne(10, 5))
+\end{verbatim}
+\end{exampleblock}
+
+}
+
+\end{document}
+

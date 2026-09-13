@@ -1,0 +1,596 @@
+\documentclass[10pt]{beamer}
+
+\usepackage{verbatim}
+%\usepackage[latin1]{inputenc}
+\usepackage{amssymb,amsmath,amsfonts,url}
+\usepackage{graphicx,color}
+\usepackage{pgf,pgfarrows,pgfnodes,pgfautomata,pgfheaps,pgfshade}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+
+\usepackage[all]{xy}
+\usepackage{amstext}
+\usepackage{xspace}
+\usepackage{mdwtab}
+
+
+\mode<article> {
+  \usepackage{fullpage}
+  \usepackage{hyperref}
+  \setjobnamebeamerversion{advancedcourse.beamer}
+}
+
+
+
+
+
+\newcommand{\alertonce}[1]{\addtocounter{beamerpauses}{-1}\alert<+>{#1}}
+\newcommand{\alerttwice}[1]{\addtocounter{beamerpauses}{-1}\alert<+-+(1)>{#1}}
+
+%\newcommand{\subsubsubsection}[1]{\noindent\textbf{#1}}
+
+\newcommand{\cfbox}[1]{\begin{center}\fbox{#1}\end{center}}
+\newcommand{\cbox}[1]{\begin{center} #1 \end{center}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\graphicspath{{Graphics/}}
+%\input def_0.tex
+
+%\input{StyleSlides.tex}
+\mode<presentation> {
+    \usepackage{beamerthemeBoadilla}
+
+  \beamertemplatetransparentcovereddynamic
+  \beamertemplateballitem
+}
+
+
+\title[IN100 Cours 3]{\textbf{Fondements informatiques I}\\
+Cours 3: Structures itératives}
+
+\author[]{Sorina Ionica \texttt{sorina.ionica@uvsq.fr} \\~\\Sandrine Vial  \texttt{sandrine.vial@uvsq.fr} }
+
+
+\institute{}
+
+\date{}
+
+
+%\setbeamercolor{normal text}{fg=black}
+
+\begin{document}
+
+
+\frame{\titlepage}
+
+
+\frame[containsverbatim]{
+\frametitle{Les structures itératives (boucles)}
+
+
+ \textbf{Structure de contrôle} qui \textbf{répète} certaines lignes de code \textbf{jusqu'à
+ce qu'une condition déterminée soit satisfaite}.
+
+\vspace{0.5 cm}
+
+\emph{Exemple :} On veut afficher \textit{Programmer c'est cool!} 100 fois.
+Comment doit-on procéder ?
+
+\vspace{0.5 cm}
+
+\textbf{!!} Il serait fastidieux de taper l'instruction 100 fois :
+\[ \mbox{100 fois :}    \left\{
+    \begin{array}{l}
+        \mbox{print("Programmer c'est cool!")}\\
+        \mbox{print("Programmer c'est cool!")}\\
+        \mbox{...}\\
+        \mbox{print("Programmer c'est cool!")}\\
+    \end{array}
+\right.\]
+
+
+}
+
+
+\frame[containsverbatim]{
+\frametitle{L'itération}
+
+En programmation, une boucle a plusieurs composantes: 
+
+\begin{itemize}
+\item
+Une  \textbf{variable de contrôle} :  initialisée à une certaine valeur, elle est le point de départ dans la boucle
+%  La notion d'itération est utilisée quand on doit exécuter le même traitement un certain nombre de fois de manière connue à l'avance ou non.
+\item
+Une \textbf{condition de sortie} : l'arrêt de l'itération est déclenché par une condition sur l'état des
+  variables dans le script.
+  
+ \item Un \textbf{itérateur} : incrémente généralement la variable de contröle petit-à-petit à chaque boucle successive, jusqu'à ce que celui-ci remplisse la condition de sortie 
+\end{itemize}
+
+
+
+\begin{exampleblock}{Deux structures itératives}
+\begin{verbatim}
+    for
+    while
+\end{verbatim}
+\end{exampleblock}
+
+}
+
+
+
+
+
+\frame[containsverbatim]{
+\frametitle{L'instruction \texttt{for}}
+
+\begin{itemize}
+\item Structure itérative qui permet d'exécuter un bloc
+de code un nombre prédéterminé de fois.
+
+\item En Python, on itére sur les objets d'une séquence d'objets (liste, chaîne de caractères). 
+\end{itemize}
+
+\begin{alertblock}{Syntaxe}
+\begin{verbatim}
+for nom_variable in sequence_objets : 
+    instruction 1
+    instruction 2
+    ...
+    instruction n
+\end{verbatim}
+\end{alertblock}
+
+\begin{itemize}
+\item
+  La \textbf{variable de contrôle} (\emph{nom\_variable})  prend une par une les valeurs dans la séquence d'objets. 
+\item
+Les instructions \textbf{indentées} dans le corps de la boucle sont
+exécutées une fois pour chaque valeur de la variable de contrôle.
+\end{itemize}
+
+
+
+}
+
+
+\frame[containsverbatim]{\frametitle{L'instruction \texttt{for} avec \texttt{range()}}
+
+\begin{itemize}
+\item  La fonction \textbf{range(\ldots)} retourne une séquence de nombres, commençant par une valeur initiale
+  \textbf{\emph{valeur\_initiale}} et se terminant par
+  \textbf{\emph{valeur\_de\_fin}-1}.   
+\item  La variable de contrôle prend les
+  valeurs définies par \textbf{range(\emph{valeur\_initiale,
+  valeur\_de\_fin})}.
+\item Les valeurs de la fonction \textbf{range()} doivent être de type
+\textbf{entier}.
+\begin{itemize}
+\item Par exemple, \texttt{range(1.5, 8.5)} est  incorrect.
+\end{itemize} 
+\end{itemize}
+
+\vspace{0.5 cm}
+
+\begin{exampleblock}{Exemple}
+\begin{verbatim}
+print("Afficher les valeurs dans l'intervalle:")
+for i in range(1, 11) :
+     print("i =", i)
+print("Terminé")
+\end{verbatim}
+\end{exampleblock}
+
+
+}
+
+
+\frame[containsverbatim]{
+\frametitle{La fonction  \texttt{range()}}
+
+\begin{alertblock}{Trois variantes pur \texttt{range()}}
+\texttt{range(valeur\_initiale, valeur\_de\_fin)}\\
+\texttt{range(valeur\_de\_fin)}\\
+\texttt{range (valeur\_initiale, valeur\_de\_fin, increment)}
+\end{alertblock}
+
+\begin{itemize}
+ \item  La fonction \texttt{range(valeur\_de\_fin)} est équivalente à la
+fonction \texttt{range(0, valeur\_de\_fin)}.
+\item  Dans la fonction 
+\texttt{range(valeur\_initiale, valeur\_de\_fin, increment)} le paramètre \emph{increment} est
+utilisé comme \emph{pas d'avancement}. 
+\begin{itemize} \item Il est facultatif, s'il est omis,
+le pas sera pris par défaut égal à 1.
+\end{itemize}
+\end{itemize}
+
+
+
+\begin{exampleblock}{Exemple}
+\small{
+\begin{verbatim}
+print('Afficher les valeurs dans l'intervalle:')
+for i in range(3, 9, 2) :
+      print("i =", i)
+print("Terminé")	    
+\end{verbatim}
+}
+\end{exampleblock}
+
+}
+
+
+
+\frame[containsverbatim]{
+\frametitle{Variable de contrôle}
+
+
+
+\begin{exampleblock}{Exemple}
+\begin{verbatim}
+for i in range(1, 11, 3) :
+     print("Avant addition i =", i)
+     i+= 1
+     print("Après addition i =", i)
+print("Dernière valeur, i =", i)
+print("Terminé")
+\end{verbatim}
+\end{exampleblock}
+
+\vspace{0.5 cm}
+
+\begin{itemize}
+\item En modifiant la valeur de \emph{i} dans le corps de la boucle, la valeur
+modifiée sera utilisée pour le reste de cette itération. 
+\item Cependant,
+lorsque cette itération se termine, la valeur précédente de \emph{i} est
+restaurée.
+\end{itemize}
+
+}
+
+
+\frame[containsverbatim]{
+\frametitle{Exemple}
+
+
+Que fait le programme suivant? 
+
+\begin{exampleblock}{}
+\begin{verbatim}
+n = int(input("Entrez un nombre : "))
+result = 0
+for i in range(1, n +1):
+       result += i
+print("La somme vaut :", result)
+\end{verbatim}
+\end{exampleblock}
+
+
+}
+
+
+\frame[containsverbatim]{\frametitle{La boucle \texttt{for} : autres variantes}
+
+\begin{exampleblock}{}
+\begin{verbatim}
+liste_de_nombres = [23, 43, 56, 22, 109, 34]
+sum = 0
+for nb in liste_de_nombres :
+    sum += nb
+moyenne=sum/len(liste_de_nombres)   
+print("La moyenne vaut", moyenne)
+\end{verbatim}
+\end{exampleblock}
+
+\vspace{0.5 cm}
+
+\textbf{\`A retenir :}
+
+\begin{itemize}
+\item La boucle \textbf{for} est utilisée quand on veut faire un traitement
+  sur un ensemble de données regroupées dans une séquence.
+\end{itemize}
+
+  
+}
+
+
+
+\frame[containsverbatim]{
+\frametitle{La boucle \texttt{while}}
+
+Utilisée lorsqu'on ne connaît pas à l'avance le nombre de fois que le
+traitement sera répété. 
+
+
+\begin{alertblock}{Syntaxe}
+\begin{verbatim}
+while condition :
+    instruction 1
+    instruction 2
+       ...
+    instruction n
+\end{verbatim}		
+\end{alertblock}
+
+\vspace{0.5 cm}
+
+\begin{itemize}
+\item Une \textbf{expression de contrôle} (\emph{condition}), expression
+  booléenne, contrôle l'exécution de la boucle.
+   \item Cette expression  est testée avant chaque itération.
+\item Une ou plusieurs actions \textbf{indentées} à répèter. Les
+  instructions dans le corps de la boucle sont exécutées si l'expression
+  de contrôle reste satisfaite (\textbf{True}).
+\end{itemize}
+}
+
+
+
+\frame[containsverbatim]{
+\frametitle{La boucle \texttt{while}}
+
+
+\begin{exampleblock}{Exemple}
+\begin{verbatim}
+i = 1
+while i < 10 :
+     print("i =", i)
+     i = i + 1
+print("Terminé")
+\end{verbatim}
+\end{exampleblock}
+
+
+\begin{itemize}
+\item
+  La variable \emph{i} est initialisée à 1. 
+\item
+  Puisque la condition (i \textless{} 10) est \textbf{True}, le
+  programme entre dans la boucle et affiche la valeur de \emph{i}
+  (première itération).
+\item
+  La valeur de \emph{i} s'incrémente par 1 (ligne 4), jusqu'à 10; tant
+  que la condition est \textbf{True}.
+\item
+  Lorsque \emph{i} vaut 10, et lors de la vérification de la condition
+  de contrôle, la condition (i \textless{} 10) vaut \textbf{False} et
+  donc la boucle se termine.
+\end{itemize}
+
+
+
+}
+
+
+
+
+\frame[containsverbatim]{\frametitle{Exemple}
+
+Quel est le résultat du code suivant ?
+
+\begin{exampleblock}{}
+\begin{verbatim}
+sum = 0
+i = 1
+while i < 10:
+     sum = sum + i
+     i = i + 1
+print(sum)
+\end{verbatim}
+\end{exampleblock}
+
+\vspace{0.5 cm}
+
+\begin{itemize}
+\item Il faut inclure un code dans la boucle qui permet de modifier
+l'état de l'expression de contrôle.
+\item Il faut faire attention à l'indentation des instructions sous
+la boucle.
+\end{itemize}
+
+
+
+}
+
+
+\frame[containsverbatim]{\frametitle{Un programme plus complexe}
+
+On veut écrire un script qui demande à l'utilisateur de 
+deviner un nombre aléatoire. \\%Tant que l'utilisateur n'a pas réussi à deviner le nombre, le
+%programme lui indique dans quelle direction il faut deviner. 
+
+Ce jeu se poursuit jusqu'à la bonne réponse de l'utilisateur.
+
+
+
+
+
+\begin{exampleblock}{}
+\small{
+\begin{verbatim}
+# To random library: https://docs.python.org/3/library/random.html
+import random
+nombre_a_deviner = random.randint(1, 100)
+reponse_utilisateur = 0
+while not reponse_utilisateur == nombre_a_deviner :
+        reponse_utilisateur = int(input("Entrez un nombre:"))
+        if reponse_utilisateur > nombre_a_deviner :
+                  print("Trop grand!")
+        elif reponse_utilisateur < nombre_a_deviner :
+                  print("Trop petit!")
+        else :
+                  print("Bravo")
+\end{verbatim}
+}
+\end{exampleblock}
+
+
+La fonction \texttt{random.randint(min, max)} renvoie un
+entier aléatoire supérieur ou égal à \texttt{min} et inférieur ou égal à
+\texttt{max}.
+
+}
+
+
+
+
+\frame[containsverbatim]{
+\frametitle{Boucle \texttt{for} ou boucle \texttt{while}}
+
+\begin{alertblock}{}
+Toute boucle \texttt{for} peut être écrite sous la forme d'une
+boucle \texttt{while}.
+\end{alertblock}
+
+Prenons un exemple:
+
+\begin{exampleblock}{Avec \texttt{for}}
+\begin{verbatim}
+for i in range (1, 6) :
+     print('Programmer c'est cool!')
+\end{verbatim}
+\end{exampleblock}
+
+\begin{exampleblock}{Avec \texttt{while}}
+\begin{verbatim}
+i = 0
+while (i < 5) :
+    i += 1
+    print('Programmer c'est cool!')
+\end{verbatim}
+\end{exampleblock}
+
+}
+
+\frame[containsverbatim]{\frametitle{Choisir entre \texttt{for} et  \texttt{while}}
+
+\begin{exampleblock}{Exemple}
+\begin{verbatim}
+for a in "hello world":
+     print(a)
+\end{verbatim}
+\end{exampleblock}
+
+\vspace{0.5 cm}
+Donner la variante avec \texttt{while} de ce bloc. 
+
+}
+
+
+
+
+
+\frame[containsverbatim]{\frametitle{Boucles imbriquées}
+
+Le  joueur de décider à l'avance combien de fois il souhaite
+jouer.
+
+
+\begin{exampleblock}{}
+\begin{verbatim}
+import random
+nb_jeu = int(input("Combien de fois vous voulez jouer? "))
+for i in range(0, nb_jeu) :
+       print("Le Jeu démarre!")
+       nombre_a_deviner = random.randint(1, 100)
+       reponse_utilisateur = 0
+       while not reponse_utilisateur == nombre_a_deviner :
+           reponse_utilisateur = int(input("Entrez une réponse:"))
+           if reponse_utilisateur > nombre_a_deviner :
+                        print("Trop grand!")
+           elif reponse_utilisateur < nombre_a_deviner :
+                         print("Trop petit !")
+           else :
+                         print("Bravo!")
+\end{verbatim}
+\end{exampleblock}
+
+
+
+
+
+}
+
+
+
+
+
+
+\frame[containsverbatim]{\frametitle{D'autres outils de contrôle : \texttt{continue} }
+
+\begin{alertblock}{}
+  Le mot clé \texttt{continue} permet de passer prématurément à
+  l'itération suivante de la boucle.
+\end{alertblock}
+
+
+\vspace{0.5 cm}
+
+\begin{exampleblock}{Exemple}
+\begin{verbatim}
+for i in range(1, 21) :
+    if i % 2 == 0 :
+        continue
+        print("résultat?")
+    print(i, "est impair")
+print("Terminé")
+\end{verbatim}
+
+\end{exampleblock}
+
+}
+
+
+
+\frame[containsverbatim]{\frametitle{D'autres outils de contrôle :  \texttt{break}}
+
+ \begin{alertblock}{}
+  Le mot clé \texttt{break} permet de \emph{casser} (arrêter)
+  l'exécution d'une boucle et de passer à l'instruction suivante.
+\end{alertblock}
+
+\vspace{0.5 cm}
+
+
+\begin{exampleblock}{Exemple}
+\begin{verbatim}
+for i in range(1, 21) :
+    if i % 2 == 0 :
+        break
+    print(i, "est impair")
+print("Terminé")
+\end{verbatim}
+\end{exampleblock}
+
+
+
+}
+
+
+
+
+
+\end{document}
+
+\frame[containsverbatim]{\frametitle{Pour aller plus loin ...}
+
+\begin{alertblock}
+\begin{verbatim}
+meteo="pluie"
+match meteo: 
+	case "pluie": 
+		print("parapluie")
+	case "soleil"; 
+		print("t-shirt")
+	case "froid"
+		print("manteau")			
+\end{verbatim}
+\end{alertblock}
+
+
