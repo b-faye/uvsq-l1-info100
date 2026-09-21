@@ -401,6 +401,7 @@ print("Moyenne :", moyenne)
 	\vspace{0.1cm}
 	
 	\begin{alertblock}{À retenir}
+	Le programmeur peut donner directement dans le code la séquence (ici \texttt{notes}). \\
 		À chaque itération, \texttt{note} prend successivement
 		une valeur de \texttt{notes}.
 	\end{alertblock}
@@ -477,9 +478,12 @@ print("Terminé")
 	\end{alertblock}
 	
 \end{frame}
+
+
 \begin{frame}[containsverbatim]
+\frametitle{Exercice}
 	
-	\begin{alertblock}{Exemple : boucle \texttt{while}}
+	\begin{alertblock}{}
 		Quel est le résultat du code suivant ?
 	\end{alertblock}
 	
@@ -541,61 +545,6 @@ while reponse_utilisateur != nombre_a_deviner:
 		\item \texttt{random.randint(1, 100)} renvoie un entier aléatoire
 		compris entre \texttt{1} et \texttt{100}, bornes incluses.
 	\end{itemize}
-	
-\end{frame}
-
-\begin{frame}[containsverbatim]
-	\frametitle{Boucle \texttt{for} ou boucle \texttt{while}}
-	
-	\begin{alertblock}{À retenir}
-		Toute boucle \texttt{for} peut être réécrite sous la forme
-		d'une boucle \texttt{while}.
-	\end{alertblock}
-	
-	\vspace{0.15cm}
-	
-	\begin{columns}[T]
-		
-		\begin{column}{0.48\textwidth}
-			\begin{exampleblock}{Avec \texttt{for}}
-\begin{lstlisting}[language=Python]
-for i in range(1, 6):
-	print("Hello world")
-\end{lstlisting}
-				
-				\centering
-				\small
-				Le parcours de \texttt{range()} fait évoluer
-				\texttt{i} automatiquement.
-			\end{exampleblock}
-		\end{column}
-		
-		\begin{column}{0.48\textwidth}
-			\begin{exampleblock}{Avec \texttt{while}}
-				\begin{lstlisting}[language=Python]
-i = 0
-while i < 5:
-	i += 1
-	print("Hello world")
-				\end{lstlisting}
-				
-				\centering
-				\small
-				Il faut gérer soi-même
-				l'évolution de \texttt{i}.
-			\end{exampleblock}
-		\end{column}
-		
-	\end{columns}
-	
-	\vspace{0.1cm}
-	
-	\begin{block}{Différence essentielle}
-		\centering
-		\texttt{for} : le parcours est géré par la boucle
-		\\
-		\texttt{while} : on gère la condition et l'évolution
-	\end{block}
 	
 \end{frame}
 
