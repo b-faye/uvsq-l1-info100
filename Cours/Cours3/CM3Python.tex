@@ -150,7 +150,7 @@ Cours 3: Structures itératives}
 	
 	\begin{alertblock}{Idée}
 		\centering
-		\textbf{Écrire une seule fois l'instruction et demander à Python de la répéter.}
+		\textbf{Écrire une seule fois l'instruction et demander au programme de la répéter.}
 	\end{alertblock}
 	
 	
@@ -229,14 +229,14 @@ for nom_variable in sequence:
 	\frametitle{L'instruction \texttt{for} avec \texttt{range()}}
 	
 	\begin{block}{Pourquoi \texttt{range()} ?}
-		\texttt{range()} permet de générer une suite de nombres
-		pour contrôler le nombre de répétitions d'une boucle \texttt{for}.
+		\texttt{range()}  retourne une séquence d'entiers, ce qui permet de 
+		 contrôler le nombre de répétitions d'une boucle \texttt{for}.
 	\end{block}
 	
 	\vspace{0.15cm}
 	
 	\begin{alertblock}{À connaître}
-		\texttt{range(début, fin)} produit les valeurs de \texttt{début}
+		\texttt{range(debut, fin)} produit les valeurs de \texttt{début}
 		à \texttt{fin - 1}.
 		
 		\vspace{0.05cm}
@@ -434,8 +434,8 @@ while condition:
 		
 		\item Cette expression est \textbf{testée avant chaque itération}.
 		
-		\item Une ou plusieurs actions \textbf{indentées} sont répétées.
-		Les instructions dans le corps de la boucle sont exécutées
+		\item Une ou plusieurs instructions \textbf{indentées} sont répétées.
+		Les instructions dans le bloc de la boucle sont exécutées
 		si l'expression de contrôle reste satisfaite (\textbf{True}).
 	\end{itemize}
 	
@@ -598,6 +598,63 @@ while i < 5:
 	\end{block}
 	
 \end{frame}
+
+
+
+\begin{frame}[containsverbatim]
+	\frametitle{Boucle \texttt{for} ou boucle \texttt{while}}
+	
+	\begin{alertblock}{À retenir}
+		Toute boucle \texttt{for} peut être réécrite sous la forme
+		d'une boucle \texttt{while}.
+	\end{alertblock}
+	
+	\vspace{0.15cm}
+	
+	\begin{columns}[T]
+		
+		\begin{column}{0.48\textwidth}
+			\begin{exampleblock}{Avec \texttt{for}}
+\begin{lstlisting}[language=Python]
+for i in range(1, 6):
+	print("Hello world")
+\end{lstlisting}
+				
+				\centering
+				\small
+				Le parcours de la séquence retournée par \texttt{range()} fait évoluer
+				\texttt{i} automatiquement.
+			\end{exampleblock}
+		\end{column}
+		
+		\begin{column}{0.48\textwidth}
+			\begin{exampleblock}{Avec \texttt{while}}
+				\begin{lstlisting}[language=Python]
+i = 0
+while i < 5:
+	i += 1
+	print("Hello world")
+				\end{lstlisting}
+				
+				\centering
+				\small
+				Il faut faire évoluer
+				 \texttt{i}.
+			\end{exampleblock}
+		\end{column}
+		
+	\end{columns}
+	
+	\vspace{0.1cm}
+	
+	\begin{block}{Différence essentielle}
+		\centering
+		\texttt{for} : la variable de contrôle évolue automatiquement		\\
+		\texttt{while} : le programmeur doit gérer la condition et l'évolution
+	\end{block}
+	
+\end{frame}
+
 
 
 \begin{frame}[containsverbatim]
