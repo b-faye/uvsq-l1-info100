@@ -1,0 +1,40 @@
+\frametitle{Expressions lambda}
+
+\vspace{1 cm}
+
+\begin{itemize}
+\item Pour définir une fonction courte, il existe une syntaxe alternative
+utilisant l'opérateur \textbf{lambda}.
+
+\item La définition doit tenir sur une ligne.
+\begin{itemize}
+\item On ne peut pas utiliser des instructions de contrôle
+\end{itemize}
+\end{itemize}
+
+\begin{exampleblock}{}
+\begin{verbatim}
+g = lambda x: x*2
+print(g(2))
+\end{verbatim}
+\end{exampleblock}
+
+\vspace{0.5 cm}
+\pause
+
+\begin{itemize}
+\item La fonction définie par un lambda est anonyme, c'est à dire qu'elle n'a pas de nom.
+\begin{itemize}
+\item C'est utile quand la fonction sert une seule fois %, par exemple comme argument d'une autre fonction.
+\end{itemize}
+\end{itemize}
+
+\begin{exampleblock}{}
+\begin{verbatim}
+print((lambda x: x*2)(3))
+
+#applique la fonction à chaque élément de range(10)
+list(map(lambda x: x*2,range(10)))
+\end{verbatim}
+\end{exampleblock}
+

@@ -23,6 +23,46 @@
 
 
 
+\usepackage{listings}
+\usepackage{xcolor}
+
+\lstset{
+	language=Python,
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{blue},
+	commentstyle=\color{gray},
+	stringstyle=\color{green!50!black},
+	showstringspaces=false,
+	frame=single,
+	numbers=none
+}
+\lstset{
+	language=Python,
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{blue},
+	commentstyle=\color{gray},
+	stringstyle=\color{green!50!black},
+	showstringspaces=false,
+	frame=single,
+	numbers=none,
+	literate=
+	{é}{{\'e}}1
+	{è}{{\`e}}1
+	{ê}{{\^e}}1
+	{ë}{{\"e}}1
+	{à}{{\`a}}1
+	{â}{{\^a}}1
+	{ä}{{\"a}}1
+	{ù}{{\`u}}1
+	{û}{{\^u}}1
+	{ü}{{\"u}}1
+	{ô}{{\^o}}1
+	{ö}{{\"o}}1
+	{î}{{\^i}}1
+	{ï}{{\"i}}1
+	{ç}{{\c c}}1
+}
+
 
 \newcommand{\alertonce}[1]{\addtocounter{beamerpauses}{-1}\alert<+>{#1}}
 \newcommand{\alerttwice}[1]{\addtocounter{beamerpauses}{-1}\alert<+-+(1)>{#1}}
@@ -49,7 +89,7 @@
 \title[IN100 Cours 4]{\textbf{Fondements informatiques I}\\
 Cours 4: Fonctions}
 
-\author[]{Sorina Ionica \texttt{sorina.ionica@uvsq.fr} \\~\\Sandrine Vial  \texttt{sandrine.vial@uvsq.fr} }
+\author[]{Sorina Ionica \texttt{sorina.ionica@uvsq.fr} \\~\\Bilal FAYE  \texttt{bilal.faye@uvsq.fr} }
 
 
 \institute{}
@@ -64,6 +104,501 @@ Cours 4: Fonctions}
 
 \frame{\titlepage}
 
+
+\begin{frame}
+	\frametitle{Les fonctions}
+	
+	\begin{block}{Pourquoi utiliser une fonction ?}
+		Une fonction permet de \textbf{regrouper plusieurs instructions}
+		pour réaliser une tâche précise.
+		
+		\vspace{0.1cm}
+		
+		Elle peut ensuite être \textbf{réutilisée} plusieurs fois dans un programme.
+	\end{block}
+	
+	\vspace{0.2cm}
+	
+	\begin{exampleblock}{Idée générale}
+		\centering
+		\textbf{Données}
+		$\;\longrightarrow\;$
+		\textbf{Fonction}
+		$\;\longrightarrow\;$
+		\textbf{Résultat}
+	\end{exampleblock}
+	
+	\vspace{0.2cm}
+	
+	\begin{alertblock}{Exemple}
+		Une fonction pourrait prendre deux nombres en entrée
+		et calculer leur somme.
+		
+		\[
+		3,\;5
+		\quad\longrightarrow\quad
+		\text{calcul de la somme}
+		\quad\longrightarrow\quad
+		8
+		\]
+	\end{alertblock}
+	
+\end{frame}
+\begin{frame}
+	\frametitle{Comment fonctionne une fonction ?}
+	
+	\begin{block}{Une fonction peut recevoir des données et produire un résultat}
+		Une fonction est généralement composée de trois éléments :
+	\end{block}
+	
+	\vspace{0.15cm}
+	
+	\begin{columns}[T]
+		\begin{column}{0.3\textwidth}
+			\begin{exampleblock}{Entrées}
+				\centering
+				Les données\\
+				nécessaires
+			\end{exampleblock}
+		\end{column}
+		
+		\begin{column}{0.3\textwidth}
+			\begin{exampleblock}{Traitement}
+				\centering
+				Les instructions\\
+				à exécuter
+			\end{exampleblock}
+		\end{column}
+		
+		\begin{column}{0.3\textwidth}
+			\begin{exampleblock}{Sortie}
+				\centering
+				Le résultat\\
+				obtenu
+			\end{exampleblock}
+		\end{column}
+	\end{columns}
+	
+	\vspace{0.2cm}
+	
+	\begin{alertblock}{Exemple}
+		\centering
+		Deux nombres
+		$\;\longrightarrow\;$
+		\textbf{addition}
+		$\;\longrightarrow\;$
+		leur somme
+	\end{alertblock}
+	
+\end{frame}
+\begin{frame}
+	\frametitle{Les fonctions en mathématiques}
+	
+	\begin{block}{Une fonction}
+		En mathématiques, une fonction associe une ou plusieurs
+		\textbf{entrées} à un \textbf{résultat}.
+	\end{block}
+	
+	\vspace{0.15cm}
+	
+	\begin{exampleblock}{Notation}
+		\centering
+		$f : x \rightarrow f(x)$
+		
+		\vspace{0.1cm}
+		
+		\textbf{$f$} : nom de la fonction
+		\qquad
+		\textbf{$x$} : argument
+		\qquad
+		\textbf{$f(x)$} : résultat
+	\end{exampleblock}
+	
+	\vspace{0.15cm}
+	
+	\begin{columns}[T]
+		\begin{column}{0.48\textwidth}
+			\begin{exampleblock}{Exemples}
+				\[
+				f(x) = ax + b
+				\]
+				\[
+				f(x,y) = x+y
+				\]
+			\end{exampleblock}
+		\end{column}
+		
+		\begin{column}{0.48\textwidth}
+			\begin{exampleblock}{Autres fonctions}
+				\[
+				f(x) = x^2
+				\]
+				\[
+				f(x) = 2^x
+				\]
+				\[
+				f(x) = |x|
+				\]
+			\end{exampleblock}
+		\end{column}
+	\end{columns}
+	
+\end{frame}
+\begin{frame}[containsverbatim]
+	\frametitle{Définir une fonction en Python}
+	
+	\begin{alertblock}{Syntaxe}
+\begin{lstlisting}[language=Python]
+def nom_fonction(arg1, arg2, ...):
+	instruction 1
+	instruction 2
+	...
+	insstruction n
+\end{lstlisting}
+	\end{alertblock}
+	
+	\vspace{0.1cm}
+	
+	\begin{itemize}
+		\item \texttt{def} indique que l'on définit une fonction.
+		
+		\item On indique ensuite le \textbf{nom} de la fonction et ses
+		\textbf{arguments} entre parenthèses.
+		
+		\item Le \textbf{corps de la fonction} est un bloc d'instructions
+		\textbf{indenté}.
+	\end{itemize}
+	
+	\vspace{0.1cm}
+	
+	\begin{exampleblock}{Lien avec les mathématiques}
+		\centering
+		$f(x)$
+		$\quad\longleftrightarrow\quad$
+		\texttt{nom\_fonction(argument)}
+	\end{exampleblock}
+	
+\end{frame}
+\begin{frame}[containsverbatim]
+	\frametitle{Définir une fonction en Python}
+	
+	\begin{exampleblock}{Exemple}
+\begin{lstlisting}[language=Python]
+def multiplie(x):
+	"""Multiplie x par 2 et affiche le résultat."""
+	print(x * 2)
+multiplie(7)
+multiplie("aaa")
+\end{lstlisting}
+	\end{exampleblock}
+	
+	\vspace{0.1cm}
+	
+	\begin{itemize}
+		\item \texttt{multiplie} est le \textbf{nom} de la fonction.
+		\item \texttt{x} est son \textbf{argument}.
+		\item \texttt{multiplie(7)} appelle la fonction avec \texttt{x = 7}.
+	\end{itemize}
+	
+	\vspace{0.05cm}
+	
+	\begin{alertblock}{Docstring}
+		La chaîne entre triples guillemets \texttt{""" ... """} décrit
+		le rôle de la fonction. Elle peut notamment être consultée avec
+		\texttt{help()}.
+	\end{alertblock}
+	
+\end{frame}
+\begin{frame}[containsverbatim]
+	\frametitle{L'instruction \texttt{return}}
+	
+	\begin{block}{Rôle de \texttt{return}}
+		\texttt{return} permet à une fonction de \textbf{renvoyer une valeur}
+		au programme qui l'a appelée.
+		
+		\vspace{0.05cm}
+		
+		Une fonction peut ne pas avoir de \texttt{return} :
+		dans ce cas, elle renvoie \texttt{None}.
+	\end{block}
+	
+	\vspace{0.15cm}
+	
+	\begin{columns}[T]
+		\begin{column}{0.48\textwidth}
+			\begin{exampleblock}{Avec \texttt{return}}
+\begin{lstlisting}[language=Python]
+def multiplie(x):
+	return x * 2
+print(type(multiplie(2)))
+\end{lstlisting}
+				
+				\centering
+				La fonction renvoie \texttt{4}.
+			\end{exampleblock}
+		\end{column}
+		
+		\begin{column}{0.48\textwidth}
+			\begin{exampleblock}{Sans \texttt{return}}
+\begin{lstlisting}[language=Python]
+def multiplie(x):
+	print(x * 2)
+print(type(multiplie(2)))
+\end{lstlisting}
+				
+				\centering
+				La fonction renvoie \texttt{None}.
+			\end{exampleblock}
+		\end{column}
+	\end{columns}
+	
+	\vspace{0.1cm}
+	
+	\begin{alertblock}{À retenir}
+		\centering
+		\texttt{print()} affiche une valeur \qquad
+		\textbf{vs.} \qquad
+		\texttt{return} renvoie une valeur
+	\end{alertblock}
+	
+\end{frame}
+\begin{frame}[containsverbatim]
+	\frametitle{Signature d'une fonction}
+	
+	\begin{block}{Définition}
+		La \textbf{signature d'une fonction} décrit les éléments
+		qui permettent de caractériser la fonction :
+		\textbf{son nom, ses paramètres et leurs types},
+		ainsi que le \textbf{type de la valeur renvoyée}.
+	\end{block}
+	
+	\vspace{0.2cm}
+	
+	\begin{alertblock}{En Python}
+		Les types des paramètres et le type de retour
+		\textbf{ne sont pas obligatoires} dans la définition.
+		
+		\medskip
+		
+		Python détermine les types lors de l'exécution.
+	\end{alertblock}
+	
+	\vspace{0.15cm}
+	
+	\begin{exampleblock}{Que se passe-t-il lors de l'appel ?}
+		\begin{lstlisting}[language=Python]
+def somme(x, y):
+	return x + y
+print(somme("hello", 1))
+\end{lstlisting}
+		
+
+		%Python essaie d'effectuer \texttt{"hello" + 1}
+		%et provoque une \textbf{erreur de type}.
+	\end{exampleblock}
+
+	
+\end{frame}
+\begin{frame}[containsverbatim]
+	\frametitle{Retourner plusieurs valeurs}
+	\begin{block}{Une fonction peut renvoyer plusieurs valeurs}
+		En Python, une instruction \texttt{return} peut renvoyer
+		plusieurs valeurs séparées par des virgules.
+		
+		\vspace{0.05cm}
+		
+		Ces valeurs sont regroupées dans un \textbf{tuple}.
+	\end{block}
+	
+	\vspace{0.15cm}
+	
+	\begin{exampleblock}{Exemple}
+		\begin{lstlisting}[language=Python]
+def ordonne(a, b):
+	if a < b:
+		return a, b
+	else:
+		return b, a
+print(ordonne(10, 5))
+		\end{lstlisting}
+	\end{exampleblock}
+	
+
+	\vspace{0.1cm}
+	
+	\begin{alertblock}{Résultat}
+		\centering
+		\texttt{(5, 10)}
+		
+		\vspace{0.05cm}
+		
+		La fonction renvoie donc un \textbf{tuple contenant deux valeurs}.
+	\end{alertblock}
+	
+	
+\end{frame}
+
+\begin{frame}[containsverbatim]
+	\frametitle{Sortir de la fonction}
+
+		\small Dès qu'une fonction atteint une instruction \texttt{return},
+		elle \textbf{s'arrête immédiatement}. Les instructions placées après ce \texttt{return}
+		ne sont donc pas exécutées.
+
+	
+
+	
+	\begin{exampleblock}{Exemple}
+\begin{lstlisting}[language=Python]
+def un():
+	return 1
+	print("Je ne serai jamais atteint")
+print(un())
+\end{lstlisting}
+	\end{exampleblock}
+	
+
+
+	
+	\begin{alertblock}{Dans une boucle}
+		\begin{lstlisting}[language=Python]
+def cherche(x, l):
+	for elem in l:
+		if x == elem:
+			return 1
+	return 0
+print(cherche(10, [1, 10, 0]))  # 1
+		\end{lstlisting}
+		
+		
+		\small Dès que \texttt{10} est trouvé, \texttt{return 1} termine
+		la fonction : les éléments suivants ne sont pas parcourus.
+	\end{alertblock}
+	
+	
+\end{frame}
+\begin{frame}[containsverbatim]
+	\frametitle{Les fonctions existantes en Python}
+	
+
+	\begin{block}{Pas besoin de tout programmer soi-même}
+		Python fournit de nombreuses \textbf{fonctions déjà définies}.
+		On peut les appeler directement dans notre programme.
+	\end{block}
+	
+	\vspace{0.15cm}
+	
+	\begin{exampleblock}{Quelques fonctions que vous connaissez déjà}
+\begin{lstlisting}[language=Python]
+print("Bonjour")       # affiche une valeur
+type(3.14)             # donne le type de la valeur
+len("Bonjour")         # donne la longueur
+\end{lstlisting}
+	\end{exampleblock}
+	
+
+	\vspace{0.1cm}
+	
+	\begin{alertblock}{À retenir}
+		Une fonction existante s'utilise comme une fonction que
+		l'on a définie nous-mêmes : \textbf{nom(arguments)}.
+	\end{alertblock}
+	
+	
+\end{frame}
+
+\begin{frame}[containsverbatim]
+	\frametitle{Les fonctions d'un module}
+	\begin{block}{Certaines fonctions sont regroupées dans des modules}
+		Un \textbf{module} est un ensemble de fonctions et d'outils
+		déjà programmés que l'on peut utiliser.
+		
+		\vspace{0.05cm}
+		
+		Pour utiliser un module, on commence par l'\textbf{importer}.
+	\end{block}
+	
+	\vspace{0.15cm}
+	
+	\begin{exampleblock}{Exemple avec le module \texttt{math}}
+		\begin{lstlisting}[language=Python]	
+import math
+print(math.sqrt(25))
+		\end{lstlisting}
+	\end{exampleblock}
+	
+
+	\vspace{0.1cm}
+	
+	\begin{alertblock}{Comment lire \texttt{math.sqrt(25)} ?}
+		\texttt{math} : le module \qquad
+		\texttt{sqrt} : la fonction
+		
+		\[
+		\texttt{math.sqrt(25)} = 5.0
+		\]
+	\end{alertblock}
+
+	
+\end{frame}
+\begin{frame}[containsverbatim]
+	
+	
+	\begin{exampleblock}{Que fait ce programme ?}
+		\begin{lstlisting}[language=Python]
+import math
+def calcule(x):
+	if x > 0:
+		return math.sqrt(x)
+	else:
+		return 0
+i = 1
+while i <= 5:
+	for x in [i, i + 1]:
+		print(calcule(x))
+	i = i + 1
+		\end{lstlisting}
+	\end{exampleblock}
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{comment}
 
 \frame[containsverbatim]{
 \frametitle{Les fonctions}
@@ -183,6 +718,7 @@ multiplie("aaa")
 
 
 }
+
 \frame[containsverbatim]{
 \frametitle{\'Ecrire une fonction}
 
@@ -228,6 +764,7 @@ print(type(multiplie(2)))
 \end{exampleblock}
 \end{columns}
 }
+
 
 
 \frame[containsverbatim]{
@@ -315,6 +852,7 @@ print(ordonne(10, 5))
 \end{exampleblock}
 
 }
+\end{comment}
 
 \end{document}
 
