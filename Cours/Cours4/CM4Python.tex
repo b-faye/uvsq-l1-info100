@@ -145,53 +145,6 @@ Cours 4: Fonctions}
 	
 \end{frame}
 \begin{frame}
-	\frametitle{Comment fonctionne une fonction ?}
-	
-	\begin{block}{Une fonction peut recevoir des données et produire un résultat}
-		Une fonction est généralement composée de trois éléments :
-	\end{block}
-	
-	\vspace{0.15cm}
-	
-	\begin{columns}[T]
-		\begin{column}{0.3\textwidth}
-			\begin{exampleblock}{Entrées}
-				\centering
-				Les données\\
-				nécessaires
-			\end{exampleblock}
-		\end{column}
-		
-		\begin{column}{0.3\textwidth}
-			\begin{exampleblock}{Traitement}
-				\centering
-				Les instructions\\
-				à exécuter
-			\end{exampleblock}
-		\end{column}
-		
-		\begin{column}{0.3\textwidth}
-			\begin{exampleblock}{Sortie}
-				\centering
-				Le résultat\\
-				obtenu
-			\end{exampleblock}
-		\end{column}
-	\end{columns}
-	
-	\vspace{0.2cm}
-	
-	\begin{alertblock}{Exemple}
-		\centering
-		Deux nombres
-		$\;\longrightarrow\;$
-		\textbf{addition}
-		$\;\longrightarrow\;$
-		leur somme
-	\end{alertblock}
-	
-\end{frame}
-\begin{frame}
 	\frametitle{Les fonctions en mathématiques}
 	
 	\begin{block}{Une fonction}
@@ -211,7 +164,9 @@ Cours 4: Fonctions}
 		\qquad
 		\textbf{$x$} : argument
 		\qquad
-		\textbf{$f(x)$} : résultat
+		\textbf{$f(x)$} : résultat\\
+		Le résultat est calculé en utilisant l'expression de la fonction. 
+		
 	\end{exampleblock}
 	
 	\vspace{0.15cm}
@@ -244,6 +199,63 @@ Cours 4: Fonctions}
 	\end{columns}
 	
 \end{frame}
+
+
+\begin{frame}
+	\frametitle{Les fonctions en informatique}
+	
+	\begin{block}{En programmation}
+	         Une fonction prend en entrée des données et produit un résultat.\\
+		Une fonction est généralement composée de trois éléments. 
+	\end{block}
+	
+	\vspace{0.15cm}
+	
+	\begin{columns}[T]
+		\begin{column}{0.3\textwidth}
+			\begin{exampleblock}{Définition}
+				\centering
+				Paramètres d'entrée\\
+				(variables)
+			\end{exampleblock}
+		\end{column}
+		
+		\begin{column}{0.3\textwidth}
+			\begin{exampleblock}{Traitement}
+				\centering
+				Bloc d'instructions\\
+				à exécuter
+			\end{exampleblock}
+		\end{column}
+		
+		\begin{column}{0.3\textwidth}
+			\begin{exampleblock}{Sortie}
+				\centering
+				Le résultat\\
+				obtenu
+			\end{exampleblock}
+		\end{column}
+	\end{columns}
+	
+	\vspace{0.2cm}
+	
+	
+		\begin{exampleblock}{Lien avec les mathématiques}
+		\centering
+	argument de la fonction  $\quad\longleftrightarrow\quad$
+valeurs des paramètres en entrée (arguments)\\
+\hspace*{-2.5 cm}
+		expression de la fonction
+		$\quad\longleftrightarrow\quad$
+	bloc d'instruction à exécuter
+	\end{exampleblock}
+	
+		
+\end{frame}
+
+
+
+
 \begin{frame}[containsverbatim]
 	\frametitle{Définir une fonction en Python}
 	
@@ -263,7 +275,7 @@ def nom_fonction(arg1, arg2, ...):
 		\item \texttt{def} indique que l'on définit une fonction.
 		
 		\item On indique ensuite le \textbf{nom} de la fonction et ses
-		\textbf{arguments} entre parenthèses.
+		\textbf{paramètres d'entrée} entre parenthèses.
 		
 		\item Le \textbf{corps de la fonction} est un bloc d'instructions
 		\textbf{indenté}.
@@ -271,12 +283,7 @@ def nom_fonction(arg1, arg2, ...):
 	
 	\vspace{0.1cm}
 	
-	\begin{exampleblock}{Lien avec les mathématiques}
-		\centering
-		$f(x)$
-		$\quad\longleftrightarrow\quad$
-		\texttt{nom\_fonction(argument)}
-	\end{exampleblock}
+
 	
 \end{frame}
 \begin{frame}[containsverbatim]
@@ -296,7 +303,7 @@ multiplie("aaa")
 	
 	\begin{itemize}
 		\item \texttt{multiplie} est le \textbf{nom} de la fonction.
-		\item \texttt{x} est son \textbf{argument}.
+		\item \texttt{x} est son \textbf{paramètre d'entrée}.
 		\item \texttt{multiplie(7)} appelle la fonction avec \texttt{x = 7}.
 	\end{itemize}
 	
