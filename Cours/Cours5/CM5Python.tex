@@ -156,6 +156,46 @@
 \usetikzlibrary{positioning}
 
 
+\usepackage{listings}
+\usepackage{xcolor}
+
+\lstset{
+	language=Python,
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{blue},
+	commentstyle=\color{gray},
+	stringstyle=\color{green!50!black},
+	showstringspaces=false,
+	frame=single,
+	numbers=none
+}
+\lstset{
+	language=Python,
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{blue},
+	commentstyle=\color{gray},
+	stringstyle=\color{green!50!black},
+	showstringspaces=false,
+	frame=single,
+	numbers=none,
+	literate=
+	{é}{{\'e}}1
+	{è}{{\`e}}1
+	{ê}{{\^e}}1
+	{ë}{{\"e}}1
+	{à}{{\`a}}1
+	{â}{{\^a}}1
+	{ä}{{\"a}}1
+	{ù}{{\`u}}1
+	{û}{{\^u}}1
+	{ü}{{\"u}}1
+	{ô}{{\^o}}1
+	{ö}{{\"o}}1
+	{î}{{\^i}}1
+	{ï}{{\"i}}1
+	{ç}{{\c c}}1
+}
+
 \newcommand{\tikzmat}[2] {
 \draw[thick] let \p1 = (#1 |- #2),
                  \p2 = (#2 |- #1) in
@@ -198,7 +238,7 @@
 \title[IN100 Cours 4]{\textbf{Fondements informatiques I}\\
 Cours 5: Types mutables et immutables\\ Fonctions (suite et fin)}
 
-\author[]{Sorina Ionica \texttt{sorina.ionica@uvsq.fr} \\~\\Sandrine Vial  \texttt{sandrine.vial@uvsq.fr} }
+\author[]{Sorina Ionica \texttt{sorina.ionica@uvsq.fr} \\~\\Bilal FAYE  \texttt{bilal.faye@uvsq.fr} }
 
 
 \institute{}
@@ -214,7 +254,869 @@ Cours 5: Types mutables et immutables\\ Fonctions (suite et fin)}
 \begin{frame}
 \titlepage
 \end{frame}
+\begin{frame}[fragile]
+	\frametitle{Types mutables et immutables}
+	
+	\begin{block}{Deux catégories d'objets}
+		En Python, certains objets peuvent être \textbf{modifiés},
+		d'autres ne peuvent pas l'être.
+	\end{block}
+	
+	\vspace{0.15cm}
+	
+	\begin{columns}[T]
+		\begin{column}{0.48\textwidth}
+			\begin{exampleblock}{Objets immutables}
+				Leur contenu ne peut pas être modifié.
+				
+				\medskip
+				
+				\begin{itemize}
+					\item entiers et flottants
+					\item chaînes de caractères
+					\item tuples
+				\end{itemize}
+			\end{exampleblock}
+		\end{column}
+		
+		\begin{column}{0.48\textwidth}
+			\begin{exampleblock}{Exemple}
+				\begin{verbatim}
+					x = 3
+					x += 1
+				\end{verbatim}
+				
+				\centering
+				Après l'opération : \texttt{x = 4}
+			\end{exampleblock}
+		\end{column}
+	\end{columns}
+	
+	\vspace{0.15cm}
+	
+	\begin{alertblock}{Que s'est-il passé ?}
+		\centering
+		Le \texttt{3} n'a pas été modifié.
+		Python crée un nouvel entier \texttt{4} et
+		\texttt{x} référence maintenant cet objet.
+	\end{alertblock}
+\end{frame}
 
+\begin{frame}[fragile]
+	\frametitle{Types mutables et immutables}
+	
+	\begin{block}{Les objets mutables}
+		Un objet \textbf{mutable} peut être \textbf{modifié après sa création}.
+	\end{block}
+	
+	\vspace{0.15cm}
+	
+	\begin{exampleblock}{Exemple avec une liste}
+		\begin{verbatim}
+			liste = [1, 2, 3]
+			liste[0] = 5
+		\end{verbatim}
+	\end{exampleblock}
+	
+	\vspace{0.15cm}
+	
+	\begin{columns}[T]
+		\begin{column}{0.43\textwidth}
+			\centering
+			Avant\\[0.15cm]
+			\begin{tikzpicture}
+				\node (var) at (0,0) {\texttt{liste}};
+				\node[draw, rectangle, minimum width=2.5cm,
+				minimum height=0.6cm] (obj) at (2,0) {\texttt{[1,2,3]}};
+				\draw[->] (var) -- (obj);
+			\end{tikzpicture}
+		\end{column}
+		
+		\begin{column}{0.43\textwidth}
+			\centering
+			Après modification\\[0.15cm]
+			\begin{tikzpicture}
+				\node (var) at (0,0) {\texttt{liste}};
+				\node[draw, rectangle, minimum width=2.5cm,
+				minimum height=0.6cm] (obj) at (2,0) {\texttt{[\textcolor{red}{5},2,3]}};
+				\draw[->] (var) -- (obj);
+			\end{tikzpicture}
+		\end{column}
+	\end{columns}
+	
+	\vspace{0.2cm}
+	
+	\begin{alertblock}{À retenir}
+		\centering
+		\textbf{Mutable} : on peut modifier l'objet lui-même.
+		
+		\medskip
+		
+		Exemples : listes, ensembles et dictionnaires (qu'on verra plus tard).
+	\end{alertblock}
+\end{frame}
+\begin{frame}[fragile]
+	%\frametitle{À vous de jouer : que se passe-t-il ?}
+	
+	\begin{block}{Question}
+		Que se passe-t-il lors de l'exécution de chacune
+		de ces instructions ?
+	\end{block}
+	
+	\vspace{0.15cm}
+	
+	\begin{columns}[T]
+		\begin{column}{0.48\textwidth}
+			\begin{exampleblock}{Exemple 1}
+				\begin{verbatim}
+					mon_tuple = (1, 2, 3)
+					mon_tuple[0] = 5
+				\end{verbatim}
+			\end{exampleblock}
+			
+			\begin{exampleblock}{Exemple 2}
+				\begin{verbatim}
+					chaine = "hello"
+					chaine[0] = "H"
+				\end{verbatim}
+			\end{exampleblock}
+		\end{column}
+		
+		\begin{column}{0.48\textwidth}
+			\begin{exampleblock}{Exemple 3}
+				\begin{verbatim}
+					x = 5
+					x[0] = 6
+				\end{verbatim}
+			\end{exampleblock}
+			
+			\begin{exampleblock}{Exemple 4}
+				\begin{verbatim}
+					liste = [1, 2, 3]
+					liste[0] = 5
+				\end{verbatim}
+			\end{exampleblock}
+		\end{column}
+	\end{columns}
+	
+	\vspace{0.15cm}
+	
+\end{frame}
+\begin{frame}[containsverbatim]
+	\frametitle{Exercice : mettre les mots en majuscule}
+	
+	\begin{block}{}
+		Écrire une fonction \texttt{capitalise(chaine)}
+		qui renvoie une chaîne où la première lettre
+		de chaque mot est en majuscule.
+	\end{block}
+	\pause
+	
+	\begin{exampleblock}{Exemple}
+		\begin{lstlisting}[language=Python]
+			def capitalise(chaine):
+			resultat = ""
+			debut_mot = True
+			for c in chaine:
+			if debut_mot and c != " ":
+			resultat += c.upper()
+			debut_mot = False
+			else:
+			resultat += c
+			if c == " ":
+			debut_mot = True
+			return resultat
+			print(capitalise("bonjour tout le monde"))
+		\end{lstlisting}
+	\end{exampleblock}
+	
+\end{frame}
+\begin{frame}[containsverbatim]
+	\frametitle{Exercice : mettre les mots en majuscule}
+	
+	\begin{block}{}
+		Écrire une fonction \texttt{capitalise(chaine)}
+		qui renvoie une chaîne où la première lettre
+		de chaque mot est en majuscule.
+	\end{block}
+
+	
+	\begin{exampleblock}{Exemple}
+		\begin{lstlisting}[language=Python]
+def capitalise(chaine):
+	resultat = ""
+	debut_mot = True
+	for c in chaine:
+		if debut_mot and c != " ":
+			resultat += c.upper()
+			debut_mot = False
+		else:
+			resultat += c
+		if c == " ":
+			debut_mot = True
+	return resultat
+print(capitalise("bonjour tout le monde"))
+		\end{lstlisting}
+	\end{exampleblock}
+	
+\end{frame}
+\begin{frame}[containsverbatim]
+	\frametitle{Les variables locales}
+	
+	\begin{block}{Définition}
+		Les variables définies dans une fonction sont appelées
+		\textbf{variables locales}.
+		
+		Leur \textbf{portée} est limitée à la fonction où elles
+		ont été définies : on ne peut pas y faire référence
+		en dehors.
+	\end{block}
+	
+	\vspace{0.15cm}
+	
+	\begin{exampleblock}{Exemple}
+		\begin{lstlisting}[language=Python]
+def incremente(x):
+	x += 1
+	z = 2  
+incremente(2)
+print(x)  # Erreur
+print(z)  # Erreur
+		\end{lstlisting}
+	\end{exampleblock}
+	
+	\begin{alertblock}{À retenir}
+		\texttt{x} et \texttt{z} n'existent que dans la fonction.
+		Les afficher à l'extérieur provoque une \texttt{NameError}.
+	\end{alertblock}
+\end{frame}
+
+
+
+
+
+
+\begin{frame}[fragile]{\'Evaluation de la fonction}
+	\begin{block}{}
+	\begin{itemize}
+		\item Les arguments sont des variables locales à la fonction.
+		\item Les arguments sont passés par la copie d'une référence sur l'objet
+		donné en argument.
+	\end{itemize}
+		\end{block}
+	\vspace{1 cm}
+	
+	\begin{columns}
+		\column{6 cm}
+		\begin{exampleblock}{}
+			\begin{lstlisting}[language=Python]
+def incremente(x):
+	x += 1
+y = 0
+incremente(y)
+print(y)
+			\end{lstlisting}
+		\end{exampleblock}
+		
+		\column{4 cm}
+		\begin{tikzpicture}
+			% Étape 1 : y référence l'objet 0
+			\onslide<2->
+			\node[draw, rectangle, minimum height=0.5cm]
+			(rect) at (1.5,0) {0};
+			\node (var) at (0,0) {\texttt{y}};
+			\draw[->] (var) -- (rect);
+			
+			% Étape 2 : x reçoit une copie de la référence
+			\onslide<3->
+			\node (var1) at (0,-1) {\texttt{x}};
+			
+			\only<3>
+			\draw[->] (var1) -- (rect);
+			
+			% Étape 3 : x += 1
+			\onslide<4->
+			\node[draw, rectangle, minimum height=0.5cm]
+			(rect1) at (1.5,-1) {1};
+			\draw[->] (var1) -- (rect1);
+		\end{tikzpicture}
+	\end{columns}
+	
+\end{frame}
+\begin{frame}[fragile]{Référence sur une liste}
+	
+	\begin{block}{}
+
+	\textbf{\`A retenir :}
+	
+	\begin{itemize}
+		\item Sur une liste, on peut modifier son contenu depuis la fonction, car objet mutable. 
+	\end{itemize}
+
+	\end{block}
+	\vspace{1 cm}
+	
+	\begin{columns}
+		\column{6 cm}
+		
+		\begin{exampleblock}{}
+			\begin{lstlisting}[language=Python]
+def incrementeListe(k):
+	for i in range(len(k)):
+		k[i] += 1
+l = [3,4,5]
+incrementeListe(l)
+print(l)
+			\end{lstlisting}
+		\end{exampleblock}
+		\column{5 cm}
+		\begin{tikzpicture}
+			% Variable name (node)
+			\node (var) at (0,0) {\texttt{l}};
+			% Rectangle (node)
+			\node[draw, rectangle, minimum height=0.5cm, right=1cm] (rect) at (0.3,0) {3,4,5};
+			% Arrow from variable to rectangle
+			\draw[->] (var) -- (rect);
+		\end{tikzpicture}
+		
+		\pause
+		\vspace{1 cm}
+		Après appel \texttt{incrementeListe}
+		
+		\vspace{0.3 cm}
+		
+		\begin{tikzpicture}
+			% Variable name (node)
+			\node (var) at (0,0) {\texttt{l}};
+			\node (var1) at (0,-1) {\texttt{k}};
+			
+			% Rectangle (node)
+			\node[draw, rectangle, minimum height=0.5cm, right=1cm] (rect) at (0.3,0) {\textcolor{red}{4,5,6}};
+			% Arrow from variable to rectangle
+			\draw[->] (var) -- (rect);
+			\draw[->] (var1) -- (rect);
+		\end{tikzpicture}
+		
+		
+	\end{columns}
+	
+	
+	
+	
+\end{frame}
+
+
+
+\begin{frame}[fragile]{Référence sur une liste}
+	\begin{block}{}
+	\textbf{\`A retenir :}
+	\begin{itemize}
+		\item Cependant, on ne peut pas modifier la liste elle même! 
+	\end{itemize}
+	\end{block}
+	\vspace{0.5 cm}
+	
+	
+	\begin{columns}
+		\column{5 cm}
+		\begin{exampleblock}{}
+			\begin{lstlisting}[language=Python]
+def supprimeListe(k):
+	k= []
+l = [3,4,5]
+supprimeListe(l)
+print(l)
+			\end{lstlisting}		
+		\end{exampleblock}
+		\column{4 cm}
+		\begin{tikzpicture}
+			% Variable name (node)
+			\node (var) at (0,0) {\texttt{l}};
+			\node[draw, rectangle, minimum height=0.5cm, right=1cm] (rect) at (0.3,0) {3,4,5};
+			\draw[->] (var) -- (rect);
+			
+			\onslide<2->
+			\node (var1) at (0,-1) {\texttt{k}};
+			% Rectangle (node)
+			% Arrow from variable to rectangle
+			\only<2>
+			\draw[->] (var1) -- (rect);
+			\onslide<3->
+			\node<3->[draw, rectangle, minimum height=0.5cm, right=1cm] (rect1) at (0.3,-1) {~~~~~~};
+			\draw[->] (var1) -- (rect1);
+		\end{tikzpicture}
+	\end{columns}
+	
+\end{frame}
+
+
+\begin{frame}[fragile]{Utilisation de variables globales}
+	
+	\begin{block}{Variable globale}
+		Une variable définie \textbf{hors d'une fonction} est une variable
+		\textbf{globale}.
+	\end{block}
+	
+	\vspace{0.3cm}
+	
+	\begin{itemize}
+		\item Elle peut être \textbf{lue} depuis une fonction.
+		\item En revanche, une affectation dans la fonction crée par défaut
+		une variable \textbf{locale}.
+	\end{itemize}
+	
+	\vspace{0.3cm}
+	
+	\begin{exampleblock}{Exemple}
+		\begin{lstlisting}[language=Python]
+x = 1 # variable globale
+def affiche():
+	print(x) # utilise la variable globale
+affiche() # affiche 1
+		\end{lstlisting}
+	\end{exampleblock}
+	
+\end{frame}
+
+
+\begin{frame}[fragile]{Modifier une variable globale}
+	
+	\begin{block}{Le mot-clé \texttt{global}}
+		Pour modifier une variable globale depuis une fonction,
+		il faut utiliser le mot-clé \texttt{global}.
+	\end{block}
+	
+	\vspace{0.3cm}
+	
+	\begin{exampleblock}{Exemple}
+		\begin{lstlisting}[language=Python]
+x = 1 # variable globale
+def ajoute():
+	global x
+	x += 1
+ajoute()
+print(x)       # 2
+		\end{lstlisting}
+	\end{exampleblock}
+	
+	\vspace{0.2cm}
+	
+	\begin{alertblock}{À retenir}
+		L'utilisation de variables globales est généralement
+		\textbf{déconseillée} : elle rend le programme plus difficile à comprendre
+		et à maintenir.
+	\end{alertblock}
+	
+\end{frame}
+
+
+\begin{frame}[fragile]{Variable globale ou locale ?}
+	
+	\textbf{Question :} qu'affiche le programme ?
+	
+	\vspace{0.3cm}
+	
+	\begin{exampleblock}{}
+		\begin{lstlisting}[language=Python]
+x = 3
+def ajoute():
+	x = 5
+	x += 1
+ajoute()
+print(x)
+		\end{lstlisting}
+	\end{exampleblock}
+	
+	\pause
+	
+	\begin{block}{Réponse}
+		\texttt{3}
+	\end{block}
+	
+	\begin{itemize}
+		\item Le \texttt{x} créé dans \texttt{ajoute()} est \textbf{local}.
+		\item Il ne modifie pas le \texttt{x} global.
+	\end{itemize}
+	
+\end{frame}
+\begin{frame}[fragile]{Arguments avec des valeurs par défaut}
+	
+	\begin{block}{Valeur par défaut}
+		On peut donner une valeur par défaut à certains paramètres.
+		Elle est utilisée si l'argument n'est pas fourni lors de l'appel.
+	\end{block}
+	
+	\vspace{0.3cm}
+	
+	\begin{exampleblock}{Exemple}
+		\begin{lstlisting}[language=Python]
+def decrire_personne(pays, age=18, nom="inconnu"):
+	print(nom, "a", age, "ans et vit en", pays)
+decrire_personne("France")
+decrire_personne("Allemagne", 25, "Kurt")
+decrire_personne("Italie", 77)
+		\end{lstlisting}
+	\end{exampleblock}
+	
+	\vspace{0.2cm}
+	
+	\begin{itemize}
+		\item \texttt{pays} est obligatoire.
+		\item \texttt{age} et \texttt{nom} peuvent être omis.
+	\end{itemize}
+	
+\end{frame}
+
+
+\begin{frame}[fragile]{Arguments nommés}
+	
+	\begin{block}{Donner le nom des paramètres}
+		On peut préciser le nom des paramètres lors de l'appel.
+		L'ordre des arguments n'est alors plus nécessairement celui
+		de la signature.
+	\end{block}
+	
+	\vspace{0.3cm}
+	
+	\begin{exampleblock}{Exemple}
+		\begin{lstlisting}[language=Python]
+def decrire_personne(pays, age=18, nom="inconnu"):
+	print(nom, "a", age, "ans et vit en", pays)
+decrire_personne(nom="Kader", age=18, pays="Algérie")
+decrire_personne("France", nom="Sylvie")
+		\end{lstlisting}
+	\end{exampleblock}
+	
+	\vspace{0.2cm}
+	
+	\begin{itemize}
+		\item Les arguments nommés rendent l'appel plus explicite.
+		\item Les paramètres sans valeur par défaut restent obligatoires.
+	\end{itemize}
+	
+\end{frame}
+
+
+\begin{frame}[fragile]{Appel d'une fonction depuis une autre fonction}
+	
+	\begin{block}{Principe}
+		Une fonction peut appeler une autre fonction et utiliser
+		la valeur qu'elle retourne ou ce qu'elle affiche.
+	\end{block}
+	
+	\vspace{0.4cm}
+	
+	\begin{exampleblock}{Exemple}
+		\begin{lstlisting}[language=Python]
+def doubler(nombre):
+	return 2 * nombre
+def additionner(a, b):
+	return a + doubler(b)
+print(additionner(2, 3))    # 8
+		\end{lstlisting}
+	\end{exampleblock}
+	
+	\vspace{0.3cm}
+	
+	\begin{itemize}
+		\item \texttt{additionner()} appelle \texttt{doubler()}.
+		\item \texttt{doubler(3)} retourne \texttt{6}.
+		\item La fonction \texttt{additionner()} calcule alors \texttt{2 + 6}.
+	\end{itemize}
+	
+\end{frame}
+
+
+\begin{frame}[fragile]{Appeler une fonction dans une boucle}
+	
+	\textbf{Question :} que va afficher ce programme ?
+	
+	\vspace{0.3cm}
+	
+	\begin{exampleblock}{}
+		\begin{lstlisting}[language=Python]
+def doubler(nombre):
+	return 2 * nombre
+def doubler_liste(liste):
+	for i in range(len(liste)):
+		doubler(liste[i])
+	return liste
+nombres = [2, 3, 4]
+print(doubler_liste(nombres))
+		\end{lstlisting}
+	\end{exampleblock}
+	
+\end{frame}
+
+
+\begin{frame}[fragile]{Corriger le programme}
+	
+\textbf{Question :} que va afficher ce programme ?
+	\vspace{0.4cm}
+	
+	\begin{exampleblock}{Correction}
+		\begin{lstlisting}[language=Python]
+def doubler(nombre):
+	return 2 * nombre
+def doubler_liste(liste):
+	for i in range(len(liste)):
+		liste[i] = doubler(liste[i])
+	return liste
+nombres = [2, 3, 4]
+print(doubler_liste(nombres))
+		\end{lstlisting}
+	\end{exampleblock}
+	
+
+	
+\end{frame}
+
+\begin{frame}[fragile]{Expressions lambda}
+	
+	\begin{block}{Qu'est-ce qu'une expression \texttt{lambda} ?}
+		Une expression \texttt{lambda} permet de créer une
+		\textbf{petite fonction} en une seule ligne.
+	\end{block}
+	
+	\vspace{0.4cm}
+	
+	\begin{exampleblock}{Exemple}
+		\begin{lstlisting}[language=Python]
+double = lambda x: 2 * x
+print(double(5))       # 10
+		\end{lstlisting}
+	\end{exampleblock}
+	
+	\vspace{0.3cm}
+	
+	\begin{itemize}
+		\item \texttt{x} est le paramètre.
+		\item \texttt{2 * x} est la valeur retournée.
+	\end{itemize}
+	
+	\begin{alertblock}{À retenir}
+		Un \texttt{lambda} est adapté aux fonctions \textbf{courtes}
+		qui tiennent sur une seule expression.
+	\end{alertblock}
+	
+\end{frame}
+
+
+\begin{frame}[fragile]{Fonction classique et fonction lambda}
+	
+	Une même fonction peut être écrite de deux façons.
+	
+	\vspace{0.3cm}
+	
+	\begin{columns}
+		
+		\column{5.5cm}
+		
+		\begin{exampleblock}{Fonction classique}
+			\begin{lstlisting}[language=Python]
+def carre(x):
+	return x * x
+			\end{lstlisting}
+		\end{exampleblock}
+		
+		\column{5.5cm}
+		
+		\begin{exampleblock}{Avec \texttt{lambda}}
+			\begin{lstlisting}[language=Python]
+carre = lambda x: x * x
+			\end{lstlisting}
+		\end{exampleblock}
+		
+	\end{columns}
+	
+	\vspace{0.4cm}
+	
+	\begin{block}{Même utilisation}
+		\begin{lstlisting}[language=Python]
+print(carre(4))       # 16
+		\end{lstlisting}
+	\end{block}
+	
+	\begin{itemize}
+		\item La version \texttt{lambda} est plus courte.
+		\item Elle est surtout intéressante pour une fonction très simple.
+	\end{itemize}
+	
+\end{frame}
+
+
+\begin{frame}[fragile]{Quand utiliser un lambda ?}
+	
+	Un \texttt{lambda} est particulièrement utile lorsqu'une petite
+	fonction est utilisée \textbf{une seule fois}.
+	
+	\vspace{0.4cm}
+	
+	\begin{exampleblock}{Exemple}
+		\begin{lstlisting}[language=Python]
+nombres = [1, 2, 3, 4]
+double = lambda x: 2 * x
+for nombre in nombres:
+	print(double(nombre))
+		\end{lstlisting}
+	\end{exampleblock}
+	
+	\vspace{0.3cm}
+	
+	On peut aussi utiliser directement l'expression :
+	
+	\begin{exampleblock}{}
+		\begin{lstlisting}[language=Python]
+for nombre in nombres:
+	print((lambda x: 2 * x)(nombre))
+		\end{lstlisting}
+	\end{exampleblock}
+	
+
+		Si une fonction devient longue ou complexe, il vaut mieux utiliser
+		\texttt{def} pour la rendre plus lisible.
+
+	
+\end{frame}
+
+
+\begin{frame}[fragile]{Quelques utilisations des fonctions lambda}
+	
+	Les fonctions \texttt{lambda} sont souvent utilisées comme
+	\textbf{petites fonctions temporaires} avec certaines fonctions Python.
+	
+	\vspace{0.3cm}
+	
+	\begin{exampleblock}{\texttt{sorted()} : trier selon un critère}
+		\begin{lstlisting}[language=Python]
+mots = ["chat", "ordinateur", "livre"]
+print(sorted(mots, key=lambda mot: len(mot))) 
+		\end{lstlisting}
+	\end{exampleblock}
+	
+	\begin{exampleblock}{\texttt{map()} : appliquer une fonction à chaque élément}
+		\begin{lstlisting}[language=Python]
+nombres = [1, 2, 3, 4]
+doubles = list(map(lambda x: 2 * x, nombres))
+print(doubles)    # [2, 4, 6, 8]
+		\end{lstlisting}
+	\end{exampleblock}
+	
+	\begin{exampleblock}{\texttt{filter()} : conserver certains éléments}
+		\begin{lstlisting}[language=Python]
+nombres = [1, 2, 3, 4, 5]
+pairs = list(filter(lambda x: x % 2 == 0, nombres))
+print(pairs)      # [2, 4]
+		\end{lstlisting}
+	\end{exampleblock}
+	
+\end{frame}
+
+\begin{frame}[fragile]{Exercice de synthèse}
+	
+	\textbf{Objectif :} réutiliser les notions du chapitre.
+	
+	\vspace{0.3cm}
+	
+	On considère le programme suivant :
+	
+	\begin{exampleblock}{Données}
+		\begin{lstlisting}[language=Python]
+nombres = [2, 5, 8, 3, 10]
+		\end{lstlisting}
+	\end{exampleblock}
+	
+	\vspace{0.2cm}
+	
+	\begin{enumerate}
+		\item Écrire une fonction \texttt{ajouter\_un} qui ajoute $1$
+		à chaque élément de la liste.
+		
+		\item Vérifier que la liste a bien été modifiée.
+		
+		\item Écrire une fonction \texttt{creer\_double} qui retourne
+		une \textbf{nouvelle liste} contenant le double de chaque valeur.
+		
+		\item Écrire une expression \texttt{lambda} qui retourne le carré
+		d'un nombre.
+		
+		\item Créer une variable globale \texttt{facteur = 2} et écrire
+		une fonction qui utilise cette variable pour multiplier
+		les éléments de la liste.
+		
+		\item Expliquer : quelles modifications concernent la liste
+		\textbf{mutable} et quelles valeurs restent \textbf{immutables} ?
+	\end{enumerate}
+	
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{comment}
 
 
 \begin{frame}[fragile]{Types mutables et immutables}
@@ -319,8 +1221,6 @@ Après modification:
 \end{tikzpicture}
 \end{columns}
 \end{frame}
-
-
 \begin{frame}[fragile]{Questions}
 
 
@@ -342,7 +1242,6 @@ chaine[0]='H'
 \end{exampleblock}
 
 \end{frame}
-
 \begin{frame}[fragile]{Questions}
 
 Ecrivez un programme qui prend une chaîne de caractères et affiche la chaîne avec la première lettre de chaque mot en majuscule. 
@@ -367,7 +1266,6 @@ print(resultat)
 \end{verbatim}
 }
 \end{exampleblock}
-
 
 
 
@@ -782,7 +1680,7 @@ list(map(lambda x: x*2,range(10)))
 \end{exampleblock}
 
 \end{frame}
-
+\end{comment}
 
 
 
