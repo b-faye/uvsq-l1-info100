@@ -1,0 +1,961 @@
+\documentclass[10pt]{beamer}
+
+\usepackage{verbatim}
+%\usepackage[latin1]{inputenc}
+\usepackage{amssymb,amsmath,amsfonts,url}
+\usepackage{graphicx,color}
+\usepackage{pgf,pgfarrows,pgfnodes,pgfautomata,pgfheaps,pgfshade}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage{tikz}
+
+\usepackage[all]{xy}
+\usepackage{amstext}
+\usepackage{xspace}
+\usepackage{mdwtab}
+
+
+\mode<article> {
+  \usepackage{fullpage}
+  \usepackage{hyperref}
+  \setjobnamebeamerversion{advancedcourse.beamer}
+}
+
+
+
+
+
+\newcommand{\alertonce}[1]{\addtocounter{beamerpauses}{-1}\alert<+>{#1}}
+\newcommand{\alerttwice}[1]{\addtocounter{beamerpauses}{-1}\alert<+-+(1)>{#1}}
+
+%\newcommand{\subsubsubsection}[1]{\noindent\textbf{#1}}
+
+\newcommand{\cfbox}[1]{\begin{center}\fbox{#1}\end{center}}
+\newcommand{\cbox}[1]{\begin{center} #1 \end{center}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\graphicspath{{Graphics/}}
+%\input def_0.tex
+
+%\input{StyleSlides.tex}
+\mode<presentation> {
+    \usepackage{beamerthemeBoadilla}
+
+  %\beamertemplatetransparentcovereddynamic
+  \beamertemplateballitem
+}
+
+
+\title[IN100 Cours 6]{\textbf{Fondements informatiques I}\\
+Cours 6: Listes}
+
+\author[]{Sorina Ionica \texttt{sorina.ionica@uvsq.fr} \\~\\Sandrine Vial  \texttt{sandrine.vial@uvsq.fr} }
+
+
+\institute{}
+
+\date{}
+
+
+%\setbeamercolor{normal text}{fg=black}
+
+\begin{document}
+
+
+\frame{\titlepage}
+
+
+\begin{frame}[fragile]{Les listes}
+
+Un \textcolor{blue}{tableau} est une structure de données contenant une série
+d'éléments, où la position de chaque élément compte.\\
+
+%\vspace{0.5 cm}
+\begin{alertblock}{Syntaxe}
+
+On peut accéder aux éléments d'une liste par leur \textbf{indice}.
+\begin{verbatim}
+tableau  : ["bus", "voiture", "vélo", "trotinette"]
+indice :    0        1        2         3
+
+\end{verbatim}
+\end{alertblock}
+
+\pause
+
+\vspace{0.3 cm}
+En Python, on utilise le type \texttt{\texttt{list}} pour les représenter. 
+%En Python, une liste est créée en plaçant des éléments entre \textbf{crochets} \texttt{{[}{]}} et en les séparant par des \emph{virgules}.
+
+\begin{exampleblock}{}
+\small{
+\begin{verbatim}
+# Exemple: Liste des capitales européennes
+capitales = ["Paris", "Berlin", "Madrid", "Athènes", "Zagreb", "Rome"]
+
+# Exemple: Liste d'entiers
+entiers = [5, 0, 17, 42, 23]
+\end{verbatim}
+}
+\end{exampleblock}
+\end{frame}
+
+\frame[containsverbatim]{
+\frametitle{Les listes}
+
+ La construction de listes en Python est très \emph{flexible}.
+\begin{itemize}
+\item Il est possible de créer des listes contenant des valeurs de
+\textbf{types différents}.
+\end{itemize}
+
+\begin{exampleblock}{}
+\begin{verbatim}
+
+# Liste mixte
+mixte = [7, "tennis", True, 5.3]
+
+\end{verbatim}
+\end{exampleblock}
+\small{Cette liste contient à la fois des valeurs de type \texttt{int},
+\texttt{string}, \texttt{boolean} et \texttt{float}.}
+
+
+\vspace{0.5 cm}
+
+
+\begin{itemize}
+\item La fonction \texttt{len()} nous permet de connaître le nombre
+  d'éléments dans une liste.
+\end{itemize}
+
+\begin{exampleblock}{}
+\begin{verbatim}
+liste = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+print("La liste contient", len(liste), "éléments.")
+\end{verbatim}
+\end{exampleblock}
+
+
+
+
+
+}
+
+
+\frame[containsverbatim]{
+\frametitle{Longueur d'une liste}
+
+
+
+
+\begin{itemize}
+\item Une liste a une longueur variable. La méthode \texttt{append()} permet d'ajouter un élément à la fin d'une
+liste.
+\end{itemize}
+
+
+\begin{exampleblock}{}
+\begin{verbatim}
+mixte = [7, "tennis", True, 5.3]
+
+mixte.append("natation")
+print(mixte)
+
+\end{verbatim}
+\end{exampleblock}
+
+\begin{itemize}
+\item  La méthode \texttt{remove()} permet d'enlever un élément  de la liste. 
+\end{itemize}
+
+\begin{exampleblock}{}
+\begin{verbatim}
+
+mixte.remove("tennis")
+mixte.remove(7)
+print(mixte)
+
+\end{verbatim}
+\end{exampleblock}
+
+\small{Attention: les méthodes \texttt{append} et \texttt{remove} sont propres à l'objet (\texttt{mixte}). Chose à clarifier plus tard ...}
+
+}
+
+
+
+
+\frame[containsverbatim]{
+\frametitle{Accéder aux éléments d'une liste}
+
+
+ Pour une liste de longueur \(n\)   :
+
+
+\begin{itemize}
+
+\item   L'indice est la \textbf{position} d'un élément dans la liste.
+\item  Pour une liste de \(n\) éléments, les indices vont de 0 à \(n-1\).
+\item Les indices doivent être des nombres \textbf{entiers}.
+
+ \end{itemize}
+
+\begin{exampleblock}{Un premier exemple}
+\begin{verbatim}
+liste = ["bus", "voiture", "velo", "trotinette"]
+
+print(liste[0])
+print(liste[2])
+\end{verbatim}
+\end{exampleblock}
+
+
+}
+
+\frame[containsverbatim]{
+\frametitle{Indiçage négatif}
+
+ \small{Chaque élément d'une liste  a deux indices :
+   un indice positif \(i\) et un indice négatif \(i - n\).}
+
+\begin{alertblock}{}
+\begin{verbatim}
+liste          : ["bus", "voiture", "velo", "trotinette"]
+indice positif :    0       1         2         3
+indice négatif :   -4      -3        -2        -1 
+\end{verbatim}
+\end{alertblock}
+
+\begin{exampleblock}{Indiçage négatif}
+\begin{verbatim}
+liste = ["bus", "voiture", "vélo", "trotinette"]
+print(liste[-1])
+print(liste[-2])
+print(liste[0],liste[-4])
+\end{verbatim}
+\end{exampleblock}
+
+\vspace{0.5 cm}
+
+    \begin{itemize}
+
+\item
+  L'indiçage négatif revient à compter de la fin.
+\item
+  \textbf{Avantage} : Accèder au dernier ou avant-dernier élément de la
+  liste, sans connaître sa longueur (indices -1 et -2 respectivement)
+\end{itemize}
+
+}
+
+
+\frame[containsverbatim]{
+\frametitle{Tranches}
+
+On peut accéder à une partie (une tranche) d'une liste L de longueur $n$ en utilisant des indices :
+
+\begin{itemize}
+\item \texttt{L[m:k]} donne accès aux éléments \texttt{L[m], L[m+1], ... ,L[k-1]}
+\item \texttt{L[m:]} donne accès aux éléments \texttt{L[m], ..., L[n-1]}
+\item  \texttt{L[:k]} donne accès aux éléments \texttt{L[0], L[1], ... ,L[k-1]}  
+\end{itemize}
+
+\vspace{0.5 cm}
+\begin{exampleblock}{Exemple}
+\begin{verbatim}
+liste = [2, 3, 5, 7, 11, 13, 17, 19, 21, 23]
+print(liste[2:6])
+print(liste[-8:-4])
+liste[3:]
+liste[:5]
+liste[:-3]
+\end{verbatim}
+\end{exampleblock}
+
+}
+
+
+\frame[containsverbatim]{
+\frametitle{Modifier ou ajouter des éléments dans une
+liste}
+
+
+\textbf{Rappel.} Les listes sont des objets \textcolor{blue}{mutables}. Leurs éléments peuvent
+donc être modifiés.
+
+
+\begin{itemize}
+\item En écrivant \texttt{liste{[}i{]}\ =\ nouvel\_element}, l'élément de la
+liste à l'indice \texttt{i} est replacé par \texttt{nouvel\_element}.
+ \end{itemize}
+
+\vspace{1 cm}
+
+\begin{exampleblock}{}
+\begin{verbatim}
+capitales = ["Paris", "Berlin", "Madrid", "Athènes", "Zagreb"]
+capitales[2:5] = ["Dublin", "Budapest", "Vienne"]
+print(capitales)
+\end{verbatim}
+\end{exampleblock}
+
+
+
+
+
+}
+
+
+
+
+\frame[containsverbatim]{
+\frametitle{Listes en compréhension}
+
+
+
+\vspace{0.5 cm}
+
+Imaginons, qu'on veut créer une liste contenant la racine carrée des
+entiers \(0, 1, \dots, 9\).
+
+\vspace{0.5 cm}
+
+Avec une boucle: 
+\begin{exampleblock}{}
+\begin{verbatim}
+import math
+l = []
+for i in range(10) :
+    l.append(math.sqrt(i))
+
+print(l)
+\end{verbatim}
+\end{exampleblock}
+
+\vspace{0.5 cm}
+
+De manière compacte, en une seule instruction:
+\begin{exampleblock}{}
+\begin{verbatim}
+l = [math.sqrt(i) for i in range(10)]
+
+print(l)
+
+\end{verbatim}
+\end{exampleblock}
+
+}
+
+
+
+\begin{frame}[fragile]{Listes en compréhension}
+
+On peut créer des listes de façon \textbf{simple}, \textbf{concise} et
+\textbf{compacte}.\\
+
+
+\begin{alertblock}{Syntaxe}
+%Une liste \texttt{L} en compréhension se créé de la façon suivante :
+\texttt{L} = \texttt{{[}expr\ for\ x\ in\ t{]}}
+\end{alertblock}
+
+\begin{itemize}
+\item
+  Dans cette syntaxe : les crochets \texttt{{[}{]}}, les mots clés
+  \texttt{for} et \texttt{in} sont obligatoires.
+\item
+  \texttt{t} est souvent une liste ou une collection de type
+  \texttt{range}.
+\item
+  \texttt{x} est la variable de contrôle
+\item
+  \texttt{expr} est une expression qui dépend en général de \texttt{x}
+  et dont la valeur est placée dans la liste.
+\end{itemize}
+
+
+\vspace{0.5 cm}
+
+Exercice : Créer avec une seule instruction une liste qui contient la table de multiplication de 5.
+
+\pause
+\begin{exampleblock}{}
+\begin{verbatim}
+mult5 = [5*i for i in range(1,11)]
+\end{verbatim}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]{Test d’appartenance}
+
+On peut facilement tester l'appartenance d'un élément dans une liste avec l'opérateur \texttt{in}.
+
+\begin{exampleblock}{}
+\begin{verbatim}
+nombres = [1, 3, 5, 7, 9, 11]
+print(3 in nombres)
+print(2 in nombres)
+print(5 in nombres and 7 in nombres)
+\end{verbatim}
+\end{exampleblock}
+
+\vspace{1 cm}
+
+En combinant avec le mot-clé \texttt{not} on peut vérifier si un élément est absent d'une liste.
+
+\begin{exampleblock}{}
+\begin{verbatim}
+4 not in nombres
+\end{verbatim}
+\end{exampleblock}
+
+\end{frame}
+
+
+
+\begin{frame}[fragile]{Copie d'une liste}
+
+Qu'affiche-t-on à l'exécution? 
+
+\begin{columns}
+\column{4 cm}
+\begin{exampleblock}{}
+\begin{verbatim}
+L1 = [1, 2, 3, 4]
+L2 = L1
+print(L2)
+
+L2.append(5)
+print(L2)
+print(L1) 
+\end{verbatim}
+\end{exampleblock}
+\column{5 cm}
+\begin{tikzpicture}[
+    font=\sffamily,
+    frame/.style={draw, fill=gray!10, rounded corners, inner sep=1pt},
+    object/.style={draw, fill=yellow!10, rounded corners, inner sep=0.5pt},
+    arr/.style={->, thick, >=stealth, blue!60},
+    node distance=0.3cm and 0.5cm
+]
+
+% Frames box
+\node[frame, align=left, minimum width=0.3cm] (frame) at (3,0.5){
+       \begin{tabular}{l }
+        L1  \\
+    \end{tabular}
+};
+\node[frame, align=left, minimum width=0.3cm] (frame1) at (3,1.5){
+       \begin{tabular}{l }
+        L2  \\
+    \end{tabular}
+};
+
+
+\node[object, anchor=west] (Llist)  at (4,3.1) {
+    \begin{tabular}{ccccc}        
+        1 & 2 & 3 & 4 & \\
+    \end{tabular}
+};
+
+
+
+% Arrows from L list entries to the row lists
+%\draw[arr] ([yshift=1mm]Llist.north west) ++(0.3cm,-0.1) .. controls +(-0.5,1) and +(-0.5,-0.5) .. (list2.west);
+
+% Arrow from L in frame to Llist
+\draw[arr] ([xshift=0.6cm]frame.west)++(0.4cm,0) .. controls +(0.5,0.5) and +(-0.4,-0.4) .. (Llist.west);
+
+\draw[arr] ([xshift=0.6cm]frame1.west)++(0.37cm,0) .. controls +(0.7,0.5) and +(-1,0) .. (Llist.west);
+
+\only<2>
+\node[object, anchor=west] (list3)  at (4,3.1) {
+    \begin{tabular}{ccccccc}        
+        1 & 2 & 3 & 4 & \textcolor{red}{5} \\
+    \end{tabular}
+};
+
+
+\end{tikzpicture}
+
+
+
+\end{columns}
+
+}
+
+\vspace{0.5 cm}
+
+\begin{itemize}
+\item
+  Il ne faut jamais utiliser l'opérateur \texttt{=} pour copier une
+  liste.
+\item
+  Les deux objets \texttt{L1} et \texttt{L2} partagent la \textbf{même
+  zone mémoire}. Une modification de l'un entraine une modification de
+  l'autre.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]{Copie d'une liste}
+
+
+\begin{columns}
+\column{4 cm}
+\begin{exampleblock}{}
+\begin{verbatim}
+L1 = [1, 2, 3, 4]
+L2 = L1[:]
+print(L2)
+
+L2.append(5)
+print(L2)
+print(L1)
+\end{verbatim}
+\end{exampleblock}
+\column{5 cm}
+\begin{tikzpicture}[
+    font=\sffamily,
+    frame/.style={draw, fill=gray!10, rounded corners, inner sep=1pt},
+    object/.style={draw, fill=yellow!10, rounded corners, inner sep=0.5pt},
+    arr/.style={->, thick, >=stealth, blue!60},
+    node distance=0.3cm and 0.5cm
+]
+
+% Frames box
+\node[frame, align=left, minimum width=0.3cm] (frame) at (3,0.5){
+       \begin{tabular}{l }
+        L2  \\
+    \end{tabular}
+};
+\node[frame, align=left, minimum width=0.3cm] (frame1) at (3,1.5){
+       \begin{tabular}{l }
+        L1  \\
+    \end{tabular}
+};
+
+
+\node[object, anchor=west] (Llist)  at (4.5, 1) {
+    \begin{tabular}{cccc}        
+        1 & 2 & 3 & 4  \\
+    \end{tabular}
+};
+
+
+\node[object, anchor=west] (Llist1)  at (4.5,3.1.5) {
+    \begin{tabular}{ccccc}        
+        1 & 2 & 3 & 4 & \textcolor{red}{5}\\
+    \end{tabular}
+};
+
+
+% Arrows from L list entries to the row lists
+%\draw[arr] ([yshift=1mm]Llist.north west) ++(0.3cm,-0.1) .. controls +(-0.5,1) and +(-0.5,-0.5) .. (list2.west);
+
+% Arrow from L in frame to Llist
+\draw[arr] ([xshift=0.6cm]frame.west)++(0.4cm,0) .. controls +(0.5,0.5) and +(-0.4,-0.4) .. (Llist1.west);
+
+\draw[arr] ([xshift=0.6cm]frame1.west)++(0.37cm,0) .. controls +(0.7,0.5) and +(-1,0) .. (Llist.west);
+
+
+\end{tikzpicture}
+
+
+
+\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{Copie d'une liste}
+
+On peut utiliser la fonction $\texttt{list()}$ qui permet de créer une nouvelle liste. 
+
+
+\begin{columns}
+\column{5 cm}
+\begin{exampleblock}{}
+\begin{verbatim}
+L1 = [1, 2, 3, 4]
+L2 = list(L1)
+print(L2)
+
+L2.append(5)
+print(L2)
+print(L1)
+
+\end{verbatim}
+\end{exampleblock}
+\column{5 cm}
+\begin{tikzpicture}[
+    font=\sffamily,
+    frame/.style={draw, fill=gray!10, rounded corners, inner sep=1pt},
+    object/.style={draw, fill=yellow!10, rounded corners, inner sep=0.5pt},
+    arr/.style={->, thick, >=stealth, blue!60},
+    node distance=0.3cm and 0.5cm
+]
+
+% Frames box
+\node[frame, align=left, minimum width=0.3cm] (frame) at (3,0.5){
+       \begin{tabular}{l }
+        L2  \\
+    \end{tabular}
+};
+\node[frame, align=left, minimum width=0.3cm] (frame1) at (3,1.5){
+       \begin{tabular}{l }
+        L1  \\
+    \end{tabular}
+};
+
+
+\node[object, anchor=west] (Llist)  at (4.5, 1) {
+    \begin{tabular}{cccc}        
+        1 & 2 & 3 & 4  \\
+    \end{tabular}
+};
+
+
+\node[object, anchor=west] (Llist1)  at (4.5,3.1.5) {
+    \begin{tabular}{ccccc}        
+        1 & 2 & 3 & 4 & \textcolor{red}{5}\\
+    \end{tabular}
+};
+
+
+% Arrows from L list entries to the row lists
+%\draw[arr] ([yshift=1mm]Llist.north west) ++(0.3cm,-0.1) .. controls +(-0.5,1) and +(-0.5,-0.5) .. (list2.west);
+
+% Arrow from L in frame to Llist
+\draw[arr] ([xshift=0.6cm]frame.west)++(0.4cm,0) .. controls +(0.5,0.5) and +(-0.4,-0.4) .. (Llist1.west);
+
+\draw[arr] ([xshift=0.6cm]frame1.west)++(0.37cm,0) .. controls +(0.7,0.5) and +(-1,0) .. (Llist.west);
+
+
+\end{tikzpicture}
+\end{columns}
+
+\end{frame}
+
+\begin{frame}[fragile]{Concatener deux listes}
+
+Qu'affiche-t-on à l'exécution? 
+
+\vspace{0.5 cm}
+
+\begin{exampleblock}{Exemple (rappel)}
+\small{
+\begin{verbatim}
+capitales1 = ["Paris", "Berlin", "Madrid", "Athènes", "Zagreb", "Rome"]
+capitales2 = ["Bruxelles", "Oslo"]
+
+capitale1=capitales1 + capitales2
+print(capitales1)  
+\end{verbatim}
+}
+\end{exampleblock}
+
+\vspace{0.5 cm}
+
+Comment faire pour créer une nouvelle liste contenant la concatenation? 
+
+\end{frame}
+
+
+\begin{frame}[fragile]{Listes imbriquées}
+
+Une liste où chaque élément est à nouveau une liste s'appelle 
+\textbf{liste imbriquée}, \textbf{double liste} ou
+\textbf{liste bidimensionnelle}.
+
+
+\vspace{0.5 cm}
+
+\begin{exampleblock}{}
+\begin{verbatim}
+L = [[1, 2, 3], [4, 5], [6, 7, 8, 9]]
+print(L[0])
+print(L[1])
+print(L[2][1])
+\end{verbatim}
+\end{exampleblock}
+\end{frame}
+
+
+\begin{frame}[fragile]{Listes imbriquées}
+
+On veut  calculer la somme de tous les éléments de la liste
+\texttt{L}.
+
+
+\begin{exampleblock}{}
+\begin{verbatim}
+L = [[1, 2, 3], [4, 5], [6, 7, 8, 9]]
+
+somme = 0
+for i in range(len(L)) :
+    for j in range(len(L[i])) :
+        somme += L[i][j]
+
+print("La somme de tous les éléments de la liste vaut :", somme)
+\end{verbatim}
+\end{exampleblock}
+
+\pause 
+
+ou encore 
+
+
+\begin{exampleblock}{}
+\begin{verbatim}
+somme = 0
+for i in L :
+    for j in i :
+        somme += j
+        
+print("La somme de tous les éléments de la liste vaut :", somme)  
+\end{verbatim}
+\end{exampleblock}
+
+
+
+\end{frame}
+
+\begin{frame}[fragile]{Création de listes imbriquées}
+
+
+\begin{exampleblock}{}
+\begin{verbatim}
+m = 3
+n = 4
+L = [[0] * n] * m
+print(L)
+\end{verbatim}
+\end{exampleblock}
+\texttt{m} listes sont créées mais qui font toutes référence à la même liste !
+
+\vspace{0.5 cm}
+
+\begin{columns}
+\column{3 cm}
+\begin{exampleblock}{}
+\begin{verbatim}
+L[0][1] = 1
+print(L)
+\end{verbatim}
+\end{exampleblock}
+%\vspace{0.5 cm}
+%Comment faire de manière en évitant une copie de références ?
+\column{5 cm}
+\begin{tikzpicture}[
+    font=\sffamily,
+    frame/.style={draw, fill=gray!10, rounded corners, inner sep=1pt},
+    object/.style={draw, fill=yellow!10, rounded corners, inner sep=0.5pt},
+    arr/.style={->, thick, >=stealth, blue!60},
+    node distance=0.3cm and 0.5cm
+]
+
+% Frames box
+\node[frame, align=left, minimum width=0.3cm] (frame) at (3,0.5){
+       \begin{tabular}{l }
+        L  \\
+    \end{tabular}
+};
+% List of lists (L)
+\node[object, minimum width=0.5cm] (Llist)  at (4,2) {
+    \begin{tabular}{c  |  c | c}
+    $~ ^{\tiny{\texttt{0}}}$ & $~ ^{\tiny{\texttt{1}}}$ & $~ ^{\tiny{\texttt{2}}}$ \\     
+    \end{tabular}
+};
+
+\node[object, anchor=west] (list2)  at (5,3.7) {
+    \begin{tabular}{cccc}        
+        0 & 0 & 0 & 0
+    \end{tabular}
+};
+
+
+% Arrows from L list entries to the row lists
+\draw[arr] ([yshift=1mm]Llist.north west) ++(0.3cm,-0.1) .. controls +(-0.5,1) and +(-0.5,-0.5) .. (list2.west);
+\draw[arr] ([yshift=1mm]Llist.north west) ++(1cm,-0.1) .. controls +(-0.3,0.8) and +(-0.5,-0.5) .. (list2.west);
+\draw[arr] ([yshift=1mm]Llist.north west) ++(1.5cm,-0.1) .. controls +(0,0.5) and +(-0.5,-0.5) .. (list2.west);
+
+% Arrow from L in frame to Llist
+\draw[arr] ([xshift=0.6cm]frame.west)++(0.25cm,0) .. controls +(0.5,0.5) and +(-1,0) .. (Llist.west);
+
+\only<2>
+\node[object, anchor=west] (list3)  at (5,3.7) {
+    \begin{tabular}{cccc}        
+        0 & \textcolor{red}{1} & 0 & 0
+    \end{tabular}
+};
+
+\end{tikzpicture}
+\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{Création de listes imbriquées}
+
+Plusieurs façons correctes de faire. La plus compacte est sûrement la suivante :
+
+\begin{exampleblock}{}
+\begin{verbatim}
+m = 3
+n = 4
+L = [[0] * n for i in range(m)]
+print(L)
+\end{verbatim}
+\end{exampleblock}
+
+\vspace{1 cm}
+
+\begin{columns}
+\column{6 cm}
+\begin{tikzpicture}[
+    font=\sffamily,
+    frame/.style={draw, fill=gray!10, rounded corners, inner sep=1pt},
+    object/.style={draw, fill=yellow!10, rounded corners, inner sep=0.5pt},
+    arr/.style={->, thick, >=stealth, blue!60},
+    node distance=0.3cm and 0.5cm
+]
+
+% Frames box
+\node[frame, align=left, minimum width=0.3cm] (frame) at (3,0.5){
+       \begin{tabular}{l }
+        L  \\
+    \end{tabular}
+};
+% List of lists (L)
+\node[object, minimum width=0.5cm] (Llist)  at (4,2) {
+    \begin{tabular}{c  |  c | c}
+    $~ ^{\tiny{\texttt{0}}}$ & $~ ^{\tiny{\texttt{1}}}$ & $~ ^{\tiny{\texttt{2}}}$ \\     
+    \end{tabular}
+};
+
+% Three 1D lists (rows)
+\node[object, anchor=west] (list1) at (5,3) {
+    \begin{tabular}{cccc}
+             0 & 0 & 0 & 0
+    \end{tabular}
+};
+
+\node[object, anchor=west] (list2)  at (5,3.7) {
+    \begin{tabular}{cccc}        
+        0 & 0 & 0 & 0
+    \end{tabular}
+};
+
+\node[object, anchor=west] (list3)  at (5,4.4){
+    \begin{tabular}{cccc}    
+        0 & 0 & 0 & 0
+    \end{tabular}
+};
+
+% Arrows from L list entries to the row lists
+\draw[arr] ([yshift=1mm]Llist.north west) ++(0.3cm,-0.1) .. controls +(-0.5,1) and +(-0.5,-0.5) .. (list3.west);
+\draw[arr] ([yshift=1mm]Llist.north west) ++(1cm,-0.1) .. controls +(-0.3,0.8) and +(-0.5,-0.5) .. (list2.west);
+\draw[arr] ([yshift=1mm]Llist.north west) ++(1.5cm,-0.1) .. controls +(0,0.5) and +(-0.5,-0.5) .. (list1.west);
+
+% Arrow from L in frame to Llist
+\draw[arr] ([xshift=0.6cm]frame.west)++(0.25cm,0) .. controls +(0.5,0.5) and +(-1,0) .. (Llist.west);
+
+\only<2->
+\node[object, anchor=west] (list4) at (5,4.4) {
+    \begin{tabular}{cccc}
+             0 & \textcolor{red}{1} & 0 & 0
+    \end{tabular}
+};
+
+
+\end{tikzpicture}
+
+
+\column{3 cm}
+\begin{exampleblock}{}
+\begin{verbatim}
+L[0][1] = 1
+print(L)
+\end{verbatim}
+\end{exampleblock}
+\end{columns}
+
+\end{frame}
+
+
+
+
+
+
+\begin{frame}[fragile]{Création de listes imbriquées}
+
+\textbf{Exercice} : Créer une liste en deux dimensions, contenant la
+matrice suivante :
+
+\[\begin{bmatrix}1 & 2 & 2 & 2 \\0 & 1 & 2 & 2 \\ 0 & 0 & 1 & 2 \\ 0 & 0 & 0 & 1\end{bmatrix}\]
+
+\pause
+
+\begin{exampleblock}{}
+\begin{verbatim}
+L = [[0] * 4 for i in range(4)]
+for i in range(4) :
+    for j in range(4) :
+        if i == j :
+            L[i][j] = 1
+        elif i < j :
+            L[i][j] = 2
+            
+print(L)
+\end{verbatim}
+\end{exampleblock}
+
+\end{frame}
+
+\begin{frame}[fragile]{Création de listes imbriquées}
+
+Solution plus compacte: 
+
+
+\begin{exampleblock}{}
+\begin{verbatim}
+L = [0] * 4
+for i in range(4) : # pour chaque ligne
+    L[i] = [0] * i + [1] + [2] * (n - i - 1)
+
+print(L)
+\end{verbatim}
+\end{exampleblock}
+
+\end{frame}
+
+\end{document}
+
+
+\textbf{Remarque.} La fonction \texttt{len()} n'est pas propre aux listes
+et peut s'appliquer à différents types d'objets.
+
+\begin{exampleblock}{}
+\begin{verbatim}
+chaine = 'abracadabra'
+print(len(chaine))
+\end{verbatim}
+\end{exampleblock}
+
+
+
+\begin{frame}[fragile]{Chaînes de caractères}
+
+\begin{exampleblock}{}
+\begin{verbatim}
+chaine = 'abracadabra'
+chaine[2] = 'd'
+print(chaine[2:5])
+\end{verbatim}
+\end{exampleblock}
+
+
+
+\end{frame}
+
+
+
