@@ -1,0 +1,495 @@
+\documentclass[10pt]{beamer}
+
+\usepackage{verbatim}
+\usepackage[latin1]{inputenc}
+\usepackage{amssymb,amsmath,amsfonts,url}
+\usepackage{graphicx,color}
+\usepackage{pgf,pgfarrows,pgfnodes,pgfautomata,pgfheaps,pgfshade}
+
+\usepackage[all]{xy}
+\usepackage{amstext}
+\usepackage{xspace}
+\usepackage{mdwtab}
+\usepackage[french]{babel}
+\usepackage[utf8]{inputenc}
+
+
+\mode<article> {
+  \usepackage{fullpage}
+  \usepackage{hyperref}
+  \setjobnamebeamerversion{advancedcourse.beamer}
+}
+
+\mode<presentation> {
+    \usepackage{beamerthemeBoadilla}
+
+  \beamertemplatetransparentcovereddynamic
+  \beamertemplateballitem
+}
+
+
+\newcommand{\alertonce}[1]{\addtocounter{beamerpauses}{-1}\alert<+>{#1}}
+\newcommand{\alerttwice}[1]{\addtocounter{beamerpauses}{-1}\alert<+-+(1)>{#1}}
+
+\newcommand{\subsubsubsection}[1]{\noindent\textbf{#1}}
+
+\newcommand{\cfbox}[1]{\begin{center}\fbox{#1}\end{center}}
+\newcommand{\cbox}[1]{\begin{center} #1 \end{center}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\graphicspath{{Graphics/}}
+%\input def_0.tex
+
+
+
+\title[IN100 Cours 8]{\textbf{Fondements informatiques I}\\
+Cours 8: Modules et fichiers}
+
+\author[]{Sorina Ionica \texttt{sorina.ionica@uvsq.fr} \\~\\Sandrine Vial  \texttt{sandrine.vial@uvsq.fr} }
+
+
+\institute{}
+
+\date{}
+
+
+%\setbeamercolor{normal text}{fg=black}
+
+\begin{document}
+
+
+\frame{\titlepage}
+
+
+
+
+\section{Les modules}
+
+\frame[containsverbatim]{
+\frametitle{Modules}
+
+
+
+On veut programmer une application calculatrice. Comment structurer notre programme? 
+
+
+\begin{itemize}
+\item Un fichier contenant tous les fonctions permettant de faire des calculs: racines carr\'ees, puissance, log etc. 
+\item Un fichier contenant toutes les fonctions permettant de dessiner l'interface graphique :  dessiner des buttons, des zones de texte etc. 
+\item Un programme principale depuis lequel on appelle toutes cettes fonctions 
+\end{itemize}
+
+\begin{alertblock}{Solution}
+\begin{itemize} 
+\item On range les d\'efinitions de fonctions se rapportant \`a une m\^eme application au sein d'un fichier (script) commun baptis\'e {\color{red} module}.
+\item Un module est sauvegard\'e sous forme d'un fichier  \texttt{<nom du module>.py}.
+\end{itemize}
+\end{alertblock}
+
+
+}
+
+
+\frame[containsverbatim]{
+\frametitle{Modules - Premi\`ere m\'ethode d'importation}
+
+
+\begin{alertblock}{Utiliser un module}
+\begin{itemize}
+\item Pour utiliser un module, on se sert de l'instruction \\
+\begin{center}
+ \texttt{import <nom du module>}
+ \end{center}
+\item L'ex\'ecution de cette instruction consiste \`a ex\'ecuter le script d\'efinissant le module (ce script peut contenir des instructions autres que des d\'efinitions de fonctions).
+\item Pour importer un module, Python a besoin de conna\^itre le chemin qui permet d'acc\'eder au fichier correspondant. Ce chemin doit appara\^itre dans la liste des chemins possibles stock\'es dans la variable \texttt{path} du module \texttt{sys}.
+\end{itemize}
+\end{alertblock}
+
+
+
+\begin{exampleblock}{Exemple}
+\small{
+\begin{verbatim}
+>>> import random
+>>> random.randint(0,10)
+9
+\end{verbatim}
+}
+\end{exampleblock}
+
+%\begin{itemize}
+%\item L'instruction \texttt{import} vous permet d'importer toutes les fonctions du module \texttt{random}
+%\item Ensuite, nous utilisons la fonction (ou m\'ethode) \texttt{randint(a,b)} du module random; attention cette fonction renvoie un nombre entier al\'eatoirement entre a inclus et b inclus.
+%\end{itemize}
+
+}
+
+\frame[containsverbatim]{
+\frametitle{Modules - importation d'une fonction}
+
+
+
+
+\medskip
+\begin{alertblock}{}
+Dans certains cas, on a besoin de disposer d'une seule  fonction du module. 
+\begin{verbatim}
+from [module] import [fonction]
+\end{verbatim}
+\end{alertblock}
+
+
+\vfill
+\begin{exampleblock}{Exemple}
+\begin{verbatim}
+from math import sqrt
+racine = sqrt(49)
+\end{verbatim}
+\end{exampleblock}
+
+
+}
+
+
+\frame[containsverbatim]{
+\frametitle{Modules - importation de toutes les  fonctions}
+
+
+
+
+\medskip
+\begin{alertblock}{}
+ Pour disposer de toutes les fonctions d'un module:
+ \begin{center}
+\begin{verbatim}
+from [module] import *
+\end{verbatim}
+\end{center}
+\end{alertblock}
+
+\begin{exampleblock}{Exemple}
+\begin{verbatim}
+from math import *
+racine = sqrt(49)
+angle = pi/6
+print(sin(angle))
+\end{verbatim}
+
+\end{exampleblock}
+
+\vspace{0.5 cm}
+
+Cette m\'ethode est \`a \'eviter, car on peut importer sans le savoir des noms de fonctions qu'on a d\'ej\`a  d\'efini par ailleurs. 
+
+}
+
+
+\frame[containsverbatim]{
+\frametitle{Modules courants}
+
+\begin{itemize}
+\item \texttt{math} : fonctions et constantes math\'ematiques de base (sin, cos, exp, pi...).
+\item \texttt{sys} : passage d'arguments, gestion de l'entr\'ee/sortie standard etc...
+\item \texttt{os} : dialogue avec le syst\`eme d'exploitation.
+\item \texttt{random} : g\'en\'eration de nombres al\'eatoires.
+\item \texttt{time} : permet d'acc\'eder aux fonctions g\'erant le temps.
+\item \texttt{calendar} : fonctions de calendrier.
+\item \texttt{urllib} : permet de r\'ecup\'erer des donn\'ees sur internet depuis python.
+\item \texttt{Tkinter} : interface python avec Tk (permet de cr\'eer des objets graphiques; n\'ecessite d'installer Tk).
+\item \texttt{re} : gestion des expressions r\'eguli\`eres.
+\item \texttt{pickle} : \'ecriture et lecture de structures python (comme les dictionnaires par exemple).
+\item \dots 
+\end{itemize}
+}
+
+\frame[containsverbatim]{
+\frametitle{Obtenir de l'aide sur les modules import\'es}
+
+\begin{itemize}
+\item Pour obtenir de l'aide sur un module rien de plus simple, il suffit d'invoquer la commande help : 
+
+\medskip
+\begin{exampleblock}{}
+\begin{verbatim}
+ import random
+ help(random)
+\end{verbatim}
+\end{exampleblock}
+
+\bigskip\item Il est aussi possible d'invoquer de l'aide sur une fonction particuli\`ere d'un module en la pr\'ecisant de la mani\`ere suivante : 
+\medskip
+\begin{exampleblock}{}
+\begin{verbatim}
+help(random.randint)
+\end{verbatim}
+\end{exampleblock}
+
+\end{itemize}
+
+}
+
+
+
+
+\end{document}
+
+\section{Les fichiers}
+
+\frame[containsverbatim]{
+\frametitle{Utilisation de fichiers}
+
+\begin{itemize}
+\item Il est important de dissocier les donn\'ees des programmes qui les utilisent en rangeant ces donn\'ees dans des fichiers s\'epar\'es.
+
+\bigskip\item Le module \texttt{os} contient des fonctions qui permettent de localiser les fichiers :
+\begin{itemize}
+\item \texttt{getcwd()}: Retourne le chemin du r\'epertoire courant
+\medskip \item \texttt{chdir(<ch>)}: Change le r\'epertoire courant qui prend la valeur donn\'ee par la cha\^ine de caract\`eres \texttt{<ch>}
+\medskip \item  \texttt{path.isfile(<ch>)}: Retourne un bool\'een qui indique s'il existe un fichier dont le chemin est la cha\^ine de caract\`eres \texttt{<ch>}
+\medskip \item  \texttt{path.isdir(<ch>)}: Retourne un bool\'een qui indique s'il existe un r\'epertoire dont le chemin est la cha\^ine de caract\`eres \texttt{<ch>}
+\end{itemize}
+\end{itemize}
+
+\vfill
+\begin{exampleblock}{Sous Linux}
+\begin{verbatim}
+from os import chdir
+chdir("/home/mon_user/exercices")
+\end{verbatim}
+\end{exampleblock}
+}
+
+\frame[containsverbatim]{
+\frametitle{Quelques exemples}
+
+\begin{exampleblock}{}
+\begin{verbatim}
+import os
+
+rep_cour = os.getcwd()
+print(rep_cour)
+print(path.isfile("test.py"))
+\end{verbatim}
+\end{exampleblock}
+
+\vfill
+\begin{exampleblock}{}
+\begin{verbatim}
+from os import getcwd, path
+
+rep_cour = getcwd() 
+print("le nom du repertoire est",rep_cour)
+print(path.isfile("test.py"))
+\end{verbatim}
+\end{exampleblock}
+
+
+}
+
+\frame[containsverbatim]{
+\frametitle{Utilisation de fichiers}
+
+
+\begin{itemize}
+\item Pour utiliser un fichier identifi\'e par le chemin \texttt{ch} dans un programme Python, il faut commencer par l'ouvrir par l'appel de fonction
+\begin{center}
+ \texttt{open(<ch>, [<mode>] )}
+ \end{center}
+  qui retourne un objet de type \texttt{file}. 
+
+\bigskip \item Le param\`etre facultatif \texttt{<mode>} indique le mode d'ouverture du fichier :
+\begin{itemize}
+\medskip\item \texttt{r} : mode lecture (le fichier doit exister pr\'ealablement)
+\medskip\item \texttt{w} : mode \'ecriture (si le fichier existe, les donn\'ees sont \'ecras\'ees, sinon le fichier est cr\'e\'e)
+\medskip\item \texttt{a} : mode ajout (si le fichier existe, les donn\'ees \'ecrites vont l'\^etre apr\`es celles existantes, sinon le fichier est cr\'e\'e)
+\end{itemize}
+
+\bigskip \item Si le mode est omis, le mode par d\'efaut est \texttt{r}.
+\end{itemize}
+}
+
+
+\frame[containsverbatim]{
+\frametitle{Utilisation de fichiers}
+
+ Un objet de type \texttt{file} est associ\'e \`a des attributs et des m\'ethodes. \\
+ 
+ En voici quelques-unes :
+
+\begin{itemize}
+\medskip\item \texttt{read([<n>])} : Retourne la cha\^ine des \texttt{<n>} caract\`eres restants.
+\medskip\item \texttt{write(<ch>)} : Ecrit la cha\^ine de caract\`eres \texttt{<ch>}.
+\medskip\item \texttt{close()} : Ferme le fichier quand il est fini d'\^etre utilis\'e.
+\medskip\item \texttt{seek(<n>)} : Choisit le caract\`ere \texttt{<n>} comme position courante du fichier.
+\medskip\item \texttt{tell()}: Retourne le caract\`ere en position courante.
+\end{itemize}
+}
+
+\frame[containsverbatim]{
+\frametitle{Exemple}
+
+
+Cr\'eez un fichier dans un \'editeur de texte que vous sauverez dans votre r\'epertoire. 
+
+\medskip
+\begin{block}{exemple.txt}
+\small{
+\begin{verbatim}
+Ceci est la premiere ligne
+Ceci est la deuxieme ligne
+Ceci est la troisieme ligne
+Ceci est la quatrieme et derniere ligne\end{verbatim}
+}
+\end{block}
+
+\begin{exampleblock}{}
+\small{
+\begin{verbatim}
+fichier = open('exemple.txt','r')
+print(fichier) 
+
+
+fichier.readlines()
+
+fichier.close()
+print(filin)
+
+fichier.readlines()
+\end{verbatim}
+}
+\end{exampleblock}
+
+
+}
+
+
+\frame[containsverbatim]{
+\frametitle{Lire dans un fichier}
+
+
+\begin{exampleblock}{Exemple}
+\small{
+\begin{verbatim}
+filin = open('exemple.txt','r')
+lignes  = filin.readlines()
+for i in lignes:
+    print(i)
+
+filin.close()
+\end{verbatim}
+}
+\end{exampleblock}
+
+\vspace{0.5 cm}
+
+
+\textbf{\`A retenir:} La fonction \texttt{readlines()} renvoie un tableau contenant les cha\^ines de caract\`eres des lignes.
+
+\vspace{0.5 cm}
+
+
+
+\begin{block}{}
+\small{
+\begin{verbatim}
+Ceci est la premiere ligne
+Ceci est la deuxieme ligne
+Ceci est la troisieme ligne
+Ceci est la quatrieme et derniere ligne\end{verbatim}
+}
+\end{block}
+
+
+}
+
+
+\frame[containsverbatim]{
+\frametitle{Lire dans un fichier}
+
+
+\begin{exampleblock}{Exemple}
+\small{
+\begin{verbatim}
+filin = open("exemple.txt","r")
+filin.read()
+
+filin.close()
+\end{verbatim}
+}
+\end{exampleblock}
+
+
+\medskip
+\begin{block}{\texttt{exemple.txt}}
+\small{
+\begin{verbatim}
+Ceci est la premiere ligne
+Ceci est la deuxieme ligne
+Ceci est la troisieme ligne
+Ceci est la quatrieme et derniere ligne\end{verbatim}
+}
+\end{block}
+
+\vspace{0.5 cm}
+La fonction \texttt{read()} renvoie une cha\^ine de caract\`eres: \\
+\small{
+\begin{verbatim}
+"Ceci est la premiere ligne\nCeci est la deuxieme ligne\n
+Ceci est la troisieme ligne\nCeci est la quatrieme et derniere ligne\n"
+\end{verbatim}
+}
+}
+
+
+\frame[containsverbatim]{
+\frametitle{Parcourir un fichier}
+
+
+
+\begin{exampleblock}{Exemple}
+\small{
+\begin{verbatim}
+filin = open("exemple.txt","r")
+filin.tell() #0L
+
+filin.readline() #'Ceci est la premiere ligne\n'
+filin.tell() #27L
+filin.seek(0)
+filin.tell() #0L
+filin.readline() #'Ceci est la premiere ligne\n'
+filin.close()
+\end{verbatim}
+}
+\end{exampleblock}
+\vspace{0.5 cm}
+
+La fonction \texttt{readline} lit la ligne \`a partir du caract\`ere courant et renvoie une cha\^ine de caract\`eres. 
+
+}
+
+
+\frame[containsverbatim]{
+\frametitle{Exemple}
+
+\begin{exampleblock}{}
+\small{
+\begin{verbatim}
+animaux = ['girafe', 'hippopotame', 'singe', 'dahu' , 'ornithorynque']
+filout = open('exemple2.txt','w')
+for i in animaux:
+        filout.write(i)
+
+filout.close()
+
+$ more exemple2.txt
+girafehippopotamesingedahuornithorynque
+$
+\end{verbatim}
+}
+\end{exampleblock}
+
+
+}
+
+

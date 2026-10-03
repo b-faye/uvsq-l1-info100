@@ -1,0 +1,433 @@
+\documentclass[10pt]{beamer}
+
+\usepackage{verbatim}
+%\usepackage[latin1]{inputenc}
+\usepackage{amssymb,amsmath,amsfonts,url}
+\usepackage{graphicx,color}
+\usepackage{pgf,pgfarrows,pgfnodes,pgfautomata,pgfheaps,pgfshade}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage{tikz}
+
+\usepackage[all]{xy}
+\usepackage{amstext}
+\usepackage{xspace}
+\usepackage{mdwtab}
+
+
+\mode<article> {
+  \usepackage{fullpage}
+  \usepackage{hyperref}
+  \setjobnamebeamerversion{advancedcourse.beamer}
+}
+
+
+
+
+
+\newcommand{\alertonce}[1]{\addtocounter{beamerpauses}{-1}\alert<+>{#1}}
+\newcommand{\alerttwice}[1]{\addtocounter{beamerpauses}{-1}\alert<+-+(1)>{#1}}
+
+%\newcommand{\subsubsubsection}[1]{\noindent\textbf{#1}}
+
+\newcommand{\cfbox}[1]{\begin{center}\fbox{#1}\end{center}}
+\newcommand{\cbox}[1]{\begin{center} #1 \end{center}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\graphicspath{{Graphics/}}
+%\input def_0.tex
+
+%\input{StyleSlides.tex}
+\mode<presentation> {
+    \usepackage{beamerthemeBoadilla}
+
+  %\beamertemplatetransparentcovereddynamic
+  \beamertemplateballitem
+}
+
+
+
+\title[IN100 Cours 9]{\textbf{Fondements informatiques I}\\
+Cours 9: Algorithmes : manipuler des tableaux}
+
+\author[]{Sorina Ionica \texttt{sorina.ionica@uvsq.fr} \\~\\Sandrine Vial  \texttt{sandrine.vial@uvsq.fr} }
+
+
+\institute{}
+
+\date{}
+
+
+%\setbeamercolor{normal text}{fg=black}
+
+\begin{document}
+
+
+\frame{\titlepage}
+
+
+
+\frame[containsverbatim]{
+\frametitle{Qu'est-ce que c'est qu'un algorithme?}
+
+\begin{alertblock}{Rappel (premier cours)} 
+Un algorithme est une suite finie d'instructions et opérations permettant de résoudre un problème. 
+Pour donner un algorithme: 
+ 
+ \begin{itemize}
+ \item Input: les données en entrée du problème
+ \item Output : la solution du problème
+ \item Les étapes qu'on doit effectuer pour résoudre
+ \end{itemize}
+ \end{alertblock}
+
+\vfill
+
+Exemple concret :  Dans un tableau de notes des étudiants de L1, on veut calculer la note la plus petite et la plus grande. \\
+
+\vfill
+
+Ensuite on voudrait faire afficher le tableau (la liste) des notes  à un examen,  triée dans l'ordre croissante. 
+
+
+}
+
+
+\frame[containsverbatim]{
+\frametitle{Pour quoi?}
+
+\textcolor{blue}{La bonne pratique:} avant de commencer à coder, on réfléchit sur papier!\\
+
+\vspace{0.5 cm}
+
+En langage humain, on précise les étapes de notre algorithme (pseudocode). \\
+
+\vspace{0.5 cm}
+
+On réfléchit également à la structure du programme :  \\
+
+\vspace{0.3 cm}
+\begin{center}
+Quelles variables? De quel type? Quelles fonctions? \\
+\end{center}
+\vspace{0.5 cm}
+
+Pour chaque fonction on précise les paramètres en entrée et en sortie. \\
+
+}
+
+
+
+\frame[containsverbatim]{
+\frametitle{Minimum d'un tableau}
+
+
+On veut calculer le minimum d'un tableau et renvoyer son indice. 
+
+
+\begin{alertblock}{Algorithme}
+\begin{verbatim} 
+Input: un tableau L d'entiers
+Output: l'indice du plus petit entier dans la liste
+
+Au début on initialise m=0 (premier indice du tableau)
+Pour tout i allant de 1 à longueur(L)-1
+     Si L[j] < L[m] alors
+            m <- j 
+On renvoit m
+\end{verbatim}
+\end{alertblock}
+
+}
+
+
+
+\frame[containsverbatim]{
+\frametitle{Minimum d'un tableau}
+
+
+En Python cela donne: 
+
+
+\begin{exampleblock}{}
+\begin{verbatim} 
+def minimum(L):
+    m = 0
+    for j in range(1, len(L)):
+        if L[j] < L[m]:
+            m = j
+    return m
+\end{verbatim}
+\end{exampleblock}
+
+\vspace{0.5 cm}
+
+Et pour calculer le maximum? 
+
+}
+
+
+\begin{frame}[fragile]{Tri par séléction}
+
+
+
+\begin{exampleblock}{Algorithme}
+\begin{verbatim}
+Input: le tableau L
+Output: le tableau L trié
+
+Pour tout i allant de 0 à longueur(L)-1: 
+        On calcule l'indice m du plus petit élément dans L[i:]
+        On échange L[i] et L[m]
+\end{verbatim}
+\end{exampleblock}
+
+\vspace{0.5 cm}
+
+\pause
+
+\small{
+Exécution sur le tableau  $L = [5, 1, -8, 2, -4, 7]$ :
+
+\begin{itemize}
+\item $i=0$    minimum(L)=2 alors $L = [-8, 1, 5, 2, -4, 7]$ 
+\pause
+\item $i=1$    minimum(L[1:])=4 alors $L = [-8, -4, 5, 2, 1, 7]$ 
+\pause
+\item $i=2$    minimum(L[2:])=2 alors  $ L = [-8, -4, 1, 2, 5, 7]$ 
+\pause
+\item $i=3$    minimum(L[3:])=3 alors  $ L = [-8, -4, 1, 2, 5, 7]$ 
+\pause
+\item $i=4$    minimum(L[4:])=4 alors  $ L = [-8, -4, 1, 2, 5, 7]$ 
+%\item $i=5$    minimum(L[5:])=3 alors  $ L = [-8, -4, 1, 2, 5, 7]$ 
+\end{itemize}
+}
+\end{frame}
+
+\frame[containsverbatim]{
+\frametitle{Tri par sélection en Python}
+
+
+\medskip
+\begin{alertblock}{}
+\begin{verbatim}
+def tri_selection(L):
+    for i in range(len(L)):
+        m = minimum(L[i:])
+        L[i], L[m+i] = L[m+i], L[i] # échanger L[i] et L[m]
+    return L
+
+L = [5, 1, -8, 2, -4, 7]
+print(tri_selection(L))
+\end{verbatim}
+\end{alertblock}
+
+
+}
+
+
+
+\frame[containsverbatim]{
+\frametitle{Comment créer un tableau trié directement}
+
+Si le tableau est crée au fur et à mesure, on insère les éléments dans le bon ordre.
+
+
+\begin{alertblock}{Algorithme}
+\begin{verbatim}
+Input : un tableau Tab trié, un élément t
+Output:  le tableau trié Tab modifiée après rajout de t
+
+
+On initialise i<-0. 
+taille<-longueur(Tab)
+Tant que i<taille and t>l[i]
+       On avance dans la liste i=i+1
+On décale les éléments Tab[i], ..., Tab[taille-1] d'un cran     
+On place l'élément t à l'indice i dans tab (Tab[i]=t)
+On renvoie Tab       
+\end{verbatim}
+
+\end{alertblock}
+
+
+
+}
+
+
+
+\begin{frame}[fragile]{Comment créer un tableau trié directement}
+
+
+
+\begin{alertblock}{Algorithme}
+\begin{verbatim}
+On initialise i=0. 
+taille<-longueur(Tab)
+Tant que i<taille and t>l[i]
+      On avance dans la liste i=i+1
+On décale les éléments Tab[i], ..., Tab[taille-1] d'un cran     
+On place l'élément t à l'indice i dans Tab (Tab[i]=t)
+On renvoie Tab   
+\end{verbatim}
+
+\end{alertblock}
+
+\small{
+Exécution pour construire  un tableau trié à partie de la séquence  5, 1, -8, 2, -4, 7:
+
+\pause
+\begin{itemize}
+\item $i=0$  alors    $Tab=[5]$
+\pause
+\item $i=1$ alors     $Tab=[1,5]$
+\pause
+\item $i=2$ alors   $Tab=[-8,1,5]$
+\pause
+\item $i=3$ alors    $Tab=[-8,1,2,5]$
+\pause
+\item $i=4$ alors      $Tab=[-8,-4,1,2,5]$
+\pause
+\item $i=5$ alors     $Tab=[-8,-4,1,2,5,7]$ 
+\end{itemize}
+}
+
+\end{frame}
+
+
+
+
+\frame[containsverbatim]{
+\frametitle{Insertion dans une liste triée en Python}
+
+
+\begin{exampleblock}{}
+\begin{verbatim}
+def insertion(t,l):
+    i=0
+    taille=len(l)
+    while (i<taille and t>l[i]):
+        i+=1
+    if (i<taille):    
+        l[i+1:]=l[i:]
+        l[i]=t
+    else : 
+        l.append(t)
+
+
+
+insertion(5,l)
+insertion(10,l)
+print(l)
+\end{verbatim}
+\end{exampleblock}
+
+
+
+}
+
+
+
+\frame[containsverbatim]{
+\frametitle{Suite de Fibonnaci}
+
+
+La suite de Fibonacci est définie par la relation suivante :
+\[
+F_0 = 0, \quad F_1 = 1, \quad \text{et pour tout } n \ge 2, \quad F_n = F_{n-1} + F_{n-2}.
+\]
+
+%\begin{itemize}
+%\item[1.] Écrire une fonction \texttt{fibonacci} qui prend en entrée un entier $n$ et qui calcule le $n$-ième nombre de Fibonnaci. 
+%\item[2.] Écrire une fonction  \texttt{est\_fibonacci}  qui prend en entrée un entier $x$. La fonction devra  générer la suite jusqu’à dépasser la valeur \texttt{x}, puis vérifier si \texttt{x} y apparaît.
+%\end{itemize}
+
+On veut calculer toutes les éléments de la suite de Fibonnaci, jusqu'au $n$-ième. 
+
+\vspace{0.5 cm}
+
+
+\begin{alertblock}{Algorithme}
+\begin{verbatim}
+Input: n, valeurs initiales f0=0, f1=1
+Output : Le tableau Fib contenant les nombres de Fibonnaci
+
+
+Fib=[0,1]
+i=2
+Tant que  (i <=n) faire: 
+      On rajoute Fib[i]=Fib[i-2]+Fib[i-1] dans le tableau
+      i<-i+1
+Renvoyer Fib
+
+\end{verbatim}
+\end{alertblock}
+
+
+
+
+}
+
+
+\frame[containsverbatim]{
+\frametitle{Suite de Fibonacci}
+
+On veut calculer le $n$-ième élément de la suite de Fibonacci. \\
+
+On remarque qu'à chaque étape on a besoin de connaître que les deux valeurs précédentes. 
+
+\begin{alertblock}{Algorithme}
+\begin{verbatim}
+Input: n, valeurs initiales a=0, b=1
+Output : n-ième valeur dans la suite
+
+i=2
+Tant que  (i <= n) faire: 
+      a,b<- b, a+b
+      i<-i+1
+Renvoyer a
+
+\end{verbatim}
+\end{alertblock}
+
+}
+
+
+
+\frame[containsverbatim]{
+\frametitle{Suite de Fibonacci}
+
+
+
+\begin{exampleblock}{En Python}
+\begin{verbatim}
+def fibonacci(n):
+    if n < 0:
+       print("n doit être >= 0")
+    a, b = 0, 1
+    for _ in range(n):
+        a, b = b, a + b
+    return a
+
+\end{verbatim}
+\end{exampleblock}
+
+
+\vspace{0.5 cm}
+
+\textbf{\`A retenir:} Un programme correct n'est n'est pas juste un programme qui fonctionne mais aussi: 
+\begin{itemize}
+\item qui utilise le moins de mémoire possible
+\item qui résout le problème avec le moins d'opérations possibles!
+\end{itemize}
+
+
+}
+
+
+
+
+
+
+\end{document}

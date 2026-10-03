@@ -1,0 +1,620 @@
+\documentclass[10pt]{beamer}
+
+\usepackage{verbatim}
+%\usepackage[latin1]{inputenc}
+\usepackage{amssymb,amsmath,amsfonts,url}
+\usepackage{graphicx,color}
+\usepackage{pgf,pgfarrows,pgfnodes,pgfautomata,pgfheaps,pgfshade}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage{tikz}
+
+\usepackage[all]{xy}
+\usepackage{amstext}
+\usepackage{xspace}
+\usepackage{mdwtab}
+
+
+\mode<article> {
+  \usepackage{fullpage}
+  \usepackage{hyperref}
+  \setjobnamebeamerversion{advancedcourse.beamer}
+}
+
+
+
+
+
+\newcommand{\alertonce}[1]{\addtocounter{beamerpauses}{-1}\alert<+>{#1}}
+\newcommand{\alerttwice}[1]{\addtocounter{beamerpauses}{-1}\alert<+-+(1)>{#1}}
+
+%\newcommand{\subsubsubsection}[1]{\noindent\textbf{#1}}
+
+\newcommand{\cfbox}[1]{\begin{center}\fbox{#1}\end{center}}
+\newcommand{\cbox}[1]{\begin{center} #1 \end{center}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\graphicspath{{Graphics/}}
+%\input def_0.tex
+
+%\input{StyleSlides.tex}
+\mode<presentation> {
+    \usepackage{beamerthemeBoadilla}
+
+  %\beamertemplatetransparentcovereddynamic
+  \beamertemplateballitem
+}
+
+
+\title[IN100 Cours 7]{\textbf{Fondements informatiques I}\\
+Cours 7: Types et typage}
+
+\author[]{Sorina Ionica \texttt{sorina.ionica@uvsq.fr} \\~\\Sandrine Vial  \texttt{sandrine.vial@uvsq.fr} }
+
+
+\institute{}
+
+\date{}
+
+
+%\setbeamercolor{normal text}{fg=black}
+
+\begin{document}
+
+
+\frame{\titlepage}
+
+
+\frame[containsverbatim]{
+\frametitle{Les séquences}
+
+\textcolor{blue}{\`A retenir} : Une séquence est ensemble fini et ordonné d'éléments indicés de $0$ à $n-1$ (si la séquence comporte $n$ éléments).
+
+\begin{itemize}
+\item les listes : modifiables
+\item les tuples:  non-modifiables
+\item les chaînes de caractères : non-modifiables
+\item les "range" (intervalles)
+\end{itemize}
+
+\vspace{0.5 cm}
+
+\small{
+\begin{center}
+\begin{tabular}{ |c|c| } 
+ \hline
+\texttt{x in s} &  \texttt{True} si un élément de \texttt{s} est égal à \texttt{x}, sinon \texttt{False}  \\ 
+\texttt{x not in s} & \texttt{False} si un élément de \texttt{s} est égal à \texttt{x}, sinon \texttt{True} \\ 
+\texttt{s + t}  &  la concaténation de \texttt{s} et \texttt{t}  \\ 
+\texttt{s * n} ou \texttt{n * s} & ajouter \texttt{s} $n$ fois à lui-même \\
+\texttt{s[i]} & $i$-ème élément de \texttt{s} en commençant par 0 \\
+\texttt{s[i:j]} & tranche (slice) de \texttt{s} de \texttt{i} à \texttt{j-1} \\
+\texttt{s[i:j:k]} & tranche (slice) de \texttt{s} de \texttt{i} à \texttt{j-1} avec un pas de \texttt{k} \\
+\texttt{len(s)} &  longueur de \texttt{s} \\
+ \hline
+\end{tabular}
+\end{center}}
+
+
+}
+
+\frame[containsverbatim]{
+\frametitle{Les séquences}
+
+\textcolor{blue}{\`A retenir} : Les séquences sont des objets \textbf{itérables.}\\
+
+
+ On peut  boucler sur tous éléments grâce à une boucle \textbf{for}.
+
+
+
+\begin{exampleblock}{}
+\small{
+\begin{verbatim}
+ma_chaine = "Abracadabra"
+
+for carac in ma_chaine:
+  print(carac)
+  
+l = [55, 23,103,258]
+t = (128, 0, 255)
+
+for nb in l:
+    print(nb)
+
+for nb in t:
+    print(nb)
+ \end{verbatim}
+ }
+\end{exampleblock}
+
+
+}
+
+
+\begin{frame}[fragile]{Chaînes de caractères}
+
+
+\begin{itemize}
+%\item  Les chaînes de caractères peuvent être vues comme une sorte de listes particulières.
+\item 
+On peut notamment utiliser  les \emph{tranches}.
+\end{itemize}
+
+\begin{exampleblock}{}
+\small{
+\begin{verbatim}
+chaine = 'Abracadabra!'
+print(chaine[2:5])
+print(chaine[-1])
+\end{verbatim}
+}
+\end{exampleblock}
+
+\vspace{1 cm}
+
+\begin{itemize}
+\item  La différence principale entre les listes et les chaînes de caractères
+est que les chaînes de caractères sont des objets
+\textbf{non-modifiables} après création.
+\end{itemize}
+
+\begin{exampleblock}{}
+\small{
+\begin{verbatim}
+chaine[2] = 'd'  #TypeError: 'str' object does not support item assignment 
+liste_chaines=["Paris","londres", "Rome","Budapest"]
+liste_chaines[1][0]='L'
+\end{verbatim}
+}
+\end{exampleblock}
+
+\end{frame}
+
+\begin{frame}[fragile]{Les encodages}
+
+\small{En Python, un caractère est une chaîne de longueur 1. \\}
+
+\begin{block}{\small{L'encodage \textbf{ASCII} (American Standard Code for Information Interchange)}}
+\small{
+ ASCII représente 128 caractères anglais sous forme de nombres, chaque lettre étant associée à un numéro spécifique compris entre 0 et 127. 
+ \begin{itemize}
+ \item Par exemple, le code ASCII pour la lettre majuscule A est 65, pour la majuscule B c’est 66 etc. 
+ \end{itemize}
+ }
+\end{block}    
+    
+
+\small{
+\begin{itemize}
+\item La fonction \texttt{ord} convertit un caractère dans sa représentation numérique. 
+\item La fonction \texttt{chr} convertit un nombre dans un caractère ASCII. 
+\end{itemize}
+}
+
+\pause
+\vspace{0.5 cm}
+\small{
+En fait, Python repose sur l'encodage Unicode, qui comprend beaucoup plus de caractères: 
+\begin{exampleblock}{}
+\begin{verbatim}
+>>> chr(245)
+'õ'
+\end{verbatim}
+\end{exampleblock}
+}
+\end{frame}
+
+
+\begin{frame}[fragile]{Les ensembles}
+
+Un \textbf{ensemble (set)} est une collection d'éléments ne contenant
+pas de doublons.
+
+\vspace{0.3 cm}
+
+\textbf{Exemple:}  $A = \{1, 3, 10, 5, 2\}$ est un ensemble, tandis que
+$B = \{1, 10, 3, 3, 5, 2, 1\}$ n'en est pas un.
+
+\vspace{0.3 cm}
+
+Python permet de créer des objets de type \texttt{set}.
+
+\begin{itemize}
+\item Un \texttt{set} n'est ni \textbf{ordonné}, ni \textbf{modifiable}.
+\item On utilise des \texttt{\{\}} pour créer un nouveau \texttt{set}.
+\end{itemize}
+
+\vspace{0.3 cm}
+\begin{exampleblock}{}
+\small{
+\begin{verbatim}
+s = {1, 2, 3, 4, 5}
+print(s)
+print(type(s))
+\end{verbatim}
+}
+\end{exampleblock}
+\end{frame}
+
+
+
+
+\frame[containsverbatim]{
+\frametitle{Créer des ensembles}
+
+
+La fonction \texttt{set()} permet de générer un ensemble à partir de
+n'importe quel objet itérable.
+
+\vspace{0.5 cm}
+
+\begin{exampleblock}{}
+\begin{verbatim}
+# À partir d'une liste
+s = set([1, 3, 4, 5, 4, 3])
+
+# À partir de range()
+s = set(range(10))
+
+# À partir d'une chaîne de caractères
+s = set("Versailles")
+\end{verbatim}
+\end{exampleblock}
+
+}
+
+
+\frame[containsverbatim]{
+\frametitle{Accéder aux éléments d'un ensemble}
+
+\begin{itemize}
+\item  Un \texttt{set} est \textbf{itérable}. 
+ \item Un set n'est pas \textbf{ordonné}, donc il n'est pas une séquence. 
+ \begin{itemize}
+\item  Il est impossible de récupérer un élément par sa position.
+\end{itemize}
+\end{itemize}
+
+\begin{exampleblock}{}
+\begin{verbatim}
+s = {0, 5, 10, 15}
+for element in s :
+    print(element)
+    
+print(s[2])     #TypeError: 'set' object is not subscriptable
+\end{verbatim}
+\end{exampleblock}
+
+
+}
+  
+  
+\begin{frame}[fragile]{Doublons}  
+
+
+Les \texttt{sets} sont très pratiques pour \emph{supprimer des
+doublons}.
+
+\vspace{0.5 cm}
+
+\textbf{Exercice} : Écrire une fonction qui prend en paramètre une liste
+et renvoie une nouvelle liste, égale à celle passée en paramètre mais
+sans les doublons.
+
+\pause
+
+\vspace{0.5 cm}
+
+\begin{exampleblock}{}
+\begin{verbatim}
+def supprime_doublons(liste) :
+    return list(set(liste))
+
+nouvelle_liste = supprime_doublons([1, 3, 3, 5, 6, 7, 3, 1])
+print(nouvelle_liste)
+\end{verbatim}
+\end{exampleblock}
+
+
+\end{frame}
+
+
+
+
+\frame[containsverbatim]{
+\frametitle{Opérateurs sur les ensembles}
+
+
+Les ensembles permettent d'effectuer des opérations mathématiques telles
+que l'\emph{union}, l'\emph{intersection}, la \emph{différence} ou la
+\emph{différence symétrique}.
+
+\vspace{0.5 cm}
+
+\textbf{Exemple:} \(A = \{0, 1, 2, 3, 4\}\), \(B = \{2, 3, 4, 5\}\)
+
+\begin{itemize}
+\item
+  \(A\cup B := \{x \in A \text{ ou } x\in B\} = \{0, 1, 2, 3, 4, 5\}\)
+\item
+  \(A\cap B := \{x \in A \text{ et } x\in B\} = \{2, 3, 4\}\)
+\item
+  \(A\setminus B := \{x \in A \text{ et } x \not \in B\} = \{0, 1\}\)
+\item
+  \(A\triangle B := \{x \in A\cup B \text{ et } x \not \in A\cap B\} = \{0, 1, 5\}\)
+\end{itemize}
+
+}
+
+
+\frame[containsverbatim]{
+\frametitle{Opérateurs sur les ensembles}
+
+
+
+ \begin{itemize}
+\item
+  \texttt{a\ \textbar{}\ b}: \(A\cup B\)
+\item
+  \texttt{a\ \&\ b}: \(A\cap B\)
+\item
+  \texttt{a\ -\ b}: \(A \setminus B\)
+\item
+  \texttt{a\ \^{}\ b}: \(A\triangle B\)
+\end{itemize}
+
+
+\begin{exampleblock}{}
+\begin{verbatim}
+chaine1 = 'chaussette'
+chaine2 = 'archiduchesse'
+
+a = set(chaine1)
+b = set(chaine2)
+
+print(a | b)
+print(a & b)
+print(a - b)
+print(a ^ b)
+\end{verbatim}
+\end{exampleblock}
+
+
+
+
+}
+
+\frame[containsverbatim]{
+\frametitle{Dictionnaires}
+
+
+Un dictionnaire est une structure de données, dont les éléments sont
+accessibles grâce à une \emph{clé}.
+
+\vspace{0.5 cm}
+
+ \begin{itemize}
+\item Pour construire un dictionnaire, on utilise des accolades \texttt{\{\}}.
+\item Un élément d'un dictionnaire est un couple \texttt{cle:\ valeur}.
+\item On accède à une \textbf{valeur} du dictionnaire en utilisant la \textbf{clé}. 
+\end{itemize}
+
+
+\vspace{0.5 cm}
+\begin{exampleblock}{Exemple}
+\small{
+\begin{verbatim}
+dico_notes = {"Gaëtan" : 14, "Laure" : 9, "Kenza" : 17, "Gabriel" : 14}
+
+print(dico_notes["Laure"])
+\end{verbatim}
+}
+\end{exampleblock}
+
+}
+
+
+\frame[containsverbatim]{
+\frametitle{Dictionnaires}
+
+
+
+\begin{itemize}
+\item Dans un dictionnaire, les clés doivent être \emph{uniques}, mais pas
+  les valeurs.
+\item Les clés peuvent être n'importe quel objet non-modifiable (immutable) 
+\begin{itemize}
+\item Par example des \texttt{int} ou des \texttt{string}. 
+\end{itemize}
+\item Il est facile de créer et modifier un dictionnaire.
+\end{itemize}
+
+
+
+\vspace{0.5 cm}
+
+\begin{exampleblock}{}
+\small{
+\begin{verbatim}
+dico_notes = {"Gaëtan" : 14, "Laure" : 9, "Kenza" : 17, "Gabriel" : 14}
+
+# Changer une entrée existante
+dico_notes["Gaëtan"] = 12
+
+# Ajouter une nouvelle entrée
+
+dico_notes["Anne"] = 15
+print(dico_notes)
+
+# Créer un dictionnaire vide.
+dico_vide = {}
+\end{verbatim}
+}
+\end{exampleblock}
+
+
+}
+
+
+
+%# Utilisation du constructeur dict()
+%dico_restos = dict([("L'auberge du Goëllo", 22170), ("Café Menilmontant", 75011), ("Mamie Bigoude", 17000)])
+%print(dico_restos)
+
+
+\frame[containsverbatim]{
+\frametitle{Parcourir un dictionnaire}
+
+On peut vérifier facilement qu'une valeur est dans le dictionnaire si on connaît sa clé. 
+
+
+\begin{exampleblock}{}
+\begin{verbatim}
+cle="Kenza"
+if cle in dico_notes:
+     print(cle, "a obtenu la note", dico_notes[cle])     
+\end{verbatim}
+\end{exampleblock}
+
+
+\vspace{0.5 cm}
+
+Les clés et leurs valeurs peuvent être récupérées en même temps en
+  utilisant la méthode \texttt{items()}. 
+
+\vspace{0.5 cm}
+
+\begin{exampleblock}{}
+\small{
+\begin{verbatim}
+dico_notes = {"Gaëtan" : 14, "Laure" : 9, "Kenza" : 17, "Gabriel" : 14}
+
+for i in dico_notes.items():
+    print(i)
+\end{verbatim}
+}
+\end{exampleblock}
+
+
+}
+
+
+\begin{frame}[fragile]{Typage en Python}
+
+
+\textbf{Rappel} : En Python le typage est dynamique. 
+
+\begin{exampleblock}{}
+\begin{verbatim}
+a=5
+b=7
+print(a+b)  # int + int
+x="salut"
+y="hello"
+print("salut" + "hello") # str + str
+print(a + y)            #int + str   Erreur!
+
+# Problème de type pour l'opération /
+"hello" / 2
+\end{verbatim}
+\end{exampleblock}
+\end{frame}
+
+
+\begin{frame}[fragile]{Annotation de type}
+
+
+
+\begin{itemize}
+\item Depuis la version 3.5 on peut ajouter \textbf{des annotations de type} aux variables et fonctions. 
+\item Ces annotations  permettent d'apporter plus de structure aux programmes pour éviter certains bugs. 
+\item Ces annotations sont facultatives et vous pouvez mélanger du code annoté ou non. 
+\end{itemize}
+
+\vspace{0.5 cm}
+
+
+\begin{exampleblock}{}
+\begin{verbatim}
+a: int = 5
+b: int =7
+print(a+b)  # int + int
+x: str="salut"
+y: str = "hello"
+
+y=6
+print(type(y))
+
+liste: list[int] = [1, 2, 3]
+\end{verbatim}
+\end{exampleblock}
+
+\end{frame}
+
+
+\begin{frame}[fragile]{Annotation de type pour les fonctions}
+
+
+
+On peut spécifier le type des arguments. 
+ \begin{itemize}
+ \item  Les annotations \texttt{a: int}, \texttt{b:int} indiquent que les paramètres doivent être des entiers. 
+ \end{itemize}
+
+\begin{exampleblock}{Exemple}
+\small{
+\begin{verbatim}
+def mon_print(a : int, b: int):     
+	       print(a + b)
+      
+mon_print(5,7)
+mon_print("salut","hello")
+mon_print(5,"salut")
+\end{verbatim}
+}
+\end{exampleblock}
+
+
+\begin{itemize}
+\item Les informations de type ne changent rien à l'exécution. 
+\item  Il y a une erreur de type seulement  quand on applique une fonction à un élément et qu'il n'est pas du type attendu par la fonction.
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}[fragile]{Annotation de type}
+
+
+
+On peut spécifier le type de retour. 
+\begin{itemize}   
+\item    L'annotation  \texttt{-> int} indique que la fonction renvoie un entier.
+ \end{itemize}
+
+
+\begin{exampleblock}{Exemple}
+\small{
+\begin{verbatim}
+def somme(a: int, b: int) -> int:
+	      return a + b
+
+
+print(somme(5,7))
+print(somme("salut","hello"))	
+\end{verbatim}
+}
+\end{exampleblock}
+
+\begin{itemize}
+\item Pour détecter les erreurs, il faut utiliser des outils comme \texttt{mypy}. 
+\end{itemize}
+
+
+
+\end{frame}
+
+\end{document}
+
