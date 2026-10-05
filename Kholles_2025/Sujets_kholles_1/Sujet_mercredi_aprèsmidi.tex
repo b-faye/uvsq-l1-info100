@@ -1,0 +1,338 @@
+\documentclass[a4paper,11pt]{article}
+\def\email#1{{\tt#1}}
+
+\def\N{\mbox{\rm{I}\hspace{-.15em}\rm{N}}}
+\def\Z{\mbox{\rm{Z}\hspace{-.28em}\rm{Z}}}
+\def\RR{\mbox{\rm{I}\hspace{-.15em}\rm{R}}}
+\def\C{\mbox{\rm{l}\hspace{-.50em}\rm{C}}}
+\def\Q{\mbox{\rm{l}\hspace{-.50em}\rm{Q}}}
+\def\F{\mbox{\rm{I}\hspace{-.20em}\rm{F}}}
+
+\usepackage{amssymb,amsmath}
+\usepackage{url}
+\usepackage{fullpage}
+\begin{document}
+
+\newtheorem{theo}{Theorem}
+\newtheorem{coro}{Corollary}[theo]
+\newtheorem{lemme}{Lemma}
+\renewcommand{\thecoro}{\thetheo.\arabic{coro}}
+
+
+
+\parindent=0cm
+
+
+\section*{\center IN100 Initiation au Python\\
+Contrôle continu 2}
+
+\vspace{1 cm}
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{10cm}|p{3cm}|p{2cm}|}
+\hline
+\textbf{Étudiant :} & \textbf{Heure Début }  & \textbf{Note (/5) }  \\
+& & \\
+\hline
+\textbf{Correcteur :} & \textbf{Heure Fin } & \\
+& & \\
+\hline
+
+\hline
+\end{tabular}
+\end{table}
+
+
+\subsection*{Consignes:} Vous avez 20 minutes pour coder la solution. Seules les types et les instructions vues en cours sont autorisées. Tout usage d'une fonction 
+venant d'une bibliothèque qui n'a pas été vue en cours ne sera pris en compte. 
+
+
+\subsection*{Sujet}
+
+Un billet de loterie est donné par 5 nombres entiers compris entre 1 et 54. 
+
+
+\begin{itemize}
+\item[1.]  En utilisant les notions vues en cours, donnez une fonction permettant de générer un billet quelconque pour un joueur. 
+Nous rappelons que la fonction \texttt{random.randint(a,b)} permet de générer des nombres aléatoires entre \texttt{a} et \texttt{b}. 
+
+Exemple d'usage: 
+\begin{verbatim}
+import random
+
+print(random.randint(3,9))
+
+\end{verbatim}
+
+\item[2.] Choisissez un billet gagnant pour votre loterie. \'Ecrire une fonction permettant de vérifier, pour un billet quelconque, si celui-ci est gagnant. 
+\end{itemize}
+
+
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{15cm}|}
+\hline
+\textbf{Remarques étudiant :}    \\
+ \\
+ \\
+\hline
+\textbf{Remarques correcteur :}  \\
+ \\
+ \\
+\hline
+\end{tabular}
+\end{table}
+
+\newpage
+
+
+\section*{\center IN100 Initiation au Python\\
+Contrôle continu 2}
+
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{10cm}|p{3cm}|p{2cm}|}
+\hline
+\textbf{Étudiant :} & \textbf{Heure Début }  & \textbf{Note (/5) }  \\
+& & \\
+\hline
+\textbf{Correcteur :} & \textbf{Heure Fin } & \\
+& & \\
+\hline
+
+\hline
+\end{tabular}
+\end{table}
+
+\subsection*{Consignes:} Vous avez 20 minutes pour coder la solution. Seules les types et les instructions vues en cours sont autorisées. Tout usage d'une fonction 
+venant d'une bibliothèque qui n'a pas été vue en cours ne sera pris en compte. 
+
+
+\subsection*{Sujet:}
+
+
+\begin{itemize}
+\item[1.] \'Ecrire une fonction qui calcule le mot le plus long dans une chaîne de caractères et le renvoie. 
+Par exemple, sur la chaîne suivante 
+\begin{verbatim}
+chaine="Paris e beau"
+\end{verbatim}
+la fonction renverra \texttt{"Paris"}.  On suppose que les chaînes contiennent que les lettres de l'alphabet et le caractère \texttt{" "}. 
+
+\item[2.] On  donne une liste contenant que des chaînes de caractères. 
+\'Ecrire une fonction qui à partir de la liste, calcule le mot le plus long dans ces chaînes et renvoie l'indice dans la liste de la chaîne  contenant ce mot ainsi que le mot. 
+\end{itemize}
+
+Par exemple sur la liste:
+\begin{verbatim}
+
+capitales=["Paris e beau","A Madrid il fait chaud", "Londres est pluvieux", 
+"Bruxelles est magnifique", "A Prague il fait froid"]
+
+\end{verbatim}
+votre fonction devra renvoyer \texttt{(3,magnifique)}. 
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{15cm}|}
+\hline
+\textbf{Remarques étudiant :}    \\
+ \\
+ \\
+\hline
+\textbf{Remarques correcteur :}  \\
+ \\
+ \\
+\hline
+\end{tabular}
+\end{table}
+
+
+\newpage
+
+
+\section*{\center IN100 Initiation au Python\\
+Contrôle continu 2}
+
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{10cm}|p{3cm}|p{2cm}|}
+\hline
+\textbf{Étudiant :} & \textbf{Heure Début }  & \textbf{Note (/5) }  \\
+& & \\
+\hline
+\textbf{Correcteur :} & \textbf{Heure Fin } & \\
+& & \\
+\hline
+
+\hline
+\end{tabular}
+\end{table}
+
+\subsection*{Consignes:} Vous avez 20 minutes pour coder la solution. Seules les types et les instructions vues en cours sont autorisées. Tout usage d'une fonction 
+venant d'une bibliothèque qui n'a pas été vue en cours ne sera pris en compte. 
+
+\subsection*{Sujet:}
+
+Un horaire de train La Défense - Montreuil est donné sous forme d'un tuple indiquant l'heure de départ et l'heure d'arrivée. Exemple \texttt{(14h34, 14h47)}. 
+
+\begin{itemize}
+\item[1.] \'Ecrire une fonction qui prend en entrée un tuple indiquant les horaires d'un train et retourne la durée du trajet en minutes. 
+\item[2.] Bidule doit arriver à temps à son cours qui commence à une heure donnée. \'Ecrire une fonction \texttt{calcul\_depart} qui prend en argument la liste des horaires 
+des trains  de la journée et l'heure de début du cours et qui renvoie la liste des trains possibles pour que Bidule  arrive à l'heure en cours. 
+
+Vous pouvez tester votre fonction sur la liste suivante: 
+\begin{verbatim}
+horaires=[(9h50,10h12),(11h36,12h00), (11h47,12h13),(13h47, 14h12)]
+calcul_depart(horaires, '13h50')
+\end{verbatim}
+\end{itemize}
+
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{15cm}|}
+\hline
+\textbf{Remarques étudiant :}    \\
+ \\
+ \\
+\hline
+\textbf{Remarques correcteur :}  \\
+ \\
+ \\
+\hline
+\end{tabular}
+\end{table}
+
+
+\newpage
+
+\section*{\center IN100 Initiation au Python\\
+Contrôle continu 2}
+
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{10cm}|p{3cm}|p{2cm}|}
+\hline
+\textbf{Étudiant :} & \textbf{Heure Début }  & \textbf{Note (/5) }  \\
+& & \\
+\hline
+\textbf{Correcteur :} & \textbf{Heure Fin } & \\
+& & \\
+\hline
+
+\hline
+\end{tabular}
+\end{table}
+
+\subsection*{Consignes:} Vous avez 20 minutes pour coder la solution. Seules les types et les instructions vues en cours sont autorisées. Tout usage d'une fonction 
+venant d'une bibliothèque qui n'a pas été vue en cours ne sera pris en compte. 
+
+\subsection*{Sujet:}
+
+On souhaite écrire un programme qui analyse une liste de prénoms d’élèves d’une classe.
+
+\begin{itemize}
+\item[1.] Écrire une fonction \texttt{saisir\_prenoms} qui :
+
+\begin{itemize}
+\item Demande à l’utilisateur de saisir des prénoms un par un,
+\item S’arrête lorsque l’utilisateur saisit une chaîne vide (""),
+\item Retourne la liste des prénoms saisis.
+\end{itemize}
+\item[2.]  \'Ecrire une fonction \texttt{prenom\_le\_plus\_frequent} qui prend en argument la liste de prenoms
+et retourne le prénom qui apparaît le plus souvent dans la liste.
+\end{itemize}
+\vspace{1 cm}
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{15cm}|}
+\hline
+\textbf{Remarques étudiant :}    \\
+ \\
+ \\
+\hline
+\textbf{Remarques correcteur :}  \\
+ \\
+ \\
+\hline
+\end{tabular}
+\end{table}
+
+\newpage
+
+\section*{\center IN100 Initiation au Python\\
+Contrôle continu 2}
+
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{10cm}|p{3cm}|p{2cm}|}
+\hline
+\textbf{Étudiant :} & \textbf{Heure Début }  & \textbf{Note (/5) }  \\
+& & \\
+\hline
+\textbf{Correcteur :} & \textbf{Heure Fin } & \\
+& & \\
+\hline
+
+\hline
+\end{tabular}
+\end{table}
+
+\subsection*{Consignes:} Vous avez 20 minutes pour coder la solution. Seules les types et les instructions vues en cours sont autorisées. Tout usage d'une fonction 
+venant d'une bibliothèque qui n'a pas été vue en cours ne sera pris en compte. 
+
+
+\subsection*{Sujet:}
+
+On souhaite écrire un programme qui aide à analyser les ventes journalières d’un petit magasin.
+
+\begin{itemize}
+\item[1.] Écrire une fonction \texttt{saisir\_ventes} qui :
+\begin{itemize}
+\item Demande à l’utilisateur de saisir les montants des ventes (en euros) d’une journée.
+\item Continue la saisie jusqu’à ce que l’utilisateur entre 0.
+\item Retourne la liste des montants saisis.
+\end{itemize}
+\item[2.]  \'Ecrire une fonction \texttt{total\_ventes} qui  prend en entrée la liste des montants et retourne la somme de toutes les ventes. 
+\item[3.] \'Ecrire une fonction \texttt{superieures\_a\_moyenne} qui prend en entrée la liste de montants et  retourne la liste des ventes supérieures à la moyenne. 
+\end{itemize}
+
+\vspace*{0.2 cm}
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{15cm}|}
+\hline
+\textbf{Remarques étudiant :}    \\
+ \\
+ \\
+\hline
+\textbf{Remarques correcteur :}  \\
+ \\
+ \\
+\hline
+\end{tabular}
+\end{table}
+
+
+
+
+
+\end{document}

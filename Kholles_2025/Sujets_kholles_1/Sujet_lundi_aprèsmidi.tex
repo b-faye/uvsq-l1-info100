@@ -1,0 +1,339 @@
+\documentclass[a4paper,11pt]{article}
+\def\email#1{{\tt#1}}
+
+\def\N{\mbox{\rm{I}\hspace{-.15em}\rm{N}}}
+\def\Z{\mbox{\rm{Z}\hspace{-.28em}\rm{Z}}}
+\def\RR{\mbox{\rm{I}\hspace{-.15em}\rm{R}}}
+\def\C{\mbox{\rm{l}\hspace{-.50em}\rm{C}}}
+\def\Q{\mbox{\rm{l}\hspace{-.50em}\rm{Q}}}
+\def\F{\mbox{\rm{I}\hspace{-.20em}\rm{F}}}
+
+\usepackage{amssymb,amsmath}
+\usepackage{url}
+\usepackage{fullpage}
+\begin{document}
+
+\newtheorem{theo}{Theorem}
+\newtheorem{coro}{Corollary}[theo]
+\newtheorem{lemme}{Lemma}
+\renewcommand{\thecoro}{\thetheo.\arabic{coro}}
+
+
+
+\parindent=0cm
+
+
+\section*{\center IN100 Initiation au Python\\
+Contrôle continu 2}
+
+\vspace{1 cm}
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{10cm}|p{3cm}|p{2cm}|}
+\hline
+\textbf{Étudiant :} & \textbf{Heure Début }  & \textbf{Note (/5) }  \\
+& & \\
+\hline
+\textbf{Correcteur :} & \textbf{Heure Fin } & \\
+& & \\
+\hline
+
+\hline
+\end{tabular}
+\end{table}
+
+
+\subsection*{Consignes:} Vous avez 20 minutes pour coder la solution. Seules les types et les instructions vues en cours sont autorisées. Toute usage d'une fonction 
+venant d'une bibliothéque qui n'a pas été vue en cours ne sera pris en compte. 
+
+
+\subsection*{Sujet}
+
+Une grille de mini-Sudoku 4 × 4 est représentée comme une liste de 4 sous-listes de 4
+entiers compris entre 1 et 4. Chaque sous-liste représente une ligne de la grille. 
+La grille n'est pas résolue: les cases à remplir contiennent le caractère 'X'. 
+
+
+\begin{itemize}
+\item[1.] Écrire une fonction
+\texttt{valider\_ligne} qui prend en paramètre une grille de mini-Sudoku et un entier et vérifie si cet entier apparaît exactement 
+une seule fois dans la ligne. La fonction renvoie \texttt{True} si la ligne est valide, \texttt{False} sinon. Si l'entier n'apparaît pas dans la ligne, on 
+considère que celle-ci est valide. 
+
+\item[2.] Écrire une fonction
+\texttt{valider\_colonne} qui prend en paramètre une grille de mini-Sudoku et un entier et vérifie si cet entier apparaît exactement
+une seule fois dans la colonne.  La fonction renvoie \texttt{True} si la colonne est valide, \texttt{False} sinon. Si l'entier n'apparaît pas dans la colonne, on 
+considère que celle-ci est valide. 
+
+\item[3.] Faites ensuite un programme qui prend en entrée une grille de mini-Sudoku et qui
+retourne True si toutes les ligne et les colonnes sont valides. 
+
+\end{itemize}
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{15cm}|}
+\hline
+\textbf{Remarques étudiant :}    \\
+ \\
+ \\
+\hline
+\textbf{Remarques correcteur :}  \\
+ \\
+ \\
+\hline
+\end{tabular}
+\end{table}
+
+\newpage
+
+
+\section*{\center IN100 Initiation au Python\\
+Contrôle continu 2}
+
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{10cm}|p{3cm}|p{2cm}|}
+\hline
+\textbf{Étudiant :} & \textbf{Heure Début }  & \textbf{Note (/5) }  \\
+& & \\
+\hline
+\textbf{Correcteur :} & \textbf{Heure Fin } & \\
+& & \\
+\hline
+
+\hline
+\end{tabular}
+\end{table}
+
+\subsection*{Consignes:} Vous avez 20 minutes pour coder la solution. Seules les types et les instructions vues en cours sont autorisées. Toute usage d'une fonction 
+venant d'une bibliothéque qui n'a pas été vue en cours ne sera pris en compte. 
+
+
+\subsection*{Sujet}
+
+On lance trois dés à six faces et on note leurs résultats $a,b,c$. On les ordonne du plus petit au plus grand de sorte à avoir $a \leq  b \leq c$. Les figures que l'on peut obtenir sont:
+\begin{itemize}
+\item deux dés identiques et un autre différent: ex 3,3,5 ou 1,4,4: PAIRE
+\item trois dés identiques (ex 3,3,3 ou 5,5,5): TRIPLETTE
+\item valeurs qui se suivent (ex 2,3,4): SUITE
+\item rien: NADA
+\end{itemize}
+
+Dans chacun des 4 cas, si au moins un dé est un 6, on met l'adjectif SUPER devant la figure. Par exemple, 3,3,6 et 1,6,6 sont SUPER PAIRE, et 6,6,6 une SUPER TRIPLETTE et 1,3,6 SUPER NADA.
+Le but est d'écrire un programme qui simule le comportement décrit précédemment.
+\begin{itemize}
+\item[1.] Créer une fonction \texttt{trier} qui prend en paramètres 3 entiers, les trie puis renvoie un tuple avec ces 3 valeurs. Aucune fonction standard ne doit être utilisée (sort, max, min...)
+\item[2.] Créer une fonction \texttt{quel\_triplet} qui prend en paramètre un tuple de 3 valeurs, trié, et qui affiche le texte correspondant au triplet de valeur.
+\end{itemize}
+
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{15cm}|}
+\hline
+\textbf{Remarques étudiant :}    \\
+ \\
+ \\
+\hline
+\textbf{Remarques correcteur :}  \\
+ \\
+ \\
+\hline
+\end{tabular}
+\end{table}
+
+
+\newpage
+
+
+\section*{\center IN100 Initiation au Python\\
+Contrôle continu 2}
+
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{10cm}|p{3cm}|p{2cm}|}
+\hline
+\textbf{Étudiant :} & \textbf{Heure Début }  & \textbf{Note (/5) }  \\
+& & \\
+\hline
+\textbf{Correcteur :} & \textbf{Heure Fin } & \\
+& & \\
+\hline
+
+\hline
+\end{tabular}
+\end{table}
+
+\subsection*{Consignes:} Vous avez 20 minutes pour coder la solution. Seules les types et les instructions vues en cours sont autorisées. Toute usage d'une fonction 
+venant d'une bibliothéque qui n'a pas été vue en cours ne sera pris en compte. 
+
+\subsection*{Sujet:}
+
+\begin{itemize}
+\item[1.] \'Ecrire une fonction \texttt{consecutifs}, qui prend en paramètre une liste d’entiers et qui renvoie \texttt{True} s’il existe deux valeurs consécutives à deux indices consécutifs, \texttt{False} sinon.
+Vous ferez attention au listes vides ou d’un seul élément.
+
+Par exemple :
+\begin{verbatim}
+	consecutifs([1, 3, 5, 3, 2]) # renvoie False
+	consecutifs([1, 3, 5, 3, 4]) # renvoie True
+\end{verbatim}
+
+\item[2.] \'Ecrire une fonction \texttt{couple\_consecutifs}, qui prend en paramètre une liste d’entiers et qui renvoie sous forme de liste de \texttt{Tuple} tous les couples de valeurs consécutives à deux indices consécutifs. Si aucun couples de valeurs consécutives n’est trouvé, la fonction doit renvoyer une liste vide.
+Par exemple :
+\begin{verbatim}
+	couple_consecutifs([1, 3, 5, 3, 2]) # renvoie []
+	couple_consecutifs([1, 3, 5, 3, 4, 5]) # renvoie [(3,4), (4,5)]
+\end{verbatim}
+
+\end{itemize}
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{15cm}|}
+\hline
+\textbf{Remarques étudiant :}    \\
+ \\
+ \\
+\hline
+\textbf{Remarques correcteur :}  \\
+ \\
+ \\
+\hline
+\end{tabular}
+\end{table}
+
+
+\newpage
+
+\section*{\center IN100 Initiation au Python\\
+Contrôle continu 2}
+
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{10cm}|p{3cm}|p{2cm}|}
+\hline
+\textbf{Étudiant :} & \textbf{Heure Début }  & \textbf{Note (/5) }  \\
+& & \\
+\hline
+\textbf{Correcteur :} & \textbf{Heure Fin } & \\
+& & \\
+\hline
+
+\hline
+\end{tabular}
+\end{table}
+
+\subsection*{Consignes:} Vous avez 20 minutes pour coder la solution. Seules les types et les instructions vues en cours sont autorisées. Toute usage d'une fonction 
+venant d'une bibliothéque qui n'a pas été vue en cours ne sera pris en compte. 
+
+
+
+\subsection*{Sujet}
+
+
+
+Ecrire une fonction \texttt{outliers} qui prend en paramètres une liste \texttt{mesures} d’entiers et qui :
+\begin{itemize}
+\item[1.] Calcule la moyenne de tous les nombres de la liste \texttt{mesures}.
+\item[2.] Remplace dans \texttt{mesures} toutes les valeurs en dessous de la moyenne par la moyenne.
+\item[3.] Renvoie la liste des valeurs en dessous de la moyenne ainsi que la liste \texttt{mesures}. 
+\end{itemize}
+Toutes les fonctions standard (\texttt{sum}, \texttt{len}..) à part la fonction \texttt{range}, sont interdites.
+
+\vspace{1 cm}
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{15cm}|}
+\hline
+\textbf{Remarques étudiant :}    \\
+ \\
+ \\
+\hline
+\textbf{Remarques correcteur :}  \\
+ \\
+ \\
+\hline
+\end{tabular}
+\end{table}
+
+\newpage
+
+\section*{\center IN100 Initiation au Python\\
+Contrôle continu 2}
+
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{10cm}|p{3cm}|p{2cm}|}
+\hline
+\textbf{Étudiant :} & \textbf{Heure Début }  & \textbf{Note (/5) }  \\
+& & \\
+\hline
+\textbf{Correcteur :} & \textbf{Heure Fin } & \\
+& & \\
+\hline
+
+\hline
+\end{tabular}
+\end{table}
+\vspace{-0.3 cm}
+\subsection*{Consignes:} Vous avez 20 minutes pour coder la solution. Seules les types et les instructions vues en cours sont autorisées. Toute usage d'une fonction 
+venant d'une bibliothéque qui n'a pas été vue en cours ne sera pris en compte. 
+
+
+\subsection*{Sujet}
+
+Une file est une structure de données basée sur le principe que les premiers éléments ajoutés dans la file seront les premiers à en être retirés.
+Dans cette exercice on utilisera une file d'entiers pour traiter des transactions bancaires. 
+\begin{itemize}
+\item[1.] Écrire une fonction qui prend en argument la file et un entier, et qui rajoute cet élément dans la file, donc en début de liste. 
+Vous utiliserez cette fonction pour rajouter dans votre file les transactions suivantes: 
+\begin{verbatim}
+150
+50
+-225
+25
+50
+\end{verbatim}
+\item[2.]  Écrire une fonction qui prend en argument la file et qui enlève le dernier élément de la liste et renvoie cet élément. 
+\item[3.]  Écrire une fonction qui permet de traiter une file de  transactions sur un compte bancaire. Les entiers positifs seront ajoutés au montant du compte, les entiers négatifs seront déduits sur le compte. 
+La fonction prendra en argument une  file de transactions  et un entier représentant le montant du compte bancaire de l'utilisateur. Elle devra traiter toutes les transactions dans la file (jusqu'à celle-ci sera vide). 
+\end{itemize}
+
+
+\vspace*{-0.2 cm}
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{15cm}|}
+\hline
+\textbf{Remarques étudiant :}    \\
+ \\
+\hline
+\textbf{Remarques correcteur :}  \\
+ \\
+\hline
+\end{tabular}
+\end{table}
+
+
+
+
+
+\end{document}

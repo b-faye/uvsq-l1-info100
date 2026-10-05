@@ -1,0 +1,381 @@
+\documentclass[a4paper,11pt]{article}
+\def\email#1{{\tt#1}}
+
+\def\N{\mbox{\rm{I}\hspace{-.15em}\rm{N}}}
+\def\Z{\mbox{\rm{Z}\hspace{-.28em}\rm{Z}}}
+\def\RR{\mbox{\rm{I}\hspace{-.15em}\rm{R}}}
+\def\C{\mbox{\rm{l}\hspace{-.50em}\rm{C}}}
+\def\Q{\mbox{\rm{l}\hspace{-.50em}\rm{Q}}}
+\def\F{\mbox{\rm{I}\hspace{-.20em}\rm{F}}}
+
+\usepackage{amssymb,amsmath}
+\usepackage{url}
+\usepackage{fullpage}
+\begin{document}
+
+\newtheorem{theo}{Theorem}
+\newtheorem{coro}{Corollary}[theo]
+\newtheorem{lemme}{Lemma}
+\renewcommand{\thecoro}{\thetheo.\arabic{coro}}
+
+
+
+\parindent=0cm
+
+
+\section*{\center IN100 Initiation au Python\\
+Contrôle continu 2}
+
+\vspace{-0.3 cm}
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{10cm}|p{3cm}|p{2cm}|}
+\hline
+\textbf{Étudiant :} & \textbf{Heure Début }  & \textbf{Note (/5) }  \\
+& & \\
+\hline
+\textbf{Correcteur :} & \textbf{Heure Fin } & \\
+& & \\
+\hline
+
+\hline
+\end{tabular}
+\end{table}
+\vspace{-0.4 cm}
+\paragraph*{Consignes:} Vous avez 20 minutes pour coder la solution. Seules les types et les instructions vues en cours sont autorisées. Tout usage d'une fonction 
+venant d'une bibliothèque qui n'a pas été vue en cours ne sera pris en compte. 
+
+\vspace{-0.2 cm}
+\vspace{-0.2 cm}
+\paragraph*{Sujet:}
+
+Les résultats successifs d’une équipe sportive au cours d’une saison sont représentés par une liste d’entiers, où chaque entier correspond au nombre de points marqués par l’équipe lors d’un match, dans l’ordre chronologique.
+Dans cette liste, certaines portions correspondent à des périodes où l’équipe s’améliore : chaque match présente un score strictement supérieur à celui du match précédent.
+On appelle une telle portion \textbf{une série de progression}.
+
+\vspace{0.2 cm}
+
+\textbf{Exemple}:  Dans la liste  \texttt{[10,12,15,9,11,14,18,7]} plusieurs séries de progression apparaissent, parmi lesquelles :
+\begin{itemize}
+\item \texttt{[10, 12, 15]} qui commence au premier match, de longueur 3 ;
+\item \texttt{[9, 11, 14, 18]} qui commence au 4\textsuperscript{e} match, de longueur 4.
+\end{itemize}
+
+La série de progression la plus longue observée dans cette liste a donc une longueur égale à 4.
+
+\vspace{0.2 cm}
+\textbf{Questions}: 
+
+\begin{enumerate}
+\item[1.] Écrire une fonction qui, à partir d’une liste d’entiers représentant les scores et d’une position de départ, calcule la longueur de la série strictement croissante qui débute à cette position.
+\item[2.] Écrire une fonction qui, à partir d’une liste d’entiers représentant les scores de la saison, détermine la longueur maximale d’une série de progression présente dans cette liste.
+\end{enumerate}
+
+
+\vspace{-0.4 cm}
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{15cm}|}
+\hline
+\textbf{Remarques étudiant :}    \\
+ \\
+\hline
+\textbf{Remarques correcteur :}  \\
+ \\
+\hline
+\end{tabular}
+\end{table}
+
+\newpage
+
+
+\section*{\center IN100 Initiation au Python\\
+Contrôle continu 2}
+
+\vspace{-0.3 cm}
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{10cm}|p{3cm}|p{2cm}|}
+\hline
+\textbf{Étudiant :} & \textbf{Heure Début }  & \textbf{Note (/5) }  \\
+& & \\
+\hline
+\textbf{Correcteur :} & \textbf{Heure Fin } & \\
+& & \\
+\hline
+
+\hline
+\end{tabular}
+\end{table}
+\vspace{-0.4 cm}
+\paragraph*{Consignes:} Vous avez 20 minutes pour coder la solution. Seules les types et les instructions vues en cours sont autorisées. Tout usage d'une fonction 
+venant d'une bibliothèque qui n'a pas été vue en cours ne sera pris en compte. 
+
+
+
+
+
+\vspace{-0.2 cm}
+\vspace{-0.2 cm}
+\paragraph*{Sujet:}
+
+Un entier $d$ s'appelle diviseur propre d'un entier $N$ si la division de $N$ par $d$ est exacte et $d \ne N$. 
+
+\vspace{0.5 cm}
+
+\textbf{Exemple :}  
+Diviseurs propres de 6 : 1,2,3,6
+
+
+\vspace{0.5 cm}
+\textbf{Questions}: 
+
+\begin{itemize}
+    \item[1.]  \'Ecrire une fonction qui prend en argument un entier $n$ et qui renvoie la liste de tous ses diviseurs. 
+    \item[2.]  \'Ecrire une fonction qui prend en argument un entier $N$ et renvoie un dictionnaire contenant les listes de diviseurs propres pour tous les entiers $n  <N$. 
+    
+\end{itemize}
+
+
+\vspace{0.5 cm}
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{15cm}|}
+\hline
+\textbf{Remarques étudiant :}    \\
+ \\
+\hline
+\textbf{Remarques correcteur :}  \\
+ \\
+\hline
+\end{tabular}
+\end{table}
+
+
+\newpage
+
+
+\section*{\center IN100 Initiation au Python\\
+Contrôle continu 2}
+
+\vspace{0.5 cm}
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{10cm}|p{3cm}|p{2cm}|}
+\hline
+\textbf{Étudiant :} & \textbf{Heure Début }  & \textbf{Note (/5) }  \\
+& & \\
+\hline
+\textbf{Correcteur :} & \textbf{Heure Fin } & \\
+& & \\
+\hline
+
+\hline
+\end{tabular}
+\end{table}
+\vspace{-0.4 cm}
+\paragraph*{Consignes:} Vous avez 20 minutes pour coder la solution. Seules les types et les instructions vues en cours sont autorisées. Tout usage d'une fonction 
+venant d'une bibliothèque qui n'a pas été vue en cours ne sera pris en compte. 
+
+
+\vspace{-0.2 cm}
+\paragraph*{Sujet:}
+
+
+Une matrice de taille $m \times n$ est représentée sous la forme d'une liste de $m$ sous-listes, chacune contenant $n$ nombres entiers. Chaque sous-liste représente une ligne de la matrice.
+
+\begin{enumerate}
+\item \'Ecrivez une fonction \texttt{total\_colonne}  qui prend en entrée une matrice \texttt{mat}  et un numéro de colonne \texttt{c} et qui renvoie la somme des éléments dans la matrice sur la colonne \texttt{c}. 
+\item Écrivez une fonction \texttt{extension\_matrice} qui prend une matrice \texttt{mat} en paramètre et qui ajoute une nouvelle ligne à celle-ci dont chaque élément est la somme des éléments présents dans la même colonne.
+	Écrire également les instructions pour appeler cette fonction sur l'exemple ci dessous et afficher le résultat.
+\end{enumerate}	
+\vspace{0.5 cm}
+
+\textbf{Exemple :}  
+	
+	
+	\noindent Si la matrice
+	\begin{math}
+		\begin{pmatrix}
+			1 & 3 & 2\\
+			6 & 0 & 4\\
+			5 & 2 & 8
+		\end{pmatrix}
+	\end{math}
+	est donnée en paramètre, votre fonction \texttt{extension\_matrice} doit retourner la matrice
+	\begin{math}
+		\begin{pmatrix}
+			1 & 3 & 2 \\
+			6 & 0 & 4 \\
+			5 & 2 & 8 \\
+			12 & 5 & 14
+		\end{pmatrix}.
+	\end{math}
+
+
+
+\vspace{1.5 cm}
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{15cm}|}
+\hline
+\textbf{Remarques étudiant :}    \\
+ \\
+\hline
+\textbf{Remarques correcteur :}  \\
+ \\
+\hline
+\end{tabular}
+\end{table}
+
+
+\newpage 
+
+\newpage
+
+
+\section*{\center IN100 Initiation au Python\\
+Contrôle continu 2}
+
+\vspace{0.5 cm}
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{10cm}|p{3cm}|p{2cm}|}
+\hline
+\textbf{Étudiant :} & \textbf{Heure Début }  & \textbf{Note (/5) }  \\
+& & \\
+\hline
+\textbf{Correcteur :} & \textbf{Heure Fin } & \\
+& & \\
+\hline
+
+\hline
+\end{tabular}
+\end{table}
+\vspace{-0.4 cm}
+\paragraph*{Consignes:} Vous avez 20 minutes pour coder la solution. Seules les types et les instructions vues en cours sont autorisées. Tout usage d'une fonction 
+venant d'une bibliothèque qui n'a pas été vue en cours ne sera pris en compte. 
+
+\vspace{0.5 cm}
+\textbf{Sujet}: 
+
+Dans cette exercice, on considère  la  fonction $inverse$ qui renvoie la chaîne inversée d'une chaîne de caractères. 
+ Pour tout  entier $n\geq 0$, on définit une suite $(S_n)$  de chaînes de caractères par :
+\begin{itemize}
+    \item $S_0 = \texttt{"a"}$,
+    \item pour tout $n \geq 0$,
+    \[
+    S_{n+1} = inverse(S_n) + \texttt{"a"} 
+    \]
+    où le symbole $+$ désigne la concaténation de chaînes de caractères. 
+\end{itemize}
+
+\vspace{0.5 cm}
+\textbf{Questions}: 
+
+\begin{itemize}
+    \item[1.]  \'Ecrire une fonction  Python nommée \texttt{inverse} qui prend en argument une chaîne de caractères et renvoie la chaîne inversée. 
+    
+    \vspace{0.2 cm}
+    
+    Exemple: \texttt{inverse("bonjour")}  doit renvoyer  \texttt{"ruojnob"}. 
+    
+    \item[2.]  \'Ecrire une fonction qui calcule la chaîne de caractères $S_n$ pour une valeur de $n$ donnée. 
+    Testez votre fonction sur plusieurs valeurs de $n$. 
+    
+    
+        
+\end{itemize}
+
+
+\vspace{0.5 cm}
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{15cm}|}
+\hline
+\textbf{Remarques étudiant :}    \\
+ \\
+\hline
+\textbf{Remarques correcteur :}  \\
+ \\
+\hline
+\end{tabular}
+\end{table}
+
+\newpage
+
+\section*{\center IN100 Initiation au Python\\
+Contrôle continu 2}
+
+\vspace{-0.3 cm}
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{10cm}|p{3cm}|p{2cm}|}
+\hline
+\textbf{Étudiant :} & \textbf{Heure Début }  & \textbf{Note (/5) }  \\
+& & \\
+\hline
+\textbf{Correcteur :} & \textbf{Heure Fin } & \\
+& & \\
+\hline
+
+\hline
+\end{tabular}
+\end{table}
+
+\paragraph*{Consignes:} Vous avez 20 minutes pour coder la solution. Seules les types et les instructions vues en cours sont autorisées. Tout usage d'une fonction 
+venant d'une bibliothèque qui n'a pas été vue en cours ne sera pris en compte. 
+
+
+\paragraph*{Sujet:}
+
+
+On considère l’alphabet constitué des 26 lettres minuscules $\mathcal{A} = \{\texttt{a}, \texttt{b}, \ldots, \texttt{z}\}$.
+
+On associe à chaque lettre de l’alphabet son rang :
+\[
+\texttt{a} \leftrightarrow 0,\quad \texttt{b} \leftrightarrow 1,\quad \ldots,\quad \texttt{z} \leftrightarrow 25.
+\]
+
+Soit un message constitué uniquement de lettres minuscules sans espaces, et soit un mot-clé (ou clé) également composé de lettres minuscules.
+Le chiffrement par décalage avec un mot-clé est défini de la manière suivante :
+\begin{itemize}
+    \item la $i$-ième lettre du message est décalée d’un nombre égal au rang de la $(i \bmod k)$-ième lettre du mot-clé, où $k$ est la longueur du mot-clé ;
+    \item le décalage est effectué modulo 26.
+\end{itemize}
+
+\textbf{Questions:}
+
+\begin{enumerate}
+       
+    \item[1.] Écrire une fonction Python \texttt{chiffre(message, cle)} qui prend en argument une chaîne de caractères \texttt{message} et un mot-clé \texttt{secret}, et renvoie le message chiffré par décalage avec \texttt{secret}.
+    
+       \item[2. ] Écrire une fonction Python \texttt{dechiffrement(chiffre, cle)} qui prend en argument une chaîne de caractères \texttt{chiffre} et un mot-clé \texttt{secret}, et renvoie le message déchiffré. 
+
+\end{enumerate}
+
+\bigskip
+
+\noindent
+\textbf{Exemple :} \\
+Si le message est \texttt{"bonjour"} et la clé est \texttt{"cle"}, le message chiffré obtenu est \texttt{"dzrlzyt"}.
+
+
+
+
+
+\end{document}

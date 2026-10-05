@@ -1,0 +1,382 @@
+\documentclass[a4paper,11pt]{article}
+\def\email#1{{\tt#1}}
+
+\def\N{\mbox{\rm{I}\hspace{-.15em}\rm{N}}}
+\def\Z{\mbox{\rm{Z}\hspace{-.28em}\rm{Z}}}
+\def\RR{\mbox{\rm{I}\hspace{-.15em}\rm{R}}}
+\def\C{\mbox{\rm{l}\hspace{-.50em}\rm{C}}}
+\def\Q{\mbox{\rm{l}\hspace{-.50em}\rm{Q}}}
+\def\F{\mbox{\rm{I}\hspace{-.20em}\rm{F}}}
+
+\usepackage{amssymb,amsmath}
+\usepackage{url}
+\usepackage{fullpage}
+\begin{document}
+
+\newtheorem{theo}{Theorem}
+\newtheorem{coro}{Corollary}[theo]
+\newtheorem{lemme}{Lemma}
+\renewcommand{\thecoro}{\thetheo.\arabic{coro}}
+
+
+
+\parindent=0cm
+
+
+\section*{\center IN100 Initiation au Python\\
+Contrôle continu 2}
+
+\vspace{-0.3 cm}
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{10cm}|p{3cm}|p{2cm}|}
+\hline
+\textbf{Étudiant :} & \textbf{Heure Début }  & \textbf{Note (/5) }  \\
+& & \\
+\hline
+\textbf{Correcteur :} & \textbf{Heure Fin } & \\
+& & \\
+\hline
+
+\hline
+\end{tabular}
+\end{table}
+\vspace{-0.4 cm}
+\paragraph*{Consignes:} Vous avez 20 minutes pour coder la solution. Seules les types et les instructions vues en cours sont autorisées. Tout usage d'une fonction 
+venant d'une bibliothèque qui n'a pas été vue en cours ne sera pris en compte. 
+
+\vspace{-0.2 cm}
+\vspace{-0.2 cm}
+\paragraph*{Sujet:}
+
+On s'intéresse à une \textbf{suite de mesures} représentée par une liste d'entiers. 
+
+Dans cette liste, certaines valeurs forment des séquences où chaque terme est strictement plus grand que le précédent.  
+On appelle une telle portion de la liste une \textbf{suite croissante}.
+
+
+\textbf{Exemple :}  
+Considérons la liste suivante :
+\[
+[3, 5, 6, 2, 4, 7, 8, 1]
+\]
+
+Dans cette liste, plusieurs suites  croissantes apparaissent, parmi lesquelles :
+
+\begin{itemize}
+    \item \texttt{[3, 5, 6]} qui commence au premier élément, de longueur 3 ;
+    \item \texttt{[2, 4, 7, 8]} qui commence  au 4ème élément dans la liste, de longueur 4.
+\end{itemize}
+
+La suite croissante la plus longue présente dans cette liste a donc une longueur égale à 4.
+
+\vspace{-0.3 cm}
+
+
+\begin{enumerate}
+  \item[1.] Écrire une fonction qui, à partir d'une liste d'entiers et d'une position de départ, calcule la longueur de la suite strictement croissante qui débute à cette position.
+  
+  \item[2.] Écrire une fonction qui, à partir d'une liste d'entiers, détermine la longueur maximale d'une suite croissante présente dans cette liste.
+\end{enumerate}
+
+\vspace{-0.4 cm}
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{15cm}|}
+\hline
+\textbf{Remarques étudiant :}    \\
+ \\
+\hline
+\textbf{Remarques correcteur :}  \\
+ \\
+\hline
+\end{tabular}
+\end{table}
+
+
+\newpage
+
+
+\section*{\center IN100 Initiation au Python\\
+Contrôle continu 2}
+
+\vspace{-0.3 cm}
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{10cm}|p{3cm}|p{2cm}|}
+\hline
+\textbf{Étudiant :} & \textbf{Heure Début }  & \textbf{Note (/5) }  \\
+& & \\
+\hline
+\textbf{Correcteur :} & \textbf{Heure Fin } & \\
+& & \\
+\hline
+
+\hline
+\end{tabular}
+\end{table}
+\vspace{-0.4 cm}
+\paragraph*{Consignes:} Vous avez 20 minutes pour coder la solution. Seules les types et les instructions vues en cours sont autorisées. Tout usage d'une fonction 
+venant d'une bibliothèque qui n'a pas été vue en cours ne sera pris en compte. 
+
+\vspace{-0.2 cm}
+\paragraph*{Sujet:}
+
+Le chiffrement par décalage, aussi connu comme le code de César, est une méthode de chiffrement très simple utilisée par Jules César dans ses correspondances secrètes. Le texte chiffré s'obtient en remplaçant chaque lettre du texte clair original par une lettre à distance fixe. Par exemple, si on décide de remplacer A par D, alors ensuite on remplace B par E, C par F, D par G, X par A etc... La longueur du décalage, est un nombre entre $1$ et $26$ qui constitue la clé du chiffrement.
+
+\vspace{0.2 cm}
+\textbf{Exemple :}  
+Pour le message $M=$\text{``BONJOUR"}  et la clé $K=3$ le message chiffré vaut:  
+\vspace{-0.2 cm}
+
+\[
+	\text{``ERQMRXU"}.
+\]
+
+\begin{enumerate}
+  \item[1.] Écrire une fonction $\texttt{chiffrement}$ qui prend en entrée un message $M$ et une clé $K$ et qui renvoie le chiffré du message $M$.
+ \item[2.] Écrire une fonction $\texttt{dechiffrement}$ qui prend en entrée un message chiffré $C$ et une clé $K$ et qui renvoie le message $M$ déchiffré.
+ \item[3.] Ecrire une fonction $\texttt{attaque}$ qui prend en entrée un message chiffré et qui le déchiffre avec toutes les clés possibles. Tester votre fonction sur le message chiffré ``OAZRUPQZFUQX" et faites afficher toutes les messages déchifrés. \\
+ 
+ 
+ Question bonus: Que pouvez vous conclure sur la sécurité de chiffrement de César ? 
+ \end{enumerate}
+ \vspace{-0.2 cm}
+
+\vspace{0.2 cm}
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{15cm}|}
+\hline
+\textbf{Remarques étudiant :}    \\
+ \\
+\hline
+\textbf{Remarques correcteur :}  \\
+ \\
+\hline
+\end{tabular}
+\end{table}
+
+
+\newpage
+
+
+\section*{\center IN100 Initiation au Python\\
+Contrôle continu 2}
+
+\vspace{-0.3 cm}
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{10cm}|p{3cm}|p{2cm}|}
+\hline
+\textbf{Étudiant :} & \textbf{Heure Début }  & \textbf{Note (/5) }  \\
+& & \\
+\hline
+\textbf{Correcteur :} & \textbf{Heure Fin } & \\
+& & \\
+\hline
+
+\hline
+\end{tabular}
+\end{table}
+\vspace{-0.4 cm}
+\paragraph*{Consignes:} Vous avez 20 minutes pour coder la solution. Seules les types et les instructions vues en cours sont autorisées. Tout usage d'une fonction 
+venant d'une bibliothèque qui n'a pas été vue en cours ne sera pris en compte. 
+
+\vspace{0.2 cm}
+\paragraph*{Sujet:}
+
+On souhaite gérer les résultats d’une compétition sportive à l’aide des listes et des dictionnaires en Python.
+
+\vspace{0.2 cm}
+\textbf{Questions:}
+
+\begin{enumerate}
+\item Écrire la fonction \texttt{total} qui prend pour argument une liste d’entiers et qui retourne la somme de ces nombres.
+(On utilisera cette fonction pour calculer des scores moyens.)
+
+\item Initialiser un dictionnaire nommé \texttt{resultats} qui contient, pour chaque équipe, la liste des points obtenus lors des différents matchs de la saison.
+
+Par exemple :
+\begin{verbatim}
+resultats = {
+"Lions": [3, 1, 0, 3],
+"Tigres": [0, 3, 3, 1],
+"Aigles": [1, 1, 0, 3]
+}
+\end{verbatim}
+
+
+ Écrire une fonction \texttt{champion} qui prend en argument un dictionnaire \texttt{resultats} et qui doit retourner l'équipe gagnante d'un tournoi. 
+Attention, la fonction doit retourner \texttt{-1} si le dictionnaire est vide ou si plusieurs équipes ont obtenu le meilleur score.  Tester le programme sur le dictionnaire donné dans l'exemple. 
+\end{enumerate}
+
+
+\vspace{0.2 cm}
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{15cm}|}
+\hline
+\textbf{Remarques étudiant :}    \\
+ \\
+\hline
+\textbf{Remarques correcteur :}  \\
+ \\
+\hline
+\end{tabular}
+\end{table}
+
+
+\newpage
+
+\section*{\center IN100 Initiation au Python\\
+Contrôle continu 2}
+
+\vspace{-0.3 cm}
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{10cm}|p{3cm}|p{2cm}|}
+\hline
+\textbf{Étudiant :} & \textbf{Heure Début }  & \textbf{Note (/5) }  \\
+& & \\
+\hline
+\textbf{Correcteur :} & \textbf{Heure Fin } & \\
+& & \\
+\hline
+
+\hline
+\end{tabular}
+\end{table}
+\vspace{-0.4 cm}
+\paragraph*{Consignes:} Vous avez 20 minutes pour coder la solution. Seules les types et les instructions vues en cours sont autorisées. Tout usage d'une fonction 
+venant d'une bibliothèque qui n'a pas été vue en cours ne sera pris en compte. 
+
+\vspace{-0.2 cm}
+\paragraph*{Sujet:}
+
+
+On considère un collier composé de perles de quatre couleurs différentes : rouge (\texttt{'R'}), bleu (\texttt{'B'}), vert (\texttt{'V'}) et jaune (\texttt{'J'}).  
+On représente un collier par une liste Python de chaînes de caractères correspondant aux couleurs des perles. 
+
+\vspace{0.2 cm}
+ Exemple :  \texttt{['R','B','V','J','B','R','R']} . 
+\vspace{0.2 cm}
+
+
+Chaque collier forme une boucle, c’est-à-dire que la première et la dernière perle sont considérées comme voisines.  
+
+\bigskip
+
+\begin{enumerate}
+  \item[1.] Écrire une fonction Python \texttt{voisines\_identiques(collier)} qui prend en entrée une liste de perles et renvoie \texttt{True} si le collier contient \textbf{au moins deux perles consécutives de même couleur}, et \texttt{False} sinon.  
+  La vérification doit prendre en compte que le collier est une boucle (la dernière et la première perle sont voisines).
+
+  \item[2.] Écrire une fonction Python \texttt{rendre\_alterné(collier)} qui modifie la liste du collier pour que deux perles consécutives n’aient pas  la même couleur.  
+  Si nécessaire, on pourra "ajouter des perles" entre deux perles consécutifs du collier, en utilisant uniquement les quatre couleurs disponibles.
+\end{enumerate}
+
+
+\vspace{1 cm}
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{15cm}|}
+\hline
+\textbf{Remarques étudiant :}    \\
+ \\
+\hline
+\textbf{Remarques correcteur :}  \\
+ \\
+\hline
+\end{tabular}
+\end{table}
+
+
+\newpage
+
+\section*{\center IN100 Initiation au Python\\
+Contrôle continu 2}
+
+\vspace{-0.3 cm}
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{10cm}|p{3cm}|p{2cm}|}
+\hline
+\textbf{Étudiant :} & \textbf{Heure Début }  & \textbf{Note (/5) }  \\
+& & \\
+\hline
+\textbf{Correcteur :} & \textbf{Heure Fin } & \\
+& & \\
+\hline
+
+\hline
+\end{tabular}
+\end{table}
+\vspace{-0.4 cm}
+\paragraph*{Consignes:} Vous avez 20 minutes pour coder la solution. Seules les types et les instructions vues en cours sont autorisées. Tout usage d'une fonction 
+venant d'une bibliothèque qui n'a pas été vue en cours ne sera pris en compte. 
+
+\vspace{-0.2 cm}
+\paragraph*{Sujet:}
+
+
+
+On considère un ensemble de colis représenté par une liste de nombres entiers.  
+Un entier positif représente un colis à expédier, et un entier négatif représente un colis à retourner.
+
+Le but est de trier ces colis en utilisant  des \textbf{files}.
+
+Pour cela, on utilise  deux \textbf{files} (ou listes Python utilisées comme files) :
+    \begin{itemize}
+        \item une file \texttt{expedition} pour les colis à expédier,
+        \item une file \texttt{retour} pour les colis à retourner.
+    \end{itemize}
+
+
+\begin{enumerate}
+    \item Écrire une fonction Python \texttt{enfiler(f, x)} qui ajoute l'élément \texttt{x} à la fin de la file \texttt{f}.
+    
+    \item Écrire une fonction Python \texttt{traiter\_colis(colis)} qui récupère les colis dans la liste \texttt{colis} un par un, 
+    et :
+    \begin{itemize}
+        \item ajoute le colis dans la file \texttt{expedition} s'il est positif,
+        \item ajoute le colis dans la file \texttt{retour} s'il est négatif.
+    \end{itemize}
+Votre fonction doit renvoyer les deux files.     
+Vérifier que tous les colis ont été traités et que la liste \texttt{colis} est vide à la fin du processus.
+\end{enumerate}
+
+\vspace{0.2 cm}
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{15cm}|}
+\hline
+\textbf{Remarques étudiant :}    \\
+ \\
+\hline
+\textbf{Remarques correcteur :}  \\
+ \\
+\hline
+\end{tabular}
+\end{table}
+
+
+
+\end{document}

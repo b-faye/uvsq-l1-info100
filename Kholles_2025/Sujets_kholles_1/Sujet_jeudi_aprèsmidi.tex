@@ -1,0 +1,387 @@
+\documentclass[a4paper,11pt]{article}
+\def\email#1{{\tt#1}}
+
+\def\N{\mbox{\rm{I}\hspace{-.15em}\rm{N}}}
+\def\Z{\mbox{\rm{Z}\hspace{-.28em}\rm{Z}}}
+\def\RR{\mbox{\rm{I}\hspace{-.15em}\rm{R}}}
+\def\C{\mbox{\rm{l}\hspace{-.50em}\rm{C}}}
+\def\Q{\mbox{\rm{l}\hspace{-.50em}\rm{Q}}}
+\def\F{\mbox{\rm{I}\hspace{-.20em}\rm{F}}}
+
+\usepackage{amssymb,amsmath}
+\usepackage{url}
+\usepackage{fullpage}
+\begin{document}
+
+\newtheorem{theo}{Theorem}
+\newtheorem{coro}{Corollary}[theo]
+\newtheorem{lemme}{Lemma}
+\renewcommand{\thecoro}{\thetheo.\arabic{coro}}
+
+
+
+\parindent=0cm
+
+
+\section*{\center IN100 Initiation au Python\\
+Contrôle continu 2}
+
+\vspace{1 cm}
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{10cm}|p{3cm}|p{2cm}|}
+\hline
+\textbf{Étudiant :} & \textbf{Heure Début }  & \textbf{Note (/5) }  \\
+& & \\
+\hline
+\textbf{Correcteur :} & \textbf{Heure Fin } & \\
+& & \\
+\hline
+
+\hline
+\end{tabular}
+\end{table}
+
+
+\subsection*{Consignes:} Vous avez 20 minutes pour coder la solution. Seules les types et les instructions vues en cours sont autorisées. L'usage d'une fonction 
+venant d'une bibliothèque qui n'a pas été vue en cours ne sera pris en compte. 
+
+
+\subsection*{Sujet:}
+
+\begin{itemize}
+\item[1.] Écrire une fonction \texttt{lettres\_identiques}, qui prend en paramètre un mot et qui renvoie \texttt{True} s’il existe deux lettres identiques placées à deux indices consécutifs, \texttt{False} sinon.  
+Vous ferez attention aux chaînes vides ou d’un seul caractère.
+\vspace*{-0.1 cm}
+
+Par exemple :
+\begin{verbatim}
+    lettres_identiques("python")     # renvoie False
+    lettres_identiques("programmation")  # renvoie True  (les deux 'm')
+\end{verbatim}
+
+\item[2.] Écrire une fonction \texttt{couple\_lettres\_identiques}, qui prend en paramètre une chaîne de caractères contenant plusieurs mots et qui renvoie, sous forme de liste de \texttt{Tuple}, tous les couples de lettres identiques placées à deux indices consécutifs.  
+Si aucun couple n’est trouvé, la fonction doit renvoyer une liste vide. L'usage des caractères " " consécutifs ne sera pas pris en compte.  
+
+\vspace*{-0.1 cm}
+
+Par exemple :
+\begin{verbatim}
+    couple_lettres_identiques("belle adresse") # renvoie [('l','l'), ('s','s')]
+\end{verbatim}
+\end{itemize}
+
+\vspace*{-0.3 cm}
+
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{15cm}|}
+\hline
+\textbf{Remarques étudiant :}    \\
+ \\
+ 
+\hline
+\textbf{Remarques correcteur :}  \\
+ \\
+\hline
+\end{tabular}
+\end{table}
+
+\newpage
+
+
+\section*{\center IN100 Initiation au Python\\
+Contrôle continu 2}
+
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{10cm}|p{3cm}|p{2cm}|}
+\hline
+\textbf{Étudiant :} & \textbf{Heure Début }  & \textbf{Note (/5) }  \\
+& & \\
+\hline
+\textbf{Correcteur :} & \textbf{Heure Fin } & \\
+& & \\
+\hline
+
+\hline
+\end{tabular}
+\end{table}
+
+\subsection*{Consignes:} Vous avez 20 minutes pour coder la solution. Seules les types et les instructions vues en cours sont autorisées. Tout usage d'une fonction 
+venant d'une bibliothèque qui n'a pas été vue en cours ne sera pris en compte. 
+
+
+\subsection*{Sujet:}
+
+\begin{itemize}
+\item[1.] \'Ecrire une fonction qui prend en argument un mot et renvoie le nombre de voyelles qu'il contient. Si une voyelle apparaît plusieurs fois, on la compte 
+autant de fois qu'elle apparaît. 
+    \item[2.] Écrire une fonction qui calcule le \textbf{mot contenant le plus de voyelles} dans une chaîne de caractères et le renvoie.
+ On suppose que la chaîne ne contient que les lettres de l’alphabet (sans accents) et le caractère \texttt{" "}.
+
+ \vspace*{0.2 cm}
+ Par exemple, sur la chaîne suivante :
+  
+ 
+\begin{verbatim}
+chaine = "tu etais formidable"
+\end{verbatim}
+    la fonction renverra \texttt{"formidable"}.
+% \item[2.] On donne une liste contenant uniquement des chaînes de caractères, chacune représentant une phrase.
+% Écrire une fonction qui, à partir de cette liste, calcule le mot contenant le plus de voyelles et renvoie l’indice de la chaîne dans la liste ainsi que le mot.
+
+%Par exemple, sur la liste :
+%\vspace*{-0.2 cm}
+
+%\begin{verbatim}chansons = ["tu etais formidable", "Sous le vent resiste belle",  "Alexandrie Alexandra", "Ellе est pas belle la viе"]\end{verbatim}
+%votre fonction devra renvoyer \texttt{(3, "Alexandrie")}. 
+
+\end{itemize}
+ \vspace*{0.2 cm}
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{15cm}|}
+\hline
+\textbf{Remarques étudiant :}    \\
+ \\
+ \\
+\hline
+\textbf{Remarques correcteur :}  \\
+ \\
+ \\
+\hline
+\end{tabular}
+\end{table}
+
+
+\newpage
+
+
+\section*{\center IN100 Initiation au Python\\
+Contrôle continu 2}
+
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{10cm}|p{3cm}|p{2cm}|}
+\hline
+\textbf{Étudiant :} & \textbf{Heure Début }  & \textbf{Note (/5) }  \\
+& & \\
+\hline
+\textbf{Correcteur :} & \textbf{Heure Fin } & \\
+& & \\
+\hline
+
+\hline
+\end{tabular}
+\end{table}
+\vspace*{-0.4 cm}
+\subsection*{Consignes:} Vous avez 20 minutes pour coder la solution. Seules les types et les instructions vues en cours sont autorisées. Tout usage d'une fonction 
+venant d'une bibliothèque qui n'a pas été vue en cours ne sera pris en compte. 
+
+\vspace*{-0.3 cm}
+\subsection*{Sujet:}
+
+
+On souhaite créer un \textbf{chiffrement simple} basé sur l'\textbf{inversion de blocs de lettres}.
+Le principe de chiffrement est le suivant: on découpe un mot en \textbf{blocs de taille $n$},  et
+on inverse les lettres à l’intérieur de chaque bloc.  Le mot chiffré est obtenu en concaténant tous les blocs inversés.
+
+
+\subsection*{Exemple}
+
+Mot : \texttt{PYTHON}  avec taille des blocs 2  
+
+\begin{itemize}
+    \item Découpage en blocs : \texttt{["PY", "TH", "ON"]}  
+    \item Inversion des lettres dans chaque bloc : \texttt{["YP", "HT", "NO"]}  
+    \item Mot chiffré : \texttt{YPHTNO}  
+\end{itemize}
+
+Le dernier bloc peut être plus court si le mot n’est pas un multiple de la taille du bloc.
+\vspace*{-0.3 cm}
+\begin{itemize}
+\item[1.] Écrire une fonction \texttt{chiffrer\_blocs} qui prend en entrée le mot à chiffrer et la taille du bloc et renvoie le chiffré. 
+   
+
+\item[2.] Écrire une fonction \texttt{dechiffrer\_blocs} qui prend en entrée le mot à chiffrer et la taille du bloc et renvoie le mot en clair. 
+
+\end{itemize}
+
+\vspace*{-0.2 cm}
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{15cm}|}
+\hline
+\textbf{Remarques étudiant :}    \\
+ \\
+\hline
+\textbf{Remarques correcteur :}  \\
+ \\
+\hline
+\end{tabular}
+\end{table}
+
+
+\newpage
+
+\section*{\center IN100 Initiation au Python\\
+Contrôle continu 2}
+
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{10cm}|p{3cm}|p{2cm}|}
+\hline
+\textbf{Étudiant :} & \textbf{Heure Début }  & \textbf{Note (/5) }  \\
+& & \\
+\hline
+\textbf{Correcteur :} & \textbf{Heure Fin } & \\
+& & \\
+\hline
+
+\hline
+\end{tabular}
+\end{table}
+
+\vspace*{-0.4 cm}
+\subsection*{Consignes:} Vous avez 20 minutes pour coder la solution. Seules les types et les instructions vues en cours sont autorisées. Tout usage d'une fonction 
+venant d'une bibliothèque qui n'a pas été vue en cours ne sera pris en compte. 
+
+\vspace*{-0.2 cm}
+
+\subsection*{Sujet:}   
+
+Dans certaines séquences d'ADN, on observe des motifs dits \textbf{palindromiques} :
+un fragment est suivi de sa version complémentaire inversée.  
+%Ces structures symétriques jouent un rôle important dans la reconnaissance de sites spécifiques par certaines enzymes.
+On souhaite modéliser ce phénomène à l’aide de chaînes de caractères représentant des bases d’ADN.
+On suppose  que l’ADN est composé de quatre bases :
+\vspace*{-0.2 cm}
+\[
+A, \; T, \; C, \; G
+\]
+et que les bases complémentaires sont :
+\[
+A \leftrightarrow T, \quad C \leftrightarrow G.
+\]
+
+\begin{itemize}
+\item[1.]  Écrire une fonction \texttt{complement} qui prend en entrée  une chaîne d'ADN et renvoie la séquence complémentaire de cette chaîne. 
+\vspace*{-0.2 cm}
+\begin{verbatim}
+   "ATCG" → "TAGC"
+\end{verbatim}
+
+\vspace*{-0.2 cm}
+
+\item[2.]  On définit une séquence miroir comme une séquence formée en ajoutant à une séquence donnée
+son complément inversé.
+
+\textbf{Exemple :}
+\vspace*{-0.2 cm}
+\begin{eqnarray*}
+S_0 &= &\text{"A"}, \quad S_1 = \text{"A"} + \text{complément inversé de "A"} = \text{"A" + "T"} = \text{"AT"}, \quad \\
+S_2 &=& "AT" + \text{complément inversé de "AT"} = \text{"AT" + "AT"} = \text{"ATAT"}
+\end{eqnarray*}
+
+Écrire une fonction \texttt{sequence\_miroir} qui à  partir d'une séquence de départ $S_0$ construit la séquence miroir obtenue après \texttt{n} étapes.
+\end{itemize}
+   
+\vspace*{-0.2 cm}
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{15cm}|}
+\hline
+\textbf{Remarques étudiant :}    \\
+ \\
+\hline
+\textbf{Remarques correcteur :}  \\
+ \\
+\hline
+\end{tabular}
+\end{table}
+
+\newpage
+
+\section*{\center IN100 Initiation au Python\\
+Contrôle continu 2}
+
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{10cm}|p{3cm}|p{2cm}|}
+\hline
+\textbf{Étudiant :} & \textbf{Heure Début }  & \textbf{Note (/5) }  \\
+& & \\
+\hline
+\textbf{Correcteur :} & \textbf{Heure Fin } & \\
+& & \\
+\hline
+
+\hline
+\end{tabular}
+\end{table}
+\vspace{-0.6 cm}
+\subsection*{Consignes:} Vous avez 20 minutes pour coder la solution. Seules les types et les instructions vues en cours sont autorisées. Tout usage d'une fonction 
+venant d'une bibliothèque qui n'a pas été vue en cours ne sera pris en compte. 
+
+\subsection*{Sujet:}
+
+
+Vous préparez vos prochaines vacances et hésitez entre plusieurs destinations.
+Chaque destination a un coût total estimé. Vous souhaitez choisir une destination qui respecte votre budget.
+Vous avez en tête un montant minimum \texttt{budget\_min} et un montant maximum \texttt{budget\_max} que vous souhaitez dépenser.
+On dispose d’une liste de prix appelée \texttt{liste\_prix}, contenant le coût total de chaque voyage :
+
+\begin{verbatim}
+liste_prix = [450.0, 520.5, 610.0, 670.0, 720.5, 750.0, 810.0, 920.0, 1050.0, 1200.0]
+\end{verbatim}
+
+
+\begin{itemize}
+\item[1.] Écrire une fonction \texttt{destinations\_accessibles(liste\_prix, budget\_min, budget\_max)} qui
+ prend en argument la liste des prix, un budget minimum et un budget maximum 
+et renvoie la liste des destinations dont le coût est compris entre \texttt{budget\_min} et \texttt{budget\_max} inclus.
+\item[2.]  Votre ami préfère choisir la destination dont le prix est le plus proche du prix moyen de toutes les destinations proposées.
+Écrire une fonction \texttt{destination\_moyenne} qui renvoie qui calcule le prix moyen des voyages et  renvoie le coût de la destination le plus proche de cette moyenne.
+\end{itemize}
+
+
+%\vspace*{-0.3 cm}
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{15cm}|}
+\hline
+\textbf{Remarques étudiant :}    \\
+ \\
+ \\
+\hline
+\textbf{Remarques correcteur :}  \\
+ \\
+ \\
+\hline
+\end{tabular}
+\end{table}
+
+
+
+
+
+\end{document}

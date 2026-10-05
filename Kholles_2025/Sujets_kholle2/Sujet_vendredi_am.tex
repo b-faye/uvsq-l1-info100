@@ -1,0 +1,415 @@
+\documentclass[a4paper,11pt]{article}
+\def\email#1{{\tt#1}}
+
+\def\N{\mbox{\rm{I}\hspace{-.15em}\rm{N}}}
+\def\Z{\mbox{\rm{Z}\hspace{-.28em}\rm{Z}}}
+\def\RR{\mbox{\rm{I}\hspace{-.15em}\rm{R}}}
+\def\C{\mbox{\rm{l}\hspace{-.50em}\rm{C}}}
+\def\Q{\mbox{\rm{l}\hspace{-.50em}\rm{Q}}}
+\def\F{\mbox{\rm{I}\hspace{-.20em}\rm{F}}}
+
+\usepackage{amssymb,amsmath}
+\usepackage{url}
+\usepackage{fullpage}
+\begin{document}
+
+\newtheorem{theo}{Theorem}
+\newtheorem{coro}{Corollary}[theo]
+\newtheorem{lemme}{Lemma}
+\renewcommand{\thecoro}{\thetheo.\arabic{coro}}
+
+
+
+\parindent=0cm
+
+
+\section*{\center IN100 Initiation au Python\\
+Contrôle continu 2}
+
+\vspace{-0.3 cm}
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{10cm}|p{3cm}|p{2cm}|}
+\hline
+\textbf{Étudiant :} & \textbf{Heure Début }  & \textbf{Note (/5) }  \\
+& & \\
+\hline
+\textbf{Correcteur :} & \textbf{Heure Fin } & \\
+& & \\
+\hline
+
+\hline
+\end{tabular}
+\end{table}
+\vspace{-0.4 cm}
+\paragraph*{Consignes:} Vous avez 20 minutes pour coder la solution. Seules les types et les instructions vues en cours sont autorisées. Tout usage d'une fonction 
+venant d'une bibliothèque qui n'a pas été vue en cours ne sera pris en compte. 
+
+\vspace{-0.2 cm}
+\vspace{-0.2 cm}
+\paragraph*{Sujet:}
+
+On considère une matrice carrée.  
+On dit que cette matrice est \textbf{diagonale dominante} si, pour chaque ligne $i$, on a :
+
+\[
+|a_{ii}| \ge \sum_{j \neq i} |a_{ij}|.
+\]
+
+Cette condition signifie que, sur chaque ligne, l'élément situé sur la diagonale possède une valeur absolue supérieure ou égale à la somme des valeurs absolues des autres éléments de la même ligne. 
+
+
+
+\textbf{Exemple :}  
+Considérons la matrice suivante :
+\[
+\begin{bmatrix}
+5 & 1 & 2 \\
+0 & 7 & 1 \\
+2 & 0 & 3
+\end{bmatrix}
+\]
+
+Pour la ligne 0 :
+\[
+|5| \ge |1| + |2|
+\]
+
+Pour la ligne 1 :
+\[
+|7| \ge |0| + |1|
+\]
+
+Pour la ligne 2 :
+\[
+|3| \ge |2| + |0|
+\]
+
+Cette matrice est donc diagonale dominante.
+
+\vspace{-0.3 cm}
+
+
+\begin{enumerate}
+  \item[1.] Écrire une fonction qui détermine si une ligne donnée d’une matrice vérifie la condition de dominance diagonale.
+  
+  \item[2.] Écrire une fonction qui indique si une matrice entière est diagonale dominante.
+\end{enumerate}
+
+
+\vspace{-0.4 cm}
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{15cm}|}
+\hline
+\textbf{Remarques étudiant :}    \\
+ \\
+\hline
+\textbf{Remarques correcteur :}  \\
+ \\
+\hline
+\end{tabular}
+\end{table}
+
+\newpage
+
+
+\section*{\center IN100 Initiation au Python\\
+Contrôle continu 2}
+
+\vspace{-0.3 cm}
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{10cm}|p{3cm}|p{2cm}|}
+\hline
+\textbf{Étudiant :} & \textbf{Heure Début }  & \textbf{Note (/5) }  \\
+& & \\
+\hline
+\textbf{Correcteur :} & \textbf{Heure Fin } & \\
+& & \\
+\hline
+
+\hline
+\end{tabular}
+\end{table}
+\vspace{-0.4 cm}
+\paragraph*{Consignes:} Vous avez 20 minutes pour coder la solution. Seules les types et les instructions vues en cours sont autorisées. Tout usage d'une fonction 
+venant d'une bibliothèque qui n'a pas été vue en cours ne sera pris en compte. 
+
+
+
+\paragraph*{Sujet:}
+
+
+
+Créez une liste imbriquée (double liste)  de taille 7, où chaque sous-liste est aussi de taille 7 et où les éléments sont initialisés à 0. 
+\begin{enumerate}
+  \item[1.] Donner une fonction qui place un 1 aléatoirement dans une  liste imbriquée.   
+  \item[2.] Une liste imbriquée peut être  vue comme une grille carrée, ou une matrice. 
+\'Ecrire  une fonction qui déplace le 1 dans la liste aléatoirement d'une position vers le haut ou vers le bas ou vers la gauche ou vers la droite. % Enfin, faites une boucle qui applique cette dernière fonction jusqu'à ce que le 1 touche un bord de la grille. 
+\end{enumerate}
+
+\textbf{Exemples}:
+\noindent
+\begin{itemize}
+\item Si $a_{23}=1$  alors le déplacement vers le bas est  $a_{33}=1$.  \\
+\item Si $a_{34}=1$ alors le déplacement vers la gauche est $a_{33}=1$ \\
+\end{itemize} 
+
+\`A chaque déplacement, il faudra faire attention de ne pas déborder. 
+
+
+\vspace{0.2 cm}
+Pour générer aléatoirement des nombres entiers, nous rappelons qu'on peut utiliser la fonction \texttt{random.randint(a,b)} qui renvoie un nombre entier entre $a$ et $b$. 
+
+\vspace{0.2 cm}
+Exemple d'usage:
+\vspace{-0.2 cm}
+\begin{verbatim}
+	import random
+	
+	print(random.randint(2,15))
+\end{verbatim}
+
+
+
+
+\vspace{0.5 cm}
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{15cm}|}
+\hline
+\textbf{Remarques étudiant :}    \\
+ \\
+\hline
+\textbf{Remarques correcteur :}  \\
+ \\
+\hline
+\end{tabular}
+\end{table}
+
+\newpage
+
+\section*{\center IN100 Initiation au Python\\
+Contrôle continu 2}
+
+\vspace{-0.3 cm}
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{10cm}|p{3cm}|p{2cm}|}
+\hline
+\textbf{Étudiant :} & \textbf{Heure Début }  & \textbf{Note (/5) }  \\
+& & \\
+\hline
+\textbf{Correcteur :} & \textbf{Heure Fin } & \\
+& & \\
+\hline
+
+\hline
+\end{tabular}
+\end{table}
+\vspace{-0.4 cm}
+\paragraph*{Consignes:} Vous avez 20 minutes pour coder la solution. Seules les types et les instructions vues en cours sont autorisées. Tout usage d'une fonction 
+venant d'une bibliothèque qui n'a pas été vue en cours ne sera pris en compte. 
+
+
+\vspace{0.2 cm}
+\paragraph*{Sujet:}
+
+
+\begin{enumerate}
+		
+		\item Ecrire la fonction \texttt{moyenne} qui prend pour argument une liste d'entiers et qui retourne la moyenne de ces nombres.
+		\item Initialiser un dictionnaire qui contient les liste des notes obtenues pendant l'année par les étudiants d'une licence: 
+		\begin{verbatim}
+		base =  {"Leonard": [12, 8, 11]],  "Sophie": [14, 12, 16, 8, 13]}
+		\end{verbatim}
+		
+		\noindent \'Ecrire la fonction \texttt{calcul\_moyenne} qui prend pour argument un dictionnaire \texttt{base}   et le nom d'un étudiant. Cette fonction doit retourner la moyenne de l'étudiant si celui-ci est présent dans la base, et -1 sinon.
+		Tester le programme.
+		
+	\end{enumerate}
+
+\vspace{1 cm}
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{15cm}|}
+\hline
+\textbf{Remarques étudiant :}    \\
+ \\
+\hline
+\textbf{Remarques correcteur :}  \\
+ \\
+\hline
+\end{tabular}
+\end{table}
+
+
+
+
+\newpage
+
+\section*{\center IN100 Initiation au Python\\
+Contrôle continu 2}
+
+\vspace{0.3 cm}
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{10cm}|p{3cm}|p{2cm}|}
+\hline
+\textbf{Étudiant :} & \textbf{Heure Début }  & \textbf{Note (/5) }  \\
+& & \\
+\hline
+\textbf{Correcteur :} & \textbf{Heure Fin } & \\
+& & \\
+\hline
+
+\hline
+\end{tabular}
+\end{table}
+\vspace{0.4 cm}
+\paragraph*{Consignes:} Vous avez 20 minutes pour coder la solution. Seules les types et les instructions vues en cours sont autorisées. Tout usage d'une fonction 
+venant d'une bibliothèque qui n'a pas été vue en cours ne sera pris en compte. 
+
+\vspace{-0.2 cm}
+\vspace{-0.2 cm}
+\paragraph*{Sujet:}
+
+On considère une suite numérique $(u_n)$ définie par une valeur initiale $u_0 = a$, et par la relation de récurrence suivante, valable pour tout entier $n \ge 0$ :
+\[
+u_{n+1} = u_n + 3.
+\]
+
+Cette relation signifie que chaque terme de la suite est obtenu en ajoutant 3 au terme précédent.
+
+\vspace{0.5 cm}
+
+\textbf{Exemple :}  
+Si $u_0 = 2$, alors :
+\[
+u_1 = 2 + 3 = 5
+\]
+\[
+u_2 = 5 + 3 = 8
+\]
+\[
+u_3 = 8 + 3 = 11
+\]
+
+La suite commence donc par :
+\[
+(2,\; 5,\; 8,\; 11,\; \ldots)
+\]
+
+
+
+\begin{enumerate}
+\item[1.] Écrire une fonction \texttt{u(u0)} qui prend en entrée $u_0$ et qui renvoie  le terme $u_n$ de la suite.
+\item[2.] Écrire une fonction \texttt{moyenne(u0,n)} qui prend en entrée $u_0$ et $n$ et qui renvoie   qui renvoie la moyenne des $n$ premières termes de la suite. 
+\end{enumerate}
+
+
+\vspace{1 cm}
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{15cm}|}
+\hline
+\textbf{Remarques étudiant:}    \\
+ \\
+\hline
+\textbf{Remarques correcteur:}  \\
+ \\
+\hline
+\end{tabular}
+\end{table}
+
+\newpage
+
+
+
+\newpage
+
+\section*{\center IN100 Initiation au Python\\
+Contrôle continu 2}
+
+\vspace{0.3 cm}
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{10cm}|p{3cm}|p{2cm}|}
+\hline
+\textbf{Étudiant :} & \textbf{Heure Début }  & \textbf{Note (/5) }  \\
+& & \\
+\hline
+\textbf{Correcteur :} & \textbf{Heure Fin } & \\
+& & \\
+\hline
+
+\hline
+\end{tabular}
+\end{table}
+\vspace{0.4 cm}
+\paragraph*{Consignes:} Vous avez 20 minutes pour coder la solution. Seules les types et les instructions vues en cours sont autorisées. Tout usage d'une fonction 
+venant d'une bibliothèque qui n'a pas été vue en cours ne sera pris en compte. 
+
+
+\paragraph*{Sujet:}
+
+
+On considère une base de données simplifiée d’étudiants, représentée par un dictionnaire Python.  
+Chaque clé du dictionnaire est le nom de famille d’un étudiant, et la valeur associée est une chaîne de caractère qui représente le  numéro de téléphone de l’étudiant.
+
+Par exemple, la base de données suivante est donnée :
+
+\begin{center}
+\texttt{base = \{"Euler" :  "01.43.64.00.00", "Germain" : "Sophie", "01.43.64.11.11" \}}.
+\end{center}
+
+
+\begin{enumerate}
+   
+    \item Écrire la fonction Python \texttt{quel\_numero(base, nom)} qui prend en argument une base de données
+    \texttt{base} et un nom de famille \texttt{nom}.  
+    Cette fonction doit retourner le numéro de téléphone de l’étudiant si le nom est présent dans la base,
+    et \texttt{-1} sinon.
+
+    \item Écrire la fonction Python \texttt{rajout\_numero(base, numero)} qui prend en argument un dictionnaire 
+    \texttt{base}, un nom \texttt{nom} et un numéro de téléphone \texttt{numero}.  
+    Cette fonction vérifie que la chaine de caracteres numero a le bon format (10 chiffres, XX.XX.XX.XX.XX) 
+    et rajoute la paire \texttt{nom, numero} dans le dictionnaire. 
+    
+    
+    \item Tester les deux fonctions en les appelant successivement sur la base de données dans l'exemple. 
+    \end{enumerate}
+
+\vspace{1 cm}
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{15cm}|}
+\hline
+\textbf{Remarques étudiant:}    \\
+ \\
+\hline
+\textbf{Remarques correcteur:}  \\
+ \\
+\hline
+\end{tabular}
+\end{table}
+
+
+
+\end{document}

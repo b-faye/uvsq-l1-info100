@@ -1,0 +1,384 @@
+\documentclass[a4paper,11pt]{article}
+\def\email#1{{\tt#1}}
+
+\def\N{\mbox{\rm{I}\hspace{-.15em}\rm{N}}}
+\def\Z{\mbox{\rm{Z}\hspace{-.28em}\rm{Z}}}
+\def\RR{\mbox{\rm{I}\hspace{-.15em}\rm{R}}}
+\def\C{\mbox{\rm{l}\hspace{-.50em}\rm{C}}}
+\def\Q{\mbox{\rm{l}\hspace{-.50em}\rm{Q}}}
+\def\F{\mbox{\rm{I}\hspace{-.20em}\rm{F}}}
+
+\usepackage{amssymb,amsmath}
+\usepackage{url}
+\usepackage{fullpage}
+\begin{document}
+
+\newtheorem{theo}{Theorem}
+\newtheorem{coro}{Corollary}[theo]
+\newtheorem{lemme}{Lemma}
+\renewcommand{\thecoro}{\thetheo.\arabic{coro}}
+
+
+
+\parindent=0cm
+
+
+\section*{\center IN100 Initiation au Python\\
+Contrôle continu 2}
+
+\vspace{1 cm}
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{10cm}|p{3cm}|p{2cm}|}
+\hline
+\textbf{Étudiant :} & \textbf{Heure Début }  & \textbf{Note (/5) }  \\
+& & \\
+\hline
+\textbf{Correcteur :} & \textbf{Heure Fin } & \\
+& & \\
+\hline
+
+\hline
+\end{tabular}
+\end{table}
+
+\vspace{-0.2 cm}
+\subsection*{Consignes:} Vous avez 20 minutes pour coder la solution. Seules les types et les instructions vues en cours sont autorisées. L'usage d'une fonction 
+venant d'une bibliothèque qui n'a pas été vue en cours ne sera pris en compte. 
+
+\vspace{-0.2 cm}
+\subsection*{Sujet}
+
+Une pile est une structure de données basée sur le principe que le dernier élément ajouté dans la pile est le premier à en être retiré.
+Nous l'utiliserons pour gérer une pile de livres à ranger sur une étagère. Chaque livre est représenté par un entier correspondant à son nombre de pages.
+
+\begin{itemize}
+\item[1.] \'Ecrire une fonction \texttt{ajoute\_livre} qui prend en argument une liste et un entier \texttt{nb\_pages}, et qui ajoute le livre dans la liste (en haut de la pile, donc en fin de liste).
+Testez votre fonction en ajoutant les livres suivants dans la pile (dans cet ordre) :
+\vspace{-0.2 cm}
+\begin{verbatim}
+150
+200
+120
+80
+220
+\end{verbatim}
+\vspace{-0.2 cm}
+\item[2.] \'Ecrire une fonction \texttt{ranger\_livre} prend en argument la liste qui donne la pile, enlève le dernier élément ajouté (le livre en haut de la pile),
+et renvoie le nombre de pages de ce livre.
+\item[3.] \'Ecrire une fonction \texttt{ranger\_pile\_livres} qui prend en argument  la pile de livres, traite tous les livres dans la pile jusqu’à ce qu’elle soit vide,
+et renvoie le total de pages de tous les livres rangés. 
+\end{itemize}
+\vspace{-0.2 cm}
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{15cm}|}
+\hline
+\textbf{Remarques étudiant :}    \\
+ \\
+\hline
+\textbf{Remarques correcteur :}  \\
+ \\
+\hline
+\end{tabular}
+\end{table}
+
+\newpage
+
+\vspace{-0.2 cm}
+
+\section*{\center IN100 Initiation au Python\\
+Contrôle continu 2}
+
+\vspace{-0.3 cm}
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{10cm}|p{3cm}|p{2cm}|}
+\hline
+\textbf{Étudiant :} & \textbf{Heure Début }  & \textbf{Note (/5) }  \\
+& & \\
+\hline
+\textbf{Correcteur :} & \textbf{Heure Fin } & \\
+& & \\
+\hline
+
+\hline
+\end{tabular}
+\end{table}
+\vspace{-0.4 cm}
+\paragraph*{Consignes:} Vous avez 20 minutes pour coder la solution. Seules les types et les instructions vues en cours sont autorisées. Tout usage d'une fonction 
+venant d'une bibliothèque qui n'a pas été vue en cours ne sera pris en compte. 
+
+\vspace{-0.2 cm}
+\paragraph*{Sujet:}
+
+Un \textbf{code produit} est composé de 12 chiffres : 
+\vspace{-0.2 cm}
+\begin{itemize}
+    \item Les 11 premiers chiffres correspondent aux informations sur le produit.
+    \item Le dernier chiffre représente la \textbf{clé de contrôle}, calculée à partir des 11 premiers chiffres.
+\end{itemize}
+\vspace{-0.2 cm}
+La clé de contrôle est calculée ainsi :
+\vspace{-0.2 cm}
+
+\[
+\text{clé} = (\text{somme des 11 premiers chiffres}) \bmod 10
+\]
+\vspace{-0.2 cm}
+
+\textbf{Exemple :}  
+Si les 11 premiers chiffres sont \texttt{12345678901}, alors :  
+\vspace{-0.2 cm}
+
+\[
+\text{clé} = (1+2+3+4+5+6+7+8+9+0+1) \mod 10 = 46 \mod 10 = 6
+\]
+\vspace{-0.3 cm}
+
+Le code complet sera donc \texttt{123456789016}, où 6 est la clé calculée.
+
+\vspace{-0.3 cm}
+
+
+\begin{enumerate}
+  \item[1.] Écrire une fonction qui demande à l'utilisateur de saisir un \textbf{code produit} sous forme de chaîne de caractères.
+ \item[2.] Écrire une fonction Python  \texttt{verifier\_code\_produit}  qui vérifie qu'un code produit est valide. 
+ \item[3.] \'Ecrire une fonction qui génère un code produit,  les premières 11 caractères étant générés aléatoirement. 
+ \end{enumerate}
+ \vspace{-0.2 cm}
+
+Pour générer aléatoirement des nombres entiers, nous rappelons qu'on peut utiliser la fonction \texttt{random.randint(a,b)} qui renvoie un nombre entier entre $a$ et $b$. 
+
+\vspace{0.2 cm}
+Exemple d'usage:
+\vspace{-0.2 cm}
+\begin{verbatim}
+import random
+
+print(random.randint(2,15))
+\end{verbatim}
+
+\vspace{-0.4 cm}
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{15cm}|}
+\hline
+\textbf{Remarques étudiant :}    \\
+ \\
+\hline
+\textbf{Remarques correcteur :}  \\
+ \\
+\hline
+\end{tabular}
+\end{table}
+
+
+\newpage
+
+
+\section*{\center IN100 Initiation au Python\\
+Contrôle continu 2}
+
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{10cm}|p{3cm}|p{2cm}|}
+\hline
+\textbf{Étudiant :} & \textbf{Heure Début }  & \textbf{Note (/5) }  \\
+& & \\
+\hline
+\textbf{Correcteur :} & \textbf{Heure Fin } & \\
+& & \\
+\hline
+
+\hline
+\end{tabular}
+\end{table}
+
+\paragraph*{Consignes:} Vous avez 20 minutes pour coder la solution. Seules les types et les instructions vues en cours sont autorisées. Tout usage d'une fonction 
+venant d'une bibliothèque qui n'a pas été vue en cours ne sera pris en compte. 
+
+\paragraph*{Sujet:} On souhaite créer un petit système de chiffrement simple basé sur une permutation de l’alphabet.
+
+\begin{itemize}
+\item[1.] Écrire une fonction \texttt{permutation\_alphabet} qui 
+crée une permutation aléatoire de l’alphabet. Pour cela vous utiliserez la fonction
+\texttt{shuffle} du module \texttt{random}. 
+En partant d'une liste \texttt{alphabet} contenant les caractères \texttt{'a'} à l'indice 0, \texttt{'b'} à l'indice 1, \texttt{'c'} à l'indice 2 , \texttt{'d'} à l'indice 4  \ldots 
+on peut faire: 
+\begin{verbatim}
+import random
+
+random.shuffle(alphabet)
+\end{verbatim}
+\item[2.]  Écrire une fonction \texttt{chiffrer\_mot} 
+qui prend en argument le mot à chiffrer  et la liste donnant la permutation et 
+qui renvoie le mot chiffré, en remplaçant chaque lettre de l'alphabet par la lettre se trouvant au même indice dans la liste permutée. \\
+\vspace{-0.1 cm}
+
+Exemple: 
+\vspace{-0.2 cm}
+\begin{verbatim}
+perm=['u', 'n', 'o', 'd', 'k', 'c', 'g', 'm', 'f', 'h', 'x', 't', 'w', 'j',
+ 'e', 's', 'v', 'y', 'l', 'r', 'z', 'a', 'p', 'b', 'q', 'i']
+>>> chiffrer_mot("bonjour", perm)
+'nej...'
+\end{verbatim}
+
+\item[3.]  Écrire une fonction \texttt{dechiffrer\_mot} 
+qui prend en argument le mot chiffré et la liste donnant la permutation et 
+qui renvoie le mot en clair. 
+\end{itemize}
+
+
+\vspace{-0.4 cm}
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{15cm}|}
+\hline
+\textbf{Remarques étudiant :}    \\
+ \\
+\hline
+\textbf{Remarques correcteur :}  \\
+ \\
+\hline
+\end{tabular}
+\end{table}
+
+
+\newpage
+
+\section*{\center IN100 Initiation au Python\\
+Contrôle continu 2}
+
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{10cm}|p{3cm}|p{2cm}|}
+\hline
+\textbf{Étudiant :} & \textbf{Heure Début }  & \textbf{Note (/5) }  \\
+& & \\
+\hline
+\textbf{Correcteur :} & \textbf{Heure Fin } & \\
+& & \\
+\hline
+
+\hline
+\end{tabular}
+\end{table}
+
+\vspace*{-0.4 cm}
+\subsection*{Consignes:} Vous avez 20 minutes pour coder la solution. Seules les types et les instructions vues en cours sont autorisées. Tout usage d'une fonction 
+venant d'une bibliothèque qui n'a pas été vue en cours ne sera pris en compte. 
+
+\vspace*{-0.2 cm}
+
+\subsection*{Sujet:}   
+
+
+La suite de Fibonacci est définie par la relation suivante :
+\[
+F_0 = 0, \quad F_1 = 1, \quad \text{et pour tout } n \ge 2, \quad F_n = F_{n-1} + F_{n-2}.
+\]
+
+Autrement dit, chaque terme est la somme des deux précédents.
+
+\begin{itemize}
+\item[1.] Écrire une fonction \texttt{fibonacci} qui prend en entrée un entier $n$ et qui calcule le $n$-ième nombre de Fibonnaci. 
+\item[2.] Écrire une fonction  \texttt{est\_fibonacci}  qui prend en entrée un entier $x$. La fonction devra  générer la suite jusqu’à dépasser la valeur \texttt{x}, puis vérifier si \texttt{x} y apparaît.
+\end{itemize}
+
+
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{15cm}|}
+\hline
+\textbf{Remarques étudiant :}    \\
+ \\
+ \\
+\hline
+\textbf{Remarques correcteur :}  \\
+ \\
+ \\
+\hline
+\end{tabular}
+\end{table}
+
+\newpage
+
+\section*{\center IN100 Initiation au Python\\
+Contrôle continu 2}
+
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{10cm}|p{3cm}|p{2cm}|}
+\hline
+\textbf{Étudiant :} & \textbf{Heure Début }  & \textbf{Note (/5) }  \\
+& & \\
+\hline
+\textbf{Correcteur :} & \textbf{Heure Fin } & \\
+& & \\
+\hline
+
+\hline
+\end{tabular}
+\end{table}
+\vspace{-0.6 cm}
+\subsection*{Consignes:} Vous avez 20 minutes pour coder la solution. Seules les types et les instructions vues en cours sont autorisées. Tout usage d'une fonction 
+venant d'une bibliothèque qui n'a pas été vue en cours ne sera pris en compte. 
+
+\subsection*{Sujet:}
+
+Dans une salle de cinéma, les places sont représentées par une \textbf{matrice} de taille $n \times n$.  
+
+\begin{itemize}
+\item Chaque ligne représente une \textbf{rangée} de sièges.  
+\item Chaque colonne représente une \textbf{place} dans la rangée.  
+\end{itemize}
+Une valeur \texttt{1} indique qu'une place est \textbf{occupée}, \texttt{0} qu'elle est \textbf{libre}.
+On écrit un programme qui permettra au gestionnaire au guichet de vendre les tickets. 
+
+\begin{itemize}
+\item[1.] \'Ecrire une fonction prend en entrée la matrice d'une salle de théâtre, et un entier représentant le nombre de tickets que l'utilisateur souhaite 
+acheter et renvoie une liste avec les places qui ont été attribuées. La liste contiendra des tuples d'entiers \texttt{(i,j)} donnant le numéro de la rangée et le numéro de la place sur la rangée. 
+\item[2.] \'Ecrire une fonction qui, à la fin des ventes, comptera le nombre de places vendues. Cette fonction prendra en entrée la matrice de la salle. 
+\end{itemize}
+
+
+%\vspace*{-0.3 cm}
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{15cm}|}
+\hline
+\textbf{Remarques étudiant :}    \\
+ \\
+ \\
+\hline
+\textbf{Remarques correcteur :}  \\
+ \\
+ \\
+\hline
+\end{tabular}
+\end{table}
+
+
+
+
+
+\end{document}

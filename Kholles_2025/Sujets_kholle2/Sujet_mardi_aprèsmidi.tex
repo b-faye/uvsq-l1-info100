@@ -1,0 +1,377 @@
+\documentclass[a4paper,11pt]{article}
+\def\email#1{{\tt#1}}
+
+\def\N{\mbox{\rm{I}\hspace{-.15em}\rm{N}}}
+\def\Z{\mbox{\rm{Z}\hspace{-.28em}\rm{Z}}}
+\def\RR{\mbox{\rm{I}\hspace{-.15em}\rm{R}}}
+\def\C{\mbox{\rm{l}\hspace{-.50em}\rm{C}}}
+\def\Q{\mbox{\rm{l}\hspace{-.50em}\rm{Q}}}
+\def\F{\mbox{\rm{I}\hspace{-.20em}\rm{F}}}
+
+\usepackage{amssymb,amsmath}
+\usepackage{url}
+\usepackage{fullpage}
+\begin{document}
+
+\newtheorem{theo}{Theorem}
+\newtheorem{coro}{Corollary}[theo]
+\newtheorem{lemme}{Lemma}
+\renewcommand{\thecoro}{\thetheo.\arabic{coro}}
+
+
+
+\parindent=0cm
+
+
+\section*{\center IN100 Initiation au Python\\
+Contrôle continu 2}
+
+\vspace{-0.3 cm}
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{10cm}|p{3cm}|p{2cm}|}
+\hline
+\textbf{Étudiant :} & \textbf{Heure Début }  & \textbf{Note (/5) }  \\
+& & \\
+\hline
+\textbf{Correcteur :} & \textbf{Heure Fin } & \\
+& & \\
+\hline
+
+\hline
+\end{tabular}
+\end{table}
+\vspace{-0.4 cm}
+\paragraph*{Consignes:} Vous avez 20 minutes pour coder la solution. Seules les types et les instructions vues en cours sont autorisées. Tout usage d'une fonction 
+venant d'une bibliothèque qui n'a pas été vue en cours ne sera pris en compte. 
+
+\vspace{-0.2 cm}
+\paragraph*{Sujet:}
+
+Durant un cours de sport, un professeur souhaite organiser un tournoi de tennis de table. Sa classe comporte 26 élèves, qu'il numérote de 1 à 26. Il dispose de 13 tables sur lesquels les élèves s'affrontent. On représente les terrains par une liste de tables, et chaque table par un tuple constituant une paire d'élèves. Par exemple, une disposition de départ des élèves est la suivante: 
+\begin{center}
+	\texttt{[(1,2),(3,4),(5,6),...,(23,24),(25,26)]}
+\end{center}
+
+
+\begin{enumerate}
+  \item[1.] Une fois un match terminé sur une table, on souhaite que le premier élèves du tuples correspondant soit le vainqueur. Écrire une fonction Python \texttt{match} qui prend en entrée un tuple d'élèves, et choisit un gagnant au hasard et renvoie un tuple adapté au résultat du match.
+  
+  \item[2.] Lorsqu'un élève gagne, il monte à la table voisine d'indice supérieur. Lorsqu'un élève perd, il descend à la table voisine d'indice inférieur. Le perdant de la table d'indice $0$ ne change pas de table, et il en va de même pour le gagnant de la table d'indice $12$.\\   
+  Écrire une fonction Python \texttt{round} qui prend en entrée une liste de tuples représentant les tables, et qui simule un match sur chaque table et renvoie la liste des tables après que les élèves se soient déplacés.
+\end{enumerate}
+ 
+Pour générer aléatoirement des nombres entiers, nous rappelons qu'on peut utiliser la fonction \texttt{random.randint(a,b)} qui renvoie un nombre entier entre $a$ et $b$. 
+
+\vspace{0.2 cm}
+Exemple d'usage:
+\vspace{-0.2 cm}
+\begin{verbatim}
+	import random
+	
+	print(random.randint(2,15))
+\end{verbatim}
+
+
+
+\vspace{-0.4 cm}
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{15cm}|}
+\hline
+\textbf{Remarques étudiant :}    \\
+ \\
+\hline
+\textbf{Remarques correcteur :}  \\
+ \\
+\hline
+\end{tabular}
+\end{table}
+
+
+\section*{\center IN100 Initiation au Python\\
+Contrôle continu 2}
+
+\vspace{-0.3 cm}
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{10cm}|p{3cm}|p{2cm}|}
+\hline
+\textbf{Étudiant :} & \textbf{Heure Début }  & \textbf{Note (/5) }  \\
+& & \\
+\hline
+\textbf{Correcteur :} & \textbf{Heure Fin } & \\
+& & \\
+\hline
+
+\hline
+\end{tabular}
+\end{table}
+\vspace{-0.4 cm}
+\paragraph*{Consignes:} Vous avez 20 minutes pour coder la solution. Seules les types et les instructions vues en cours sont autorisées. Tout usage d'une fonction 
+venant d'une bibliothèque qui n'a pas été vue en cours ne sera pris en compte. 
+
+\vspace{-0.2 cm}
+\paragraph*{Sujet:}
+
+
+On considère la suite $(u_n)$ définie par :
+\[
+\begin{cases}
+u_0 = 2 \\
+u_{n+1} = 3u_n + 1 \quad \text{pour tout } n \geq 0
+\end{cases}
+\]
+
+Les termes de cette suite peuvent être calculés progressivement à partir de la valeur initiale $u_0$.
+
+\bigskip
+
+\textbf{Exemple :}
+\[
+u_1 = 3 \times 2 + 1 = 7 \qquad
+u_2 = 3 \times 7 + 1 = 22
+\]
+
+\bigskip
+
+\begin{enumerate}
+
+
+\item Écrire une fonction \texttt{terme\_n\_suite} qui prend en argument :
+\begin{itemize}
+    \item un entier initial $u_0$,
+    \item un entier $n$.
+\end{itemize}
+Cette fonction doit retourner la valeur du terme $u_n$ de la suite.
+
+\item Écrire une fonction qui détermine le premier rang $n$ pour lequel le terme $u_n$ est strictement supérieur à un entier donné $M$.
+
+\item Tester les fonctions précédentes avec plusieurs valeurs de $n$ et de $M$.
+\end{enumerate}
+
+\vspace{-0.4 cm}
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{15cm}|}
+\hline
+\textbf{Remarques étudiant :}    \\
+ \\
+\hline
+\textbf{Remarques correcteur :}  \\
+ \\
+\hline
+\end{tabular}
+\end{table}
+
+\newpage
+
+
+\section*{\center IN100 Initiation au Python\\
+Contrôle continu 2}
+
+\vspace{-0.3 cm}
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{10cm}|p{3cm}|p{2cm}|}
+\hline
+\textbf{Étudiant :} & \textbf{Heure Début }  & \textbf{Note (/5) }  \\
+& & \\
+\hline
+\textbf{Correcteur :} & \textbf{Heure Fin } & \\
+& & \\
+\hline
+
+\hline
+\end{tabular}
+\end{table}
+\vspace{-0.4 cm}
+\paragraph*{Consignes:} Vous avez 20 minutes pour coder la solution. Seules les types et les instructions vues en cours sont autorisées. Tout usage d'une fonction 
+venant d'une bibliothèque qui n'a pas été vue en cours ne sera pris en compte. 
+
+\vspace{-0.2 cm}
+\vspace{-0.2 cm}
+\paragraph*{Sujet:}
+
+On définit une suite $(S_n)_{n \in \mathbb{N}}$ de chaînes de caractères par :
+\begin{itemize}
+    \item $s_0 = \texttt{"a"}$,
+    \item pour tout $n \geq 0$,
+    \[
+    s_{n+1} = s_n + \texttt{"b"} + s_n,
+    \]
+    où le symbole $+$ désigne la concaténation de chaînes de caractères.
+\end{itemize}
+
+\vspace{0.2 cm}
+\textbf{Questions}: 
+
+\begin{enumerate}
+    \item Écrire une fonction Python \texttt{calcul\_s(n)} qui calcule et renvoie la chaîne de caractères $s_n$.
+    \item 
+    On rappelle qu’une chaîne de caractères est un \emph{palindrome} si elle est égale à son renversé.
+    Écrire une fonction Python qui prend en entrée un entier \texttt{n} et permet de tester si la chaîne $s_n$ pour est un palindrome.
+\end{enumerate}
+
+\medskip
+
+
+
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{15cm}|}
+\hline
+\textbf{Remarques étudiant :}    \\
+ \\
+\hline
+\textbf{Remarques correcteur :}  \\
+ \\
+\hline
+\end{tabular}
+\end{table}
+
+
+\newpage
+
+
+\section*{\center IN100 Initiation au Python\\
+Contrôle continu 2}
+
+\vspace{-0.3 cm}
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{10cm}|p{3cm}|p{2cm}|}
+\hline
+\textbf{Étudiant :} & \textbf{Heure Début }  & \textbf{Note (/5) }  \\
+& & \\
+\hline
+\textbf{Correcteur :} & \textbf{Heure Fin } & \\
+& & \\
+\hline
+
+\hline
+\end{tabular}
+\end{table}
+
+\paragraph*{Consignes:} Vous avez 20 minutes pour coder la solution. Seules les types et les instructions vues en cours sont autorisées. Tout usage d'une fonction 
+venant d'une bibliothèque qui n'a pas été vue en cours ne sera pris en compte. 
+
+
+\paragraph*{Sujet:}
+
+On souhaite simuler une file d’attente (par exemple à un guichet).
+La file d’attente sera représentée par une liste Python contenant les noms des clients. 
+\vspace{-0.3 cm}
+
+
+
+\begin{enumerate}
+  \item[1.] Écrire une fonction \textbf{ajouter\_client(file\_attente, nom)} qui prend en paramètre une liste \textbf{file\_attente} et une chaîne de caractères nom et ajoute le client nom à la fin de la file. 
+ \item[2.] Écrire une fonction \textbf{servir\_client(file\_attente)} qui  prend en paramètre une liste \textbf{file\_attente}.  Si la file est vide, on affiche le message \textbf{"Aucun client à servir"} et on renvoie \textbf{None}. Sinon, on retire le premier client de la file et on renvoie son nom. 
+ \item[3.] Écrire un programme principal qui : 
+ 
+ \begin{itemize}
+     \item initialise une file d’attente vide,
+     \item demande à l’utilisateur combien de clients arrivent successivement,
+     \item pour chaque client, demande son nom et appelle \textbf{ajouter\_client},
+     \item appelle ensuite \textbf{servir\_client} une première fois et affiche le client servi,
+     \item affiche enfin le contenu restant de la file d’attente.
+ \end{itemize}
+
+ \end{enumerate}
+ 
+\vspace{0.4 cm}
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{15cm}|}
+\hline
+\textbf{Remarques étudiant :}    \\
+ \\
+\hline
+\textbf{Remarques correcteur :}  \\
+ \\
+\hline
+\end{tabular}
+\end{table}
+
+
+\newpage
+
+\section*{\center IN100 Initiation au Python\\
+Contrôle continu 2}
+
+\vspace{0.3 cm}
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{10cm}|p{3cm}|p{2cm}|}
+\hline
+\textbf{Étudiant :} & \textbf{Heure Début }  & \textbf{Note (/5) }  \\
+& & \\
+\hline
+\textbf{Correcteur :} & \textbf{Heure Fin } & \\
+& & \\
+\hline
+
+\hline
+\end{tabular}
+\end{table}
+
+\paragraph*{Consignes:} Vous avez 20 minutes pour coder la solution. Seules les types et les instructions vues en cours sont autorisées. Tout usage d'une fonction 
+venant d'une bibliothèque qui n'a pas été vue en cours ne sera pris en compte. 
+
+\paragraph*{Sujet:}
+
+On construit un collier de perle avec des perles bleu et rouge. On modélise un collier par une liste de perles, et une perle par sa couleur 'B' ou 'R'. Cependant chaque collier forme une boucle, c’est-à-dire que la première et la dernière perle sont considérées comme voisines.
+Du coup, un collier peut être représenté par plusieurs listes.\\
+
+
+\textbf{Exemple}: 
+ La liste ['B','R','R','B','R'] représente un collier à 5 perles, qui peut aussi être représenté par ['R','R','B','R','B']).\\
+
+
+\begin{enumerate}
+  \item[1.] Écrire une fonction Python \texttt{verifier\_identiques} qui prend en entrée deux listes de perles et qui renvoie \texttt{True} si elles correspondent au même collier. 
+  
+  \item[2.] On dira qu'un collier est alterné si deux perles voisines n'ont jamais la même couleur. Écrire une fonction Python \texttt{rendre\_alterné\_plus} qui modifie une liste de perles pour la rendre alternée, en lui ajoutant des perles.  
+  Si nécessaire, on pourra "ajouter des perles" entre deux perles consécutifs du collier. 
+ \end{enumerate}
+ 
+
+
+\vspace{1 cm}
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{15cm}|}
+\hline
+\textbf{Remarques étudiant :}    \\
+ \\
+ \\
+\hline
+\textbf{Remarques correcteur :}  \\
+ \\
+ \\
+\hline
+\end{tabular}
+\end{table}
+
+
+
+
+\end{document}

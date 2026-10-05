@@ -1,0 +1,410 @@
+\documentclass[a4paper,11pt]{article}
+\def\email#1{{\tt#1}}
+
+\def\N{\mbox{\rm{I}\hspace{-.15em}\rm{N}}}
+\def\Z{\mbox{\rm{Z}\hspace{-.28em}\rm{Z}}}
+\def\RR{\mbox{\rm{I}\hspace{-.15em}\rm{R}}}
+\def\C{\mbox{\rm{l}\hspace{-.50em}\rm{C}}}
+\def\Q{\mbox{\rm{l}\hspace{-.50em}\rm{Q}}}
+\def\F{\mbox{\rm{I}\hspace{-.20em}\rm{F}}}
+
+\usepackage{amssymb,amsmath}
+\usepackage{url}
+\usepackage{fullpage}
+\begin{document}
+
+\newtheorem{theo}{Theorem}
+\newtheorem{coro}{Corollary}[theo]
+\newtheorem{lemme}{Lemma}
+\renewcommand{\thecoro}{\thetheo.\arabic{coro}}
+
+
+
+\parindent=0cm
+
+
+\section*{\center IN100 Initiation au Python\\
+Contrôle continu 2}
+
+\vspace{-0.2 cm}
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{10cm}|p{3cm}|p{2cm}|}
+\hline
+\textbf{Étudiant :} & \textbf{Heure Début }  & \textbf{Note (/5) }  \\
+& & \\
+\hline
+\textbf{Correcteur :} & \textbf{Heure Fin } & \\
+& & \\
+\hline
+
+\hline
+\end{tabular}
+\end{table}
+\vspace{-0.4 cm}
+
+
+\paragraph*{Consignes:} Vous avez 20 minutes pour coder la solution. Seules les types et les instructions vues en cours sont autorisées. L'usage d'une fonction 
+venant d'une bibliothèque qui n'a pas été vue en cours ne sera pris en compte. 
+
+\vspace{-0.4 cm}
+
+\paragraph*{Sujet:} On s’intéresse à des suites binaires, c’est-à-dire des chaînes ne contenant que les chiffres \texttt{0} et \texttt{1}.  
+Le \textbf{complément binaire} d’une suite est obtenu en remplaçant chaque \texttt{0} par \texttt{1}, et chaque \texttt{1} par \texttt{0}.
+\vspace{-0.3 cm}
+\begin{center}
+\texttt{'010011'} $\longrightarrow$ \texttt{'101100'}
+\end{center}
+\vspace{-0.3 cm}
+
+\begin{itemize}
+\item[1.] Écrire une fonction Python  \texttt{complement\_binaire}  qui prend en entrée un chaîne de caractères composée de '0' et '1' et 
+    renvoie la chaîne correspondant à son complément binaire. 
+
+\textbf{Exemples :}
+\vspace{-0.3 cm}
+\begin{verbatim}
+>>> complement_binaire("010011")
+'101100'
+>>> complement_binaire("1111")
+'0000'
+\end{verbatim}
+
+
+\item[2.] On construit la suite de Thue--Morse de manière itérative :
+\vspace{-0.3 cm}
+
+\[
+t_0 = '0', \quad t_{n+1} = t_n + \text{complement\_binaire}(t_n),
+\]
+%\vspace{-0.1 cm}
+ou le '+' est la concaténation. 
+Écrire une fonction \texttt{thue\_morse}
+  qui prend en entrée un entier   $n$ positif
+    et qui renvoie la suite de Thue-Morse après $n$ étapes. 
+
+\textbf{Exemples :}
+\vspace{-0.3 cm}
+\begin{verbatim}
+>>> thue_morse(0)
+'0'
+>>> thue_morse(1)
+'01'
+>>> thue_morse(2)
+'0110'
+\end{verbatim}
+\end{itemize}
+\vspace{-0.5 cm}
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{15cm}|}
+\hline
+\textbf{Remarques étudiant :}    \\
+ \\
+\hline
+\textbf{Remarques correcteur :}  \\
+ \\
+\hline
+\end{tabular}
+\end{table}
+
+\newpage
+
+
+\section*{\center IN100 Initiation au Python\\
+Contrôle continu 2}
+
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{10cm}|p{3cm}|p{2cm}|}
+\hline
+\textbf{Étudiant :} & \textbf{Heure Début }  & \textbf{Note (/5) }  \\
+& & \\
+\hline
+\textbf{Correcteur :} & \textbf{Heure Fin } & \\
+& & \\
+\hline
+
+\hline
+\end{tabular}
+\end{table}
+
+\subsection*{Consignes:} Vous avez 20 minutes pour coder la solution. Seules les types et les instructions vues en cours sont autorisées. Tout usage d'une fonction 
+venant d'une bibliothèque qui n'a pas été vue en cours ne sera pris en compte. 
+
+
+\subsection*{Sujet:}
+On construit une suite de listes selon la règle suivante :
+
+\[
+L_0 = [1], \quad \text{et pour tout } n \ge 1, \quad L_{n} = L_{n-1} + [n+1] + L_{n-1}, 
+\]
+ ou l'opération + représente la concaténation. Autrement dit, à chaque étape, on ajoute un entier au centre de la liste et on recopie la liste précédente de chaque côté.
+
+\vspace{0.3 cm}
+\textbf{Exemple de construction :}
+\[
+L_0 = [1], \quad L_1 = [1, 2, 1], \quad L_2 = [1, 2, 1, 3, 1, 2, 1].
+\]
+\begin{itemize}
+\item[1.] Écrire une fonction \texttt{etape\_miroir} qui prend en entrée une liste $L$ et un entier 
+    et renvoie une nouvelle liste construite selon la règle du miroir :
+    \texttt{nouvelle\_liste = L + [n] + L}.
+
+\item[2.] Écrire une fonction \texttt{suite\_miroir} qui prend en entrée un entier \texttt{n}
+   et qui envoie la liste $L_n$ construite selon la règle du miroir. 
+\end{itemize}   
+
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{15cm}|}
+\hline
+\textbf{Remarques étudiant :}    \\
+ \\
+ \\
+\hline
+\textbf{Remarques correcteur :}  \\
+ \\
+ \\
+\hline
+\end{tabular}
+\end{table}
+
+
+\newpage
+
+
+\section*{\center IN100 Initiation au Python\\
+Contrôle continu 2}
+
+\vspace*{-0.4 cm}
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{10cm}|p{3cm}|p{2cm}|}
+\hline
+\textbf{Étudiant :} & \textbf{Heure Début }  & \textbf{Note (/5) }  \\
+& & \\
+\hline
+\textbf{Correcteur :} & \textbf{Heure Fin } & \\
+& & \\
+\hline
+
+\hline
+\end{tabular}
+\end{table}
+\vspace*{-0.4 cm}
+
+\paragraph*{Consignes:} Vous avez 20 minutes pour coder la solution. Seules les types et les instructions vues en cours sont autorisées. Tout usage d'une fonction 
+venant d'une bibliothèque qui n'a pas été vue en cours ne sera pris en compte. 
+
+\vspace*{-0.2 cm}
+\paragraph*{Sujet:}
+
+Le jeu \textbf{Wordle} consiste à deviner un mot  choisi aléatoirement parmi une liste de mots.  
+Le joueur propose des mots et reçoit des indications sur les lettres correctes et leur position. Nous allons simuler la partie “tirage d’un mot mystère” et quelques fonctions utiles.
+
+On dispose d’une liste de mots valides : 
+\vspace*{-0.2 cm}
+\begin{verbatim}
+mots = ["APPLE", "BANJO", "CRANE", "DRIVE", "EAGLE"]
+\end{verbatim}
+
+\begin{itemize}
+\item[1.] Écrire une fonction   \texttt{tirer\_mot} qui prend en entrée la liste de mots et 
+   qui renvoie un mot à deviner, choisi au hasard dans cette liste. 
+   
+Nous rappelons que pour simuler le tirage aléatoire vous pouvez utiliser la fonction \texttt{random.randint(a,b)} qui renvoie un entier aléatoire entre $a$ et $b$. 
+
+Exemple d'usage: 
+\vspace*{-0.2 cm}
+\begin{verbatim}
+import random
+
+print(random.randint(3,5))
+\end{verbatim}
+\vspace*{-0.4 cm}
+\item[2.] Écrire une fonction \texttt{comparer\_mots} qui prend en argument le mot à deviner
+    et le mot proposé par le joueur et 
+    renvoie une liste de 5 caractères comme suit:
+    \begin{itemize}
+     \item  'T' si la lettre est correcte et bien placée (True)
+     \item  'P' si la lettre est dans le mot mais mal placée (Presque)
+    \item   '-' si la lettre n'est pas dans le mot
+\end{itemize}
+\textbf{Exemple :}
+\vspace*{-0.4 cm}
+\begin{verbatim}
+>>> comparer_mots("CRANE", "CARTE")
+['T', 'P', 'P', '-', 'T']
+\end{verbatim}
+\end{itemize}
+
+\vspace*{-0.3 cm}
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{15cm}|}
+\hline
+\textbf{Remarques étudiant :}    \\
+ \\
+\hline
+\textbf{Remarques correcteur :}  \\
+ \\
+\hline
+\end{tabular}
+\end{table}
+
+
+\newpage
+
+\section*{\center IN100 Initiation au Python\\
+Contrôle continu 2}
+
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{10cm}|p{3cm}|p{2cm}|}
+\hline
+\textbf{Étudiant :} & \textbf{Heure Début }  & \textbf{Note (/5) }  \\
+& & \\
+\hline
+\textbf{Correcteur :} & \textbf{Heure Fin } & \\
+& & \\
+\hline
+
+\hline
+\end{tabular}
+\end{table}
+
+\vspace*{-0.4 cm}
+\subsection*{Consignes:} Vous avez 20 minutes pour coder la solution. Seules les types et les instructions vues en cours sont autorisées. Tout usage d'une fonction 
+venant d'une bibliothèque qui n'a pas été vue en cours ne sera pris en compte. 
+
+\vspace*{-0.2 cm}
+
+\subsection*{Sujet:}   
+
+
+Vous préparez vos vacances et souhaitez visiter plusieurs lieux touristiques, tout en limitant votre impact écologique.  
+Chaque lieu est situé à une certaine distance de votre point de départ.  Il y a 9 lieux possibles, dont la distance depuis votre point de départ est stockée dans la liste \texttt{liste\_distances} (en kilomètres).  
+Vous avez défini une distance minimale \texttt{dist\_min} et une distance maximale \texttt{dist\_max} pour chaque visite.
+
+\begin{itemize}
+\item[1.] Écrire une fonction 
+\texttt{visites\_dans\_distance(liste\_distances, dist\_min, dist\_max)}  
+qui renvoie la liste des lieux dont la distance est comprise entre \texttt{dist\_min} et \texttt{dist\_max}.
+\item[2.] Votre voisin souhaite choisir le lieu aléatoirement parmi les lieux de la liste, mais que la distance soit comprise entre \texttt{dist\_min} et \texttt{dist\_max}.
+Écrire une fonction \\
+\texttt{lieu\_aleatoire(liste\_distances)} 
+qui choisit sa destination de manière aléatoire. 
+\end{itemize}
+
+\bigskip
+
+Vous pourrez tester vos fonctions avec la liste suivante :
+\begin{verbatim}
+liste_distances = [12.0, 25.0, 8.0, 10.0, 12.5, 15.0,  5.5, 22.5, 18.8]
+\end{verbatim}
+
+On rappelle que la fonction \texttt{random.randint(a,b)} renvoie un entier aléatoire entre $a$ et $b$. 
+
+\begin{verbatim}
+import random 
+print(random.randint(3,9))
+\end{verbatim}
+
+
+\vspace*{-0.4 cm}
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{15cm}|}
+\hline
+\textbf{Remarques étudiant :}    \\
+ \\
+\hline
+\textbf{Remarques correcteur :}  \\
+ \\
+\hline
+\end{tabular}
+\end{table}
+
+\newpage
+
+\section*{\center IN100 Initiation au Python\\
+Contrôle continu 2}
+
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{10cm}|p{3cm}|p{2cm}|}
+\hline
+\textbf{Étudiant :} & \textbf{Heure Début }  & \textbf{Note (/5) }  \\
+& & \\
+\hline
+\textbf{Correcteur :} & \textbf{Heure Fin } & \\
+& & \\
+\hline
+
+\hline
+\end{tabular}
+\end{table}
+\vspace{-0.6 cm}
+\subsection*{Consignes:} Vous avez 20 minutes pour coder la solution. Seules les types et les instructions vues en cours sont autorisées. Tout usage d'une fonction 
+venant d'une bibliothèque qui n'a pas été vue en cours ne sera pris en compte. 
+
+\subsection*{Sujet:}
+
+Un tournoi amical est organisé entre 23 joueurs, numérotés de 0 à 22.
+Chaque joueur doit affronter un seul adversaire, et personne ne doit se retrouver contre lui-même.
+Le tirage au sort des matchs est représenté par une liste \texttt{rencontres} contenant exactement une fois chaque entier de 0 à 22.
+
+Ainsi, si \texttt{rencontres[i] = j}, cela signifie que le joueur i affrontera le joueur j.
+
+\begin{itemize}
+\item[1.]  Écrire une fonction \texttt{verifie\_tirage(rencontres)} qui prend en argument une liste d’entiers représentant un tirage des rencontres, et qui vérifie qu’\textbf{aucun joueur ne joue contre lui-même,}.  La fonction doit retourner \texttt{True} si si le tirage est valide (aucun joueur contre lui-même), et \texttt{False} sinon.
+\item[2.] Écrire une fonction \texttt{tirage\_aleatoire()} qui crée une liste contenant les entiers de 0 à 22 et qui mélange cette liste jusqu'à obtenir une liste de rencontres valide et qui la renvoie. Vous pourrez utiliser la fonction \texttt{random.shuffle()} permet de mélanger les éléments d'une liste.
+\end{itemize}
+
+\vspace*{-0.3 cm}
+Exemple d'usage: 
+\begin{verbatim}
+import random
+
+liste=[12,11,3]
+random.shuffle(liste)
+print(liste)
+\end{verbatim}
+
+
+%\vspace*{-0.3 cm}
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{15cm}|}
+\hline
+\textbf{Remarques étudiant :}    \\
+ \\
+\hline
+\textbf{Remarques correcteur :}  \\
+ \\
+\hline
+\end{tabular}
+\end{table}
+
+
+
+
+
+\end{document}

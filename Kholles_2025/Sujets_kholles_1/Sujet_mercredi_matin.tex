@@ -1,0 +1,354 @@
+\documentclass[a4paper,11pt]{article}
+\def\email#1{{\tt#1}}
+
+\def\N{\mbox{\rm{I}\hspace{-.15em}\rm{N}}}
+\def\Z{\mbox{\rm{Z}\hspace{-.28em}\rm{Z}}}
+\def\RR{\mbox{\rm{I}\hspace{-.15em}\rm{R}}}
+\def\C{\mbox{\rm{l}\hspace{-.50em}\rm{C}}}
+\def\Q{\mbox{\rm{l}\hspace{-.50em}\rm{Q}}}
+\def\F{\mbox{\rm{I}\hspace{-.20em}\rm{F}}}
+
+\usepackage{amssymb,amsmath}
+\usepackage{url}
+\usepackage{fullpage}
+\begin{document}
+
+\newtheorem{theo}{Theorem}
+\newtheorem{coro}{Corollary}[theo]
+\newtheorem{lemme}{Lemma}
+\renewcommand{\thecoro}{\thetheo.\arabic{coro}}
+
+
+
+\parindent=0cm
+
+
+\section*{\center IN100 Initiation au Python\\
+Contrôle continu 2}
+
+\vspace{1 cm}
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{10cm}|p{3cm}|p{2cm}|}
+\hline
+\textbf{Étudiant :} & \textbf{Heure Début }  & \textbf{Note (/5) }  \\
+& & \\
+\hline
+\textbf{Correcteur :} & \textbf{Heure Fin } & \\
+& & \\
+\hline
+
+\hline
+\end{tabular}
+\end{table}
+
+
+\subsection*{Consignes:} Vous avez 20 minutes pour coder la solution. Seules les types et les instructions vues en cours sont autorisées. L'usage d'une fonction 
+venant d'une bibliothèque qui n'a pas été vue en cours ne sera pris en compte. 
+
+
+\subsection*{Sujet}
+
+
+Une base de données de personnes est représentée par des tuples,  contenant des informations sur des personnes: 
+
+\begin{verbatim}
+base=[('F', 67, 145), ('M', 45, 190), ('F', 15, 130)]
+\end{verbatim}
+
+Le premier élément  d'un tuple donne le sexe de la personne ($F$ ou $M$), le deuxième donne le poids $P$, et le troisième donne la taille $T$ en cm. 
+\begin{itemize}
+\item[1.]  \'Ecrivez une fonction qui prend un argument un tuple et qui calcule l'indice corporel d'une personne. Celui-ci se calcule par la formule suivante: 
+\begin{eqnarray*}
+IC=P/T^2.
+\end{eqnarray*}
+\item[2.] \'Ecrivez une fonction qui renvoie la liste des indices corporels des personnes du même sexe dans la base de donnée. Cette fonction prendra en argument la liste de tuples, ainsi qu'une constante donnant le sexe ('F' ou 'M'). 
+\end{itemize}
+
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{15cm}|}
+\hline
+\textbf{Remarques étudiant :}    \\
+ \\
+ \\
+\hline
+\textbf{Remarques correcteur :}  \\
+ \\
+ \\
+\hline
+\end{tabular}
+\end{table}
+
+\newpage
+
+
+\section*{\center IN100 Initiation au Python\\
+Contrôle continu 2}
+
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{10cm}|p{3cm}|p{2cm}|}
+\hline
+\textbf{Étudiant :} & \textbf{Heure Début }  & \textbf{Note (/5) }  \\
+& & \\
+\hline
+\textbf{Correcteur :} & \textbf{Heure Fin } & \\
+& & \\
+\hline
+
+\hline
+\end{tabular}
+\end{table}
+
+\subsection*{Consignes:} Vous avez 20 minutes pour coder la solution. Seules les types et les instructions vues en cours sont autorisées. Tout usage d'une fonction 
+venant d'une bibliothèque qui n'a pas été vue en cours ne sera pris en compte. 
+
+
+\subsection*{Sujet:}
+
+Un numéro de sécurité sociale est donné sous forme d'une chaîne de caractères. Écrire une fonction qui demande à l’utilisateur de donner son numéro de sécurité
+sociale et teste si celui-ci est valide. 
+Pour cela on vérifiera: 
+
+
+\begin{itemize}
+\item que la chaîne a exactement 15 caractères. 
+\item que  la clé de contrôle (les deux derniers chiffres) est correcte. 
+\end{itemize}
+
+On rappelle que la clé de contrôle est calculée comme: 
+
+\begin{eqnarray*}
+97- (\mbox{les nombres donnés par 13 premiers chiffres})~\mbox{modulo}~~97. 
+\end{eqnarray*}
+
+
+
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{15cm}|}
+\hline
+\textbf{Remarques étudiant :}    \\
+ \\
+ \\
+\hline
+\textbf{Remarques correcteur :}  \\
+ \\
+ \\
+\hline
+\end{tabular}
+\end{table}
+
+
+\newpage
+
+
+\section*{\center IN100 Initiation au Python\\
+Contrôle continu 2}
+
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{10cm}|p{3cm}|p{2cm}|}
+\hline
+\textbf{Étudiant :} & \textbf{Heure Début }  & \textbf{Note (/5) }  \\
+& & \\
+\hline
+\textbf{Correcteur :} & \textbf{Heure Fin } & \\
+& & \\
+\hline
+
+\hline
+\end{tabular}
+\end{table}
+
+\subsection*{Consignes:} Vous avez 20 minutes pour coder la solution. Seules les types et les instructions vues en cours sont autorisées. Tout usage d'une fonction 
+venant d'une bibliothèque qui n'a pas été vue en cours ne sera pris en compte. 
+
+\subsection*{Sujet:}
+
+
+On veut visiter des lieux ($n$, numérotés de $1$ à $n$) sur un nombre limité de jours. 
+On peut visiter plusieurs fois le même lieu. On utilise une liste imbriquée pour représenter 
+les lieux que nous avons visité chaque jour. Par exemple pour $n = 5$ lieux, on
+a:  
+
+\begin{verbatim}
+lieux_visites=[[2, 4, 5], [], [2, 3], [2], [2, 4]].
+\end{verbatim}
+
+Cela veut dire que le jour 1 on a visité les lieux 2, 4 et 5, le jour 2 on n'a visité aucun lieu etc. 
+
+\begin{itemize}
+\item[1.] Écrire une fonction \texttt{lieux\_trop\_visites} qui prend en argument le planning \texttt{lieux\_visites} et $n$ et renvoie une liste  qui contient le nombre de fois que chaque lieu 
+a été visité. 
+Ainsi pour l'exemple ci-dessus, la fonction renverra \texttt{[0,4,1,2,1]}.
+\item[2.]  Écrire une fonction \texttt{lieux\_jamais\_visites} qui prend en argument le planning et $n$ et qui  renvoie
+la liste des lieux qui n'ont jamais été visités.
+\end{itemize}
+
+\vspace{0.5 cm}
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{15cm}|}
+\hline
+\textbf{Remarques étudiant :}    \\
+ \\
+ \\
+\hline
+\textbf{Remarques correcteur :}  \\
+ \\
+ \\
+\hline
+\end{tabular}
+\end{table}
+
+
+\newpage
+
+\section*{\center IN100 Initiation au Python\\
+Contrôle continu 2}
+
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{10cm}|p{3cm}|p{2cm}|}
+\hline
+\textbf{Étudiant :} & \textbf{Heure Début }  & \textbf{Note (/5) }  \\
+& & \\
+\hline
+\textbf{Correcteur :} & \textbf{Heure Fin } & \\
+& & \\
+\hline
+
+\hline
+\end{tabular}
+\end{table}
+
+\vspace*{-0.4 cm}
+\subsection*{Consignes:} Vous avez 20 minutes pour coder la solution. Seules les types et les instructions vues en cours sont autorisées. Tout usage d'une fonction 
+venant d'une bibliothèque qui n'a pas été vue en cours ne sera pris en compte. 
+
+\vspace*{-0.2 cm}
+
+\subsection*{Sujet:}   Pour les fêtes de fin d’année, les étudiants du groupe de TD souhaitent organiser un \textbf{échange de cadeaux} selon la règle suivante :  
+chaque élève offre \textbf{un unique cadeau à un autre élève}, choisi au hasard, et \textbf{chaque élève reçoit un cadeau d’un seul autre élève}.
+
+\medskip
+
+Chaque étudiant est représenté par un entier compris entre \textbf{0 et 22} (inclus).  
+Le résultat du tirage au sort sera représenté par une \textbf{liste} contenant exactement une fois chaque entier de 0 à 22.  
+Ainsi, si \texttt{attribution} est cette liste, l’élève \texttt{i} offrira un cadeau à l’élève \texttt{attribution[i]}.
+
+\begin{itemize}
+\item[1.]  Écrire une fonction \texttt{verifie\_tirage(attribution)} qui prend en argument une liste d’entiers représentant un tirage, et qui vérifie qu’\textbf{aucun élève ne s’offre un cadeau à lui-même}.  La fonction doit retourner \texttt{True} si aucun élève ne se fait de cadeau à lui-même et \texttt{False} sinon.
+\item[2.] Écrire une fonction \texttt{tirage\_aleatoire()} qui crée une liste contenant les entiers de 0 à 22 et qui mélange cette liste jusqu'à obtenir une attribution valide et qui la renvoie. Vous pourrez utiliser la fonction \texttt{random.shuffle()} permet de mélanger les éléments d'une liste.
+\end{itemize}
+
+\vspace*{-0.3 cm}
+Exemple d'usage: 
+\begin{verbatim}
+import random
+
+liste=[12,11,3]
+random.shuffle(liste)
+print(liste)
+\end{verbatim}
+
+
+\vspace*{-0.4 cm}
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{15cm}|}
+\hline
+\textbf{Remarques étudiant :}    \\
+ \\
+\hline
+\textbf{Remarques correcteur :}  \\
+ \\
+\hline
+\end{tabular}
+\end{table}
+
+\newpage
+
+\section*{\center IN100 Initiation au Python\\
+Contrôle continu 2}
+
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{10cm}|p{3cm}|p{2cm}|}
+\hline
+\textbf{Étudiant :} & \textbf{Heure Début }  & \textbf{Note (/5) }  \\
+& & \\
+\hline
+\textbf{Correcteur :} & \textbf{Heure Fin } & \\
+& & \\
+\hline
+
+\hline
+\end{tabular}
+\end{table}
+\vspace{-0.6 cm}
+\subsection*{Consignes:} Vous avez 20 minutes pour coder la solution. Seules les types et les instructions vues en cours sont autorisées. Tout usage d'une fonction 
+venant d'une bibliothèque qui n'a pas été vue en cours ne sera pris en compte. 
+
+\subsection*{Sujet:}
+
+La famille du petit Arthur fait une liste de cadeaux pour sa naissance. Vous voulez offrir un de ces cadeaux, tout en respectant votre budget.
+
+\medskip
+
+Il y a 12 cadeaux possibles, le prix de chacun est stocké dans la liste \texttt{liste\_prix}. Vous avez en tête un montant minimum \texttt{budget\_min} et un montant maximum \texttt{budget\_max} que vous souhaitez dépenser.
+
+\begin{itemize}
+\item[1.] Écrire une fonction 
+\texttt{extrait\_cadeaux\_budget(liste\_prix, budget\_min, budget\_max)} qui renvoie la liste des cadeaux correspondant à votre budget.
+\item[2.] Votre frère adopte une autre stratégie : il veut acheter le cadeau dont le prix est le plus proche du prix moyen. Écrire une fonction \texttt{cadeau\_moyen(liste\_prix)} qui renvoie le cadeau dont le prix est le plus proche du prix moyen des cadeaux de la liste.
+\end{itemize}
+
+\bigskip
+
+Vous pourrez tester vos fonctions avec la liste suivante :
+\begin{verbatim}
+liste_prix = [18.9, 22.0, 23.5, 27.9, 31.5, 35.0, 38.5, 42.0, 46.5, 49.9, 52.0, 58.5]
+\end{verbatim}
+\vspace*{0.5 cm}
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{15cm}|}
+\hline
+\textbf{Remarques étudiant :}    \\
+ \\
+ \\
+\hline
+\textbf{Remarques correcteur :}  \\
+ \\
+ \\
+\hline
+\end{tabular}
+\end{table}
+
+
+
+
+
+\end{document}

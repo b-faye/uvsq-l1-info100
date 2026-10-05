@@ -1,0 +1,386 @@
+\documentclass[a4paper,11pt]{article}
+\def\email#1{{\tt#1}}
+
+\def\N{\mbox{\rm{I}\hspace{-.15em}\rm{N}}}
+\def\Z{\mbox{\rm{Z}\hspace{-.28em}\rm{Z}}}
+\def\RR{\mbox{\rm{I}\hspace{-.15em}\rm{R}}}
+\def\C{\mbox{\rm{l}\hspace{-.50em}\rm{C}}}
+\def\Q{\mbox{\rm{l}\hspace{-.50em}\rm{Q}}}
+\def\F{\mbox{\rm{I}\hspace{-.20em}\rm{F}}}
+
+\usepackage{amssymb,amsmath}
+\usepackage{url}
+\usepackage{fullpage}
+\begin{document}
+
+\newtheorem{theo}{Theorem}
+\newtheorem{coro}{Corollary}[theo]
+\newtheorem{lemme}{Lemma}
+\renewcommand{\thecoro}{\thetheo.\arabic{coro}}
+
+
+
+\parindent=0cm
+
+
+\section*{\center IN100 Initiation au Python\\
+Contrôle continu 2}
+
+\vspace{-0.3 cm}
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{10cm}|p{3cm}|p{2cm}|}
+\hline
+\textbf{Étudiant :} & \textbf{Heure Début }  & \textbf{Note (/5) }  \\
+& & \\
+\hline
+\textbf{Correcteur :} & \textbf{Heure Fin } & \\
+& & \\
+\hline
+
+\hline
+\end{tabular}
+\end{table}
+\vspace{-0.4 cm}
+\paragraph*{Consignes:} Vous avez 20 minutes pour coder la solution. Seules les types et les instructions vues en cours sont autorisées. Tout usage d'une fonction 
+venant d'une bibliothèque qui n'a pas été vue en cours ne sera pris en compte. 
+
+\vspace{-0.2 cm}
+\paragraph*{Sujet:}
+
+On considère un dictionnaire \texttt{depenses} dont les clés sont des catégories de dépenses
+(chaînes de caractères) et les valeurs sont les montants correspondants (nombres réels).
+
+\medskip
+
+\textit{Exemple :}
+\begin{verbatim}
+depenses = {"courses": 85.5, "transport": 32.0, "loyer": 520.0, "cafe": 9.5}
+\end{verbatim}
+
+\begin{enumerate}
+\item Écrire une fonction \texttt{top\_categorie(depenses)} qui renvoie un tuple
+\texttt{(cat, montant)} correspondant à la catégorie dont le montant est maximal.
+
+En cas d’égalité entre plusieurs catégories, on choisira celle dont le nom est le plus petit
+selon l’ordre alphabétique.  
+Si le dictionnaire \texttt{depenses} est vide, la fonction renverra le tuple \texttt{("", 0)}.
+
+\item Écrire une fonction \texttt{rapport(depenses, budget)} qui prend en entrée le dictionnaire \texttt{depenses} et un dictionnaire \texttt{budget}
+ayant les mêmes clés que \texttt{depenses} 
+et qui renvoie un \textbf{nouveau}
+dictionnaire \texttt{R}  tel que pour toute catégorie
+\texttt{cat} :
+\[
+R[\texttt{cat}] = \texttt{depenses[cat]} - b,
+\]
+où \( b \) est égal à \texttt{budget[cat]} si \texttt{cat} appartient au dictionnaire
+\texttt{budget}, et à \( 0 \) sinon.
+
+%La fonction renverra ensuite le tuple \texttt{(top, R)}, où \texttt{top} est le résultat del’appel à la fonction \texttt{top\_categorie(depenses)}.
+
+\medskip
+
+\textit{Exemple :}
+\begin{verbatim}
+budget = {"courses": 80.0, "transport": 40.0, "loyer": 520.0}
+# R["courses"] = 5.5
+# R["transport"] = -8.0
+# R["loyer"] = 0.0
+# R["cafe"] = 9.5
+\end{verbatim}
+\end{enumerate}
+
+
+
+\vspace{-0.5 cm}
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{15cm}|}
+\hline
+\textbf{Remarques étudiant :}    \\
+ \\
+\hline
+\textbf{Remarques correcteur :}  \\
+ \\
+\hline
+\end{tabular}
+\end{table}
+
+
+
+\newpage
+
+\section*{\center IN100 Initiation au Python\\
+Contrôle continu 2}
+
+\vspace{-0.3 cm}
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{10cm}|p{3cm}|p{2cm}|}
+\hline
+\textbf{Étudiant :} & \textbf{Heure Début }  & \textbf{Note (/5) }  \\
+& & \\
+\hline
+\textbf{Correcteur :} & \textbf{Heure Fin } & \\
+& & \\
+\hline
+
+\hline
+\end{tabular}
+\end{table}
+\vspace{-0.4 cm}
+\paragraph*{Consignes:} Vous avez 20 minutes pour coder la solution. Seules les types et les instructions vues en cours sont autorisées. Tout usage d'une fonction 
+venant d'une bibliothèque qui n'a pas été vue en cours ne sera pris en compte. 
+
+\vspace{-0.2 cm}
+\paragraph*{Sujet:}
+
+
+On considère un flux de commandes représenté par une liste de chaînes de caractères correspondant à des plats, précédés du symbole ``-'' pour indiquer une annulation de commande.  
+Le but est de séparer ces commandes en deux \textbf{files} : une file contenant les commandes à préparer et une file contenant les commandes annulées.
+
+
+\begin{enumerate}
+    \item Écrire une fonction Python \texttt{enfiler(f, plat)} qui ajoute la chaîne de caractères  \texttt{plat} dans la file \texttt{f}.
+    
+    \item Écrire une fonction Python \texttt{traiter\_commandes(commandes)} qui récupère les commandes dans la liste \texttt{commandes} une par une, 
+    et :
+    \begin{itemize}
+        \item ajoute la commande dans la file \texttt{a\_preparer} si elle ne commence pas par ``-'',
+        \item ajoute la commande (sans le ``-'') dans la file \texttt{annulees} si elle commence par ``-''.
+    \end{itemize}
+    
+    Vérifier que toutes les commandes ont été traitées et que la liste \texttt{commandes} est vide au fil du processus.
+\end{enumerate}
+
+\vspace{0.5 cm}
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{15cm}|}
+\hline
+\textbf{Remarques étudiant :}    \\
+ \\
+\hline
+\textbf{Remarques correcteur :}  \\
+ \\
+\hline
+\end{tabular}
+\end{table}
+
+\newpage
+
+\section*{\center IN100 Initiation au Python\\
+Contrôle continu 2}
+
+\vspace{0.3 cm}
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{10cm}|p{3cm}|p{2cm}|}
+\hline
+\textbf{Étudiant :} & \textbf{Heure Début }  & \textbf{Note (/5) }  \\
+& & \\
+\hline
+\textbf{Correcteur :} & \textbf{Heure Fin } & \\
+& & \\
+\hline
+
+\hline
+\end{tabular}
+\end{table}
+\vspace{-0.4 cm}
+\paragraph*{Consignes:} Vous avez 20 minutes pour coder la solution. Seules les types et les instructions vues en cours sont autorisées. Tout usage d'une fonction 
+venant d'une bibliothèque qui n'a pas été vue en cours ne sera pris en compte. 
+
+
+
+\paragraph*{Sujet:}
+
+
+On considère la suite $(u_n)$ définie par :
+\[
+\begin{cases}
+u_0 = 1 \\
+u_{n+1} = -0.5u_n + 3 \quad \text{pour tout } n \geq 0. 
+\end{cases}
+\]
+
+Les termes de cette suite peuvent être calculés progressivement à partir de la valeur initiale $u_0$.
+
+
+\begin{enumerate}
+
+
+\item[1.] Écrire une fonction \texttt{terme\_n\_suite} qui prend en argument  un entier $n$ et qui retourne la valeur du terme $u_n$ de la suite. Tester cette fonction pour $n=5$ et $n=10$. 
+
+\item[2.] Écrire une fonction qui renvoie la somme des $N$ premières éléments de la suite. 
+Tester cette fonction pour $N=10$. 
+
+\end{enumerate}
+
+
+\vspace{0.5 cm}
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{15cm}|}
+\hline
+\textbf{Remarques étudiant :}    \\
+ \\
+\hline
+\textbf{Remarques correcteur :}  \\
+ \\
+\hline
+\end{tabular}
+\end{table}
+
+\newpage
+
+
+\section*{\center IN100 Initiation au Python\\
+Contrôle continu 2}
+
+\vspace{0.5 cm}
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{10cm}|p{3cm}|p{2cm}|}
+\hline
+\textbf{Étudiant :} & \textbf{Heure Début }  & \textbf{Note (/5) }  \\
+& & \\
+\hline
+\textbf{Correcteur :} & \textbf{Heure Fin } & \\
+& & \\
+\hline
+
+\hline
+\end{tabular}
+\end{table}
+\vspace{0.5 cm}
+\paragraph*{Consignes:} Vous avez 20 minutes pour coder la solution. Seules les types et les instructions vues en cours sont autorisées. Tout usage d'une fonction 
+venant d'une bibliothèque qui n'a pas été vue en cours ne sera pris en compte. 
+
+
+
+\paragraph*{Sujet:}
+
+
+On appelle décomposition d’un entier naturel $n$ un  couples $(i, j)$ tel que $i^{2} + j^{2} = n$. Nous allons construire une matrice de dimension $m\times m$ qui contient dans la case $(i,j)$ l'entier $n$ tel que $i^{2} + j^{2} = n$. 
+
+
+\begin{enumerate}
+
+
+\item[1.] Écrire une fonction qui prend en entrée un entier $m$ et qui renvoie la matrice des décompositions, pour tous les entiers $1\leq i,j\leq m$. 
+
+Exemple: Pour $m=3$ on a : 
+
+$$
+\begin{pmatrix}
+2&5&10\\
+5&4&13\\
+10&13&18\\
+\end{pmatrix}$$
+
+
+\item[2.] \'Ecrire une fonction qui prend en entrée une matrice de décompositions et qui renvoie la liste de nombres entiers dont la décomposition se trouve dans la matrice. \\
+
+Exemple: Pour la matrice ci-dessus on obtient la liste [2,5,10,4,13,18]. 
+
+\end{enumerate}
+
+\vspace{0.5 cm}
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{15cm}|}
+\hline
+\textbf{Remarques étudiant :}    \\
+ \\
+\hline
+\textbf{Remarques correcteur :}  \\
+ \\
+\hline
+\end{tabular}
+\end{table}
+
+
+\newpage
+
+
+\section*{\center IN100 Initiation au Python\\
+Contrôle continu 2}
+
+\vspace{0.5 cm}
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4} % augmente la hauteur des lignes
+\begin{tabular}{|p{10cm}|p{3cm}|p{2cm}|}
+\hline
+\textbf{Étudiant :} & \textbf{Heure Début }  & \textbf{Note (/5) }  \\
+& & \\
+\hline
+\textbf{Correcteur :} & \textbf{Heure Fin } & \\
+& & \\
+\hline
+
+\hline
+\end{tabular}
+\end{table}
+
+\paragraph*{Consignes:} Vous avez 20 minutes pour coder la solution. Seules les types et les instructions vues en cours sont autorisées. Tout usage d'une fonction 
+venant d'une bibliothèque qui n'a pas été vue en cours ne sera pris en compte. 
+
+
+
+\paragraph*{Sujet:}
+
+On souhaite simuler une file d’attente (par exemple à un guichet).
+En Python, la file d’attente sera représentée par une liste de chaînes de caractères. 
+\vspace{-0.3 cm}
+
+
+
+\begin{enumerate}
+  \item[1.] Écrire une fonction \texttt{ajouter\_client(file\_attente, nom)} qui prend en paramètre une liste \texttt{file\_attente} et une chaîne de caractères \texttt{nom} et  ajoute le client \texttt{nom} dans la file. 
+  
+   \item[2.] Écrire une fonction \texttt{servir\_client(file\_attente)} qui  prend en paramètre une liste \texttt{file\_attente} et retire un client de la file. Si la file est vide, on affiche le message \texttt{"Aucun client à servir"} et on renvoie \texttt{None}. 
+ \item[3.] Écrire un programme principal qui : 
+ 
+ \begin{itemize}
+     \item initialise une file d’attente vide,
+     \item demande à l’utilisateur combien de clients arrivent successivement,
+     \item pour chaque client, demande son nom et appelle \texttt{ajouter\_client},
+     \item appelle ensuite \texttt{servir\_client} une première fois et affiche le client servi,
+     \item affiche enfin le contenu restant de la file d’attente.
+ \end{itemize}
+
+ \end{enumerate}
+
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{|p{15cm}|}
+\hline
+\textbf{Remarques étudiant :} \\
+ \\
+\hline
+\textbf{Remarques correcteur :} \\
+ \\
+\hline
+\end{tabular}
+\end{table}
+
+
+\end{document}
