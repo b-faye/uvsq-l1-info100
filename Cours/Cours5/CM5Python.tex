@@ -281,16 +281,71 @@ Cours 5: Types mutables et immutables\\ Fonctions (suite et fin)}
 		
 		\begin{column}{0.48\textwidth}
 			\begin{exampleblock}{Exemple}
-				\begin{verbatim}
-					x = 3
-					x += 1
-				\end{verbatim}
 				
-				\centering
-				Après l'opération : \texttt{x = 4}
+				\begin{columns}[c]
+					
+					% Première ligne : code à gauche, schéma à droite
+					\begin{column}{0.48\textwidth}
+						\begin{verbatim}
+							x = 3
+							x += 1
+						\end{verbatim}
+					\end{column}
+					
+					\begin{column}{0.48\textwidth}
+						\centering
+						\begin{tikzpicture}
+							\node (var) at (0,0) {\texttt{x}};
+							\node[
+							draw,
+							rectangle,
+							minimum height=0.5cm,
+							minimum width=0.8cm
+							] (rect) at (1.5,0) {3};
+							
+							\draw[->] (var) -- (rect);
+						\end{tikzpicture}
+					\end{column}
+					
+				\end{columns}
+				
+				\vspace{0.3cm}
+				
+				\begin{columns}[c]
+					
+					% Deuxième ligne : résultat à gauche, schéma à droite
+					\begin{column}{0.48\textwidth}
+						\centering
+						Après l'opération : \texttt{x = 4}
+					\end{column}
+					
+					\begin{column}{0.48\textwidth}
+						\centering
+						\begin{tikzpicture}
+							\node (var) at (0,0) {\texttt{x}};
+							
+							\node[
+							draw,
+							rectangle,
+							minimum height=0.5cm,
+							minimum width=0.8cm
+							] (rect1) at (1.5,0) {3};
+							
+							\node[
+							draw,
+							rectangle,
+							minimum height=0.5cm,
+							minimum width=0.8cm
+							] (rect2) at (1.5,-1) {4};
+							
+							\draw[->] (var) -- (rect2);
+						\end{tikzpicture}
+					\end{column}
+					
+				\end{columns}
+				
 			\end{exampleblock}
 		\end{column}
-	\end{columns}
 	
 	\vspace{0.15cm}
 	
@@ -979,7 +1034,7 @@ for nombre in nombres:
 	
 \end{frame}
 
-
+\begin{comment}
 \begin{frame}[fragile]{Quelques utilisations des fonctions lambda}
 	
 	Les fonctions \texttt{lambda} sont souvent utilisées comme
@@ -995,7 +1050,7 @@ print(sorted(mots, key=lambda mot: len(mot)))
 	\end{exampleblock}
 	
 	\begin{exampleblock}{\texttt{map()} : appliquer une fonction à chaque élément}
-		\begin{lstlisting}[language=Python]
+			\begin{lstlisting}[language=Python]
 nombres = [1, 2, 3, 4]
 doubles = list(map(lambda x: 2 * x, nombres))
 print(doubles)    # [2, 4, 6, 8]
@@ -1011,7 +1066,7 @@ print(pairs)      # [2, 4]
 	\end{exampleblock}
 	
 \end{frame}
-
+\end{comment}
 \begin{frame}[fragile]{Exercice de synthèse}
 	
 	\textbf{Objectif :} réutiliser les notions du chapitre.
@@ -1244,7 +1299,7 @@ chaine[0]='H'
 \end{frame}
 \begin{frame}[fragile]{Questions}
 
-Ecrivez un programme qui prend une chaîne de caractères et affiche la chaîne avec la première lettre de chaque mot en majuscule. 
+Ecrivez un programme qui prend une chaîne de caractères et affiche la chaîne avec la  lettre de chaque mot en majuscule. 
 
 \pause
 \begin{exampleblock}{}
