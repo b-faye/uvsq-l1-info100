@@ -1,0 +1,233 @@
+\documentclass[11pt]{article}
+\usepackage[french]{babel}
+\usepackage[utf8]{inputenc} 
+\usepackage[T1]{fontenc}  
+\usepackage{fullpage}
+\usepackage{listings}
+\usepackage{verbatim}
+\usepackage{amssymb,amsmath}
+\usepackage{url}
+\usepackage{fullpage}
+
+
+%************************************
+%\topmargin -1.5cm
+\textheight 25cm
+\textwidth 18cm
+\oddsidemargin -1.0cm
+
+\newenvironment{note}{
+\expandafter\comment
+}{
+\expandafter\endcomment
+}
+
+\newcommand{\correction}{
+\renewenvironment{note}{
+~\hspace*{-0.1cm} \hrulefill\\ \textbf{Notes.}~\\
+}
+{
+~\hspace*{-0.1cm} \hrulefill
+}
+}
+%\newcommand{\note}[1]{~\hspace*{-0.1cm} \hrulefill\\ \textbf{Notes.} #1 ~\\ ~\hspace*{-0.1cm} \hrulefill}
+%\newcommand{\note}[1]{}
+%************************************
+
+\newtheorem{exercice}{Exercice}[section]
+\newenvironment{sol}[1]{\par\noindent {\center \large \bf Proposition de solution pour l'exercice #1 \\~\\} \rm}{~\\ $\fbox{}$\bigskip} 
+
+\title{Fondements informatiques I : Initiation au  Python\\
+TD 1}
+\begin{document}
+\date{}
+\maketitle
+%\correction
+
+
+\section{Révision Python}
+
+
+%Exercice sur le printf et le scanf : formatage des chaînes
+
+%Exercice d'appel de fonction -> pas fait en cours
+
+%TD :
+%expression logique : adresse ip IPV4 forme : x1.x2.x3.x4 entiers compris entre 0 et 255 (récupérés)
+%obtenir adresse du réseau, adresse de broadcast à partir du masque de sous réseau
+
+
+\bigskip
+
+\begin{exercice}
+Qu'affiche ce programme ?
+\begin{verbatim}
+def mul2(a):
+    return a * 2
+
+def div2(a):
+    return a // 2   
+         
+a = 8
+
+v1 = mul2(a)
+v2 = div2(a)
+print(a, v1, v2)
+
+a = mul2(a)  
+a = div2(a)  
+
+print(a)
+\end{verbatim}
+\end{exercice}
+
+\begin{exercice}
+Que font les programmes suivants?
+\begin{enumerate}
+\item 
+\begin{verbatim}
+for i in range(5):
+     j = i + 1
+     i+=j
+
+print("i et j valent: ", i, j)
+\end{verbatim}
+
+\item
+\begin{verbatim}
+for i in range(5):
+    for j in range(5):
+	        for k in range(5):
+	           print("i+j+k")
+\end{verbatim}
+
+\item 
+\begin{verbatim}
+a = 100
+b = 1000
+
+def  fun1(a):
+  a+=1
+  return a
+
+def fun2(a):
+  b=3
+  a += b
+  return a
+
+def fun3(a):
+  global b
+  a += b
+  return a
+
+
+fun1(a)
+print("a =", a)
+a = fun2(a)
+print("a et b valent", a, "et", b)
+a = fun3(a)
+print("a =", a)
+\end{verbatim}
+
+\item 
+\begin{verbatim}
+def rajouter_item(lst):
+    lst.append(10)
+
+a = [1, 2, 3]
+rajouter_item(a)
+print(a)  
+\end{verbatim}
+
+
+\end{enumerate}
+\end{exercice}
+
+\section{Algorithmique et programmation en Python}
+
+\begin{exercice}
+\item Nous fixons l'ordre $a<b< c  \ldots  x< y < z$ sur les lettres de l'alphabet. Pour deux chaînes de caractères  $A=a_1a_2\ldots a_n$ et $B=b_1b_2\ldots b_m$, on dit  que  $A < B$ si et seulement si :
+\begin{itemize}
+\item soit $a_1 < b_1$ 
+\item soit il existe un indice $k$ , $1 \leq  k < n$, tel que $a_1 = b_1, \ldots,  a_k = b_k$  et $a_{k + 1} < b_{k + 1}$ 
+\item soit  $a_1 = b_1, \ldots,  a_n = b_n$ et  $n<m$. 
+\end{itemize}
+Cette relation d'ordre s'appelle {ordre lexicographique}  et nous souhaitons ordonner les mots d'un tableau suivant l'ordre lexicographique comme dans un dictionnaire de la langue française. 
+\begin{itemize}
+\item[1.] Nous souhaitons comparer deux chaînes de caractères $a_1a_2\ldots a_n$ et  $b_1b_2\ldots b_m$. Donner le pseudocode de l'algorithme. 
+\item[2.]  Nous souhaitons trier en ordre lexicographique les mots dans un tableau. En vous inspirant sur les algorithmes  vues en cours, et sur la procedure précédente,  proposez  un algorithme de tri du tableau. 
+Vous détaillerez toutes les étapes du fonctionnement de votre algorithme sur le tableau de mots suivants: 
+
+\vspace{0.5 cm}
+
+\begin{verbatim}
+tal=["etoile", "chocolat", "chaussette", "cadeau", "sapin"]
+\end{verbatim}
+
+\vspace{0.5 cm}
+
+\item[3.]  \'Ecrire le code en Python de cet algorithme (et le tester à la maison).  Comment fait-on pour comparer deux chaînes de caractères en Python? 
+
+\end{itemize}
+
+\end{exercice}
+
+\begin{exercice}
+Dans certaines séquences d'ADN, on observe des motifs dits \textbf{palindromiques} :
+un fragment est suivi de sa version complémentaire inversée.  
+%Ces structures symétriques jouent un rôle important dans la reconnaissance de sites spécifiques par certaines enzymes.
+On souhaite modéliser ce phénomène à l’aide de chaînes de caractères représentant des bases d’ADN.
+On suppose  que l’ADN est composé de quatre bases :
+
+\[
+A, \; T, \; C, \; G
+\]
+et que les bases complémentaires sont :
+\[
+A \leftrightarrow T, \quad C \leftrightarrow G.
+\]
+
+\begin{itemize}
+\item[1.]  Donner une procédure \texttt{complement} qui prend en entrée  une chaîne d'ADN et renvoie la séquence complémentaire de cette chaîne. 
+
+\vspace{0.5 cm}
+
+
+\textbf{Exemple :}
+\vspace{0.5 cm}
+
+
+\begin{center}
+\begin{verbatim}
+   "ATCG" → "TAGC"
+\end{verbatim}
+\end{center}
+
+\vspace{0.5 cm}
+
+
+\item[2.]  On définit une séquence miroir comme une séquence formée en ajoutant à une séquence donnée
+son complément inversé.
+
+\vspace{0.5 cm}
+
+\textbf{Exemple :}
+
+\begin{eqnarray*}
+S_0 &= &\text{"A"}, \quad S_1 = \text{"A"} + \text{complément inversé de "A"} = \text{"A" + "T"} = \text{"AT"}, \quad \\
+S_2 &=& "AT" + \text{complément inversé de "AT"} = \text{"AT" + "AT"} = \text{"ATAT"}
+\end{eqnarray*}
+Donner le pseudocode  d'un algorithme  qui à  partir d'une séquence de départ $S_0$ construit la séquence miroir obtenue après \texttt{n} étapes.
+Pour cela, vous utiliserez la procédure de la question 1. 
+\item[3.] Donner un algorithme permettant de vérifier qu'une chaîne de caractères donnée est bien une séquence miroir. Si cela est vrai, votre algorithme devra renvoyer le nombre d'étapes $n$ effectuées pour 
+la séquence. 
+\item[4.] \'Ecrire le code Python pour les algorithmes des questions 1,2,3  (et testez-le chez vous). 
+\end{itemize}
+
+
+
+\end{exercice}
+
+
+
+\end{document}

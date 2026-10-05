@@ -1,0 +1,204 @@
+\documentclass[11pt]{article}
+\usepackage[french]{babel}
+\usepackage[utf8]{inputenc} 
+\usepackage[T1]{fontenc}  
+\usepackage{fullpage}
+\usepackage{listings}
+\usepackage{verbatim}
+\usepackage{amssymb,amsmath}
+\usepackage{url}
+\usepackage{fullpage}
+
+
+%************************************
+%\topmargin -1.5cm
+\textheight 25cm
+\textwidth 18cm
+\oddsidemargin -1.0cm
+
+\newenvironment{note}{
+\expandafter\comment
+}{
+\expandafter\endcomment
+}
+
+\newcommand{\correction}{
+\renewenvironment{note}{
+~\hspace*{-0.1cm} \hrulefill\\ \textbf{Notes.}~\\
+}
+{
+~\hspace*{-0.1cm} \hrulefill
+}
+}
+%\newcommand{\note}[1]{~\hspace*{-0.1cm} \hrulefill\\ \textbf{Notes.} #1 ~\\ ~\hspace*{-0.1cm} \hrulefill}
+%\newcommand{\note}[1]{}
+%************************************
+
+\newtheorem{exercice}{Exercice}[section]
+\newenvironment{sol}[1]{\par\noindent {\center \large \bf Proposition de solution pour l'exercice #1 \\~\\} \rm}{~\\ $\fbox{}$\bigskip} 
+
+\title{Fondements informatiques I : Initiation au  Python\\
+TD 2}
+\begin{document}
+\date{}
+\maketitle
+%\correction
+
+
+\section{Révision Python}
+
+
+%Exercice sur le printf et le scanf : formatage des chaînes
+
+%Exercice d'appel de fonction -> pas fait en cours
+
+%TD :
+%expression logique : adresse ip IPV4 forme : x1.x2.x3.x4 entiers compris entre 0 et 255 (récupérés)
+%obtenir adresse du réseau, adresse de broadcast à partir du masque de sous réseau
+
+
+\bigskip
+
+\begin{exercice}
+Que font les programmes suivants?
+\begin{enumerate}
+\item 
+\begin{verbatim}
+L=[0 for i in range(5)]
+LL=[]
+for i in range(5):
+    LL.append(L)
+
+LL[0][1]=1
+print(LL)    
+\end{verbatim}
+
+\item 
+\begin{verbatim}
+N=[]
+for i in range(5):
+    L=[0 for i in range(5)]
+    N.append(L)
+
+N[0][1]=1
+print(N)  
+\end{verbatim}
+
+\item 
+\begin{verbatim}
+L=[0 for i in range(5)]
+S=[L for i in range(5)]
+
+S[0][1]=1
+print(S)  
+\end{verbatim}
+\end{enumerate}
+\end{exercice}
+
+\section{Algorithmique et programmation en Python}
+
+
+\begin{exercice}
+Une file est une structure de données basée sur le principe que les premiers éléments ajoutés dans la file seront les premiers à en être retirés.
+Dans cette exercice on utilisera une file d'entiers pour la gestion d'un stock de produits dans un entrepôt. 
+La file contient des tuples indiquant à chaque fois le nombre de produits ainsi que leur jour d'arrivée:
+
+\begin{verbatim}
+[(100, 23), {159,22), ..., (45,2),(456,1),(100,1)]
+\end{verbatim}
+Le gestionnaire doit connaître à tout moment le nombre de produits disponibles. 
+
+\begin{itemize}
+\item[1.] Écrire une procédure  qui prend en argument la file, un entier correspondant au nombre de produits qui arrivent à l'entrepôt et un entier correspondant au stock courant. 
+La procédure renverra la file modifiée et le stock courant. 
+\item[2.]  Écrire une procédure qui prend en argument la file, un entier correspondant au nombre de produits qui doivent quitter l'entrepôt, et qui met à jour la file après avoir fait envoyer les produits 
+conservés le plus longtemps. 
+\item[3.] Donner le code d'un programme en Python pour les procédure des questions 1. et 2. Testez-le chez vous. 
+ \end{itemize}
+
+
+
+\end{exercice}
+
+
+
+
+\begin{exercice}
+
+Une pile est une structure de données basée sur le principe que le dernier élément ajouté dans la pile est le premier à en être retiré.
+Nous l'utiliserons pour gérer une pile de livres à ranger sur une étagère. Chaque livre est représenté par un entier correspondant à son nombre de pages.
+
+\vspace{0.3 cm}
+\begin{itemize}
+\item[1.] \'Ecrire le pseudo-code d'une procédure  \texttt{ajoute\_livre} qui prend en argument une liste et un entier \texttt{nb\_pages}, et qui ajoute le livre dans la liste (en haut de la pile, donc en fin de liste).
+\item[2.] \'Ecrire le pseudo-code  d'une procédure \texttt{ranger\_livre} prend en argument la liste qui donne la pile, enlève le dernier élément ajouté (le livre en haut de la pile),
+et renvoie le nombre de pages de ce livre.
+\item[3.] \'Ecrire le pseudo-code d'un algorithme \texttt{ranger\_pile\_livres} qui prend en argument  la pile de livres, traite tous les livres dans la pile jusqu’à ce qu’elle soit vide,
+et renvoie le total de pages de tous les livres rangés. 
+\item[4.] Donner le code d'un programme en Python permettant de ranger une pile de livre. 
+Testez (chez vous) votre programme après avoir  ajouté les livres suivants dans la pile (dans cet ordre) :
+
+
+\vspace{0.5 cm}
+
+\begin{verbatim}
+150
+200
+120
+80
+220
+\end{verbatim}
+
+
+\end{itemize}
+
+\end{exercice}
+
+
+
+
+\begin{exercice}
+\begin{itemize}
+\item[1.]  Donner le pseudo-code d'un algorithme  qui construit  une matrice  \(5 \times 5\) contenant tous les nombres de 1 à 25 dans cet ordre: 
+
+\[
+\begin{matrix}
+1 & 2 & 3 & 4 & 5 \\
+6 & 7 & 8 & 9 & 10 \\
+11 & 12 & 13 & 14 & 15 \\
+16 & 17 & 18 & 19 & 20\\
+21 & 22 & 23 & 24 & 25\\
+\end{matrix}
+\]
+
+
+\item[2.]  Donner le pseudo-code d'un algorithme qui prend en entrée une matrice $5 \times 5$ et  construit une matrice dans laquelle: 
+\begin{itemize}
+\item la première ligne est décalée d'un cran vers la droite, et ceci de de manière circulaire,
+\item la deuxième ligne est décalée de deux crans vers la droite, de manière circulaire,
+\item la troisième est décalée de trois crans vers la droite, de manière circulaire, 
+\item la quatrième est décalée de quatre crans vers la droite. de manière circulaire. 
+\item la dernière ligne reste inchangée. 
+\end{itemize}
+
+Voici la sortie de l'algorithme pour la matrice de la question 1. 
+
+\[
+\begin{matrix}
+ 2 & 3 & 4 & 5 & 1 \\
+ 8 & 9 & 10  & 6 & 7\\
+ 14 & 15  & 11 & 12 & 13 \\
+ 20 & 16 & 17 & 18 & 19 \\
+21 & 22 & 23 & 24 & 25\\
+\end{matrix}
+\]
+
+
+\end{itemize}
+\item Coder en Python les algorithmes des questions 1. et 2. 
+
+\end{exercice}
+
+
+
+\end{document}
