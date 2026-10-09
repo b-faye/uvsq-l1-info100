@@ -8,10 +8,11 @@ Les autres exercices seront réalisés en créant un fichier td3.py, que vous é
 
 ## Revision sur les structures itératives 
 
-Qu'affiche ce programme
+Qu'affiche ce programme? 
 
 1.  
-```for i in range(5):
+```python
+for i in range(5):
             j = i + 1
             i+=j
             print("i et j valent: ", i, j)
