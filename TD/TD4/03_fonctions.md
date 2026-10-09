@@ -10,9 +10,8 @@ Les autres exercices seront réalisés en créant un fichier td3.py, que vous é
 
 Qu'affiche ce programme? 
 
-1.  
 ```python
-for i in range(5):
+1. for i in range(5):
             j = i + 1
             i+=j
             print("i et j valent: ", i, j)
@@ -26,12 +25,10 @@ for i in range(5):
 
 ## Comprendre les fonctions 
 
-
-
 Qu'affichent les  programmes suivants? 
 
-1. ```python
-    def mul2(a):
+```python
+1.  def mul2(a):
         return a * 2
 
     def div2(a):
@@ -44,14 +41,13 @@ Qu'affichent les  programmes suivants?
     a = mul2(a)
     a = div2(a)
      print(a)
-  ```
+  
 
-2. ```python
-    a = 100
+2.  a = 100
     b = 1000
 
 
-    def fun1(a):
+   def fun1(a):
        a+=1
        return a
 
@@ -60,18 +56,18 @@ Qu'affichent les  programmes suivants?
        a += b
        return a
    
-    def fun3(a):
-     global b
+   def fun3(a):
+       global b
        a += b
      return a
 
    fun1(a)
-     print("a =", a)
-     a = fun2(a)
-     print("a et b valent", a, "et", b)
-     a = fun3(a)
-     print("a =", a)
-  ```
+   print("a =", a)
+   a = fun2(a)
+   print("a et b valent", a, "et", b)
+   a = fun3(a)
+   print("a =", a)
+```
 
 ## Gestion du temps
 
