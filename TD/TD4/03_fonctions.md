@@ -3,7 +3,72 @@
 
 ## Instructions Générales
 
-Ce TD doit être réalisé en créant un fichier td3.py, que vous éditerez dans VSCode. Vous respecterez au mieux les règles de bonne pratique en matière d'écriture de code : chaque fonction devra comporter un docstring, des commentaires si nécessaire, et les noms de variables devront être explicites quant à leur usage.
+Les deux premiers exercices seont à corriger au tableau, avec le chargé de TD. Pour trouver les réponses, vous n'avez pas le droit d'utiliser une machine. 
+Les autres exercices seront réalisés en créant un fichier td3.py, que vous éditerez dans VSCode. Vous respecterez au mieux les règles de bonne pratique en matière d'écriture de code : chaque fonction devra comporter un docstring, des commentaires si nécessaire, et les noms de variables devront être explicites quant à leur usage.
+
+## Revision sur les structures itératives 
+
+Qu'affiche ce programme
+
+1.  for i in range(5):
+            j = i + 1
+            i+=j
+            print("i et j valent: ", i, j)
+
+2.  for i in range(5):
+        for j in range(5):
+            for k in range(5):
+                print("i+j+k")
+
+
+## Comprendre les fonctions 
+
+
+
+Qu'affichent les  programmes suivants? 
+
+1.  
+```def mul2(a):
+        return a * 2
+
+    def div2(a):
+        return a // 2
+
+    a = 8
+    v1 = mul2(a)
+    v2 = div2(a)
+    print(a, v1, v2)
+    a = mul2(a)
+    a = div2(a)
+    print(a)
+```
+
+2. ```
+   a = 100
+   b = 1000
+
+
+   def fun1(a):
+       a+=1
+       return a
+
+   def fun2(a):
+       b=3
+       a += b
+       return a
+   
+   def fun3(a):
+     global b
+       a += b
+     return a
+
+   fun1(a)
+     print("a =", a)
+     a = fun2(a)
+     print("a et b valent", a, "et", b)
+     a = fun3(a)
+     print("a =", a)
+  ```
 
 ## Gestion du temps
 
@@ -151,9 +216,7 @@ afficheDate(tempsEnDateBisextile(temps))
 l'argument de ces fonctions. Dans ce cas là, on affichera la date actuelle en utilisant la fonction `time`.
 
 
-11. Donner une fonction qui vérifie la charge horaire d'un employé, donnée sous forme d'une liste de temps travaillé chaque semaine dans un mois. Il ne faut pas dépasser 48h par semaine et 140h par mois (qu'on considère ici de 4 semaines).
-
-(Optionnel) S'adapter à une liste qui peut contenir plusieurs mois.
+11. Donner une fonction qui vérifie la charge horaire d'un employé, donnée sous forme d'une liste de temps travaillé en une semaine. Il ne faut pas dépasser 35h par semaine. 
 
 
 ```python
@@ -161,6 +224,9 @@ def verifie(liste_temps):
     pass
 
 
-liste_temps = [[1,2,39,34],[0,1,9,4],[0,29,39,51],[0,31,13,46]]
+liste_temps = [1,4,7,8,0,1,9]
 verifie(liste_temps)
 ```
+
+12. (Pour aller plus loin) S'adapter à une liste qui peut contenir plusieurs semaines. Il ne faut pas dépasser 140h par mois (qu'on considère ici de 4 semaines). Le programme s'arrete dès que la limite par semaine est dépassée et affichera : "Dépassement du nombre d'heures réglémenté par semaine!". Si la limite du nombre d'heures par semaine est atteinte, il affichera : "Dépassement du nombre d'heures réglémenté par mois!". 
+ 
