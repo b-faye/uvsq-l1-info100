@@ -24,6 +24,45 @@
 
 
 
+\usepackage{listings}
+\usepackage{xcolor}
+
+\lstset{
+	language=Python,
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{blue},
+	commentstyle=\color{gray},
+	stringstyle=\color{green!50!black},
+	showstringspaces=false,
+	frame=single,
+	numbers=none
+}
+\lstset{
+	language=Python,
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{blue},
+	commentstyle=\color{gray},
+	stringstyle=\color{green!50!black},
+	showstringspaces=false,
+	frame=single,
+	numbers=none,
+	literate=
+	{é}{{\'e}}1
+	{è}{{\`e}}1
+	{ê}{{\^e}}1
+	{ë}{{\"e}}1
+	{à}{{\`a}}1
+	{â}{{\^a}}1
+	{ä}{{\"a}}1
+	{ù}{{\`u}}1
+	{û}{{\^u}}1
+	{ü}{{\"u}}1
+	{ô}{{\^o}}1
+	{ö}{{\"o}}1
+	{î}{{\^i}}1
+	{ï}{{\"i}}1
+	{ç}{{\c c}}1
+}
 
 \newcommand{\alertonce}[1]{\addtocounter{beamerpauses}{-1}\alert<+>{#1}}
 \newcommand{\alerttwice}[1]{\addtocounter{beamerpauses}{-1}\alert<+-+(1)>{#1}}
@@ -50,7 +89,7 @@
 \title[IN100 Cours 6]{\textbf{Fondements informatiques I}\\
 Cours 6: Listes}
 
-\author[]{Sorina Ionica \texttt{sorina.ionica@uvsq.fr} \\~\\Sandrine Vial  \texttt{sandrine.vial@uvsq.fr} }
+\author[]{Sorina Ionica \texttt{sorina.ionica@uvsq.fr} \\~\\Bilal FAYE  \texttt{bilal.faye@uvsq.fr} }
 
 
 \institute{}
@@ -65,7 +104,954 @@ Cours 6: Listes}
 
 \frame{\titlepage}
 
+\begin{frame}[fragile]{Les listes : une collection d'éléments}
 
+Un \textbf{tableau} est une structure de données qui regroupe
+plusieurs éléments, chacun occupant une position.
+
+\begin{exampleblock}{Exemple : les moyens de transport}
+\begin{center}
+\begin{tabular}{c|c|c|c|c}
+\textbf{Indice} & 0 & 1 & 2 & 3 \\ \hline
+\textbf{Élément} & bus & voiture & vélo & trottinette
+\end{tabular}
+\end{center}
+\end{exampleblock}
+
+\begin{alertblock}{À retenir}
+Chaque élément possède un \textbf{indice} qui indique sa position.
+En Python, le premier indice est \textbf{0}.
+\end{alertblock}
+
+\pause
+
+En Python, on utilise le type \texttt{list} pour représenter une liste.
+Les éléments sont placés entre crochets \texttt{[]} et séparés par des virgules.
+
+\begin{exampleblock}{Créer des listes}
+\begin{lstlisting}[language=Python]
+# Liste de capitales européennes
+capitales = ["Paris", "Berlin", "Madrid"]
+# Liste d'entiers
+entiers = [5, 0, 17, 42, 23]
+\end{lstlisting}
+\end{exampleblock}
+
+\end{frame}
+
+
+\begin{frame}[fragile]{Créer des listes en Python}
+
+La construction des listes en Python est très flexible :
+une liste peut contenir des éléments de \textbf{types différents}.
+
+\begin{exampleblock}{Exemple : une liste mixte}
+\begin{lstlisting}[language=Python]
+mixte = [7, "tennis", True, 5.3]
+\end{lstlisting}
+\end{exampleblock}
+
+Cette liste contient quatre valeurs de types différents :
+
+\begin{itemize}
+    \item \texttt{7} : entier (\texttt{int}) ;
+    \item \texttt{"tennis"} : chaîne de caractères (\texttt{str}) ;
+    \item \texttt{True} : booléen (\texttt{bool}) ;
+    \item \texttt{5.3} : nombre décimal (\texttt{float}).
+\end{itemize}
+
+\begin{block}{À retenir}
+Une liste Python peut regrouper des valeurs de types différents.
+\end{block}
+
+\end{frame}
+
+
+\begin{frame}[fragile]{Connaître la taille d'une liste}
+
+La fonction intégrée \texttt{len()} permet de connaître le
+\textbf{nombre d'éléments} d'une liste.
+
+\begin{exampleblock}{Exemple}
+\begin{lstlisting}[language=Python]
+liste = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+print("La liste contient", len(liste), "éléments.")
+\end{lstlisting}
+\end{exampleblock}
+
+
+\begin{block}{Résultat}
+\begin{lstlisting}[language=Python]
+La liste contient 10 éléments.
+\end{lstlisting}
+\end{block}
+
+\begin{alertblock}{Attention}
+La liste contient 10 éléments, mais son dernier indice est
+\textbf{9}, car les indices commencent à 0.
+\end{alertblock}
+
+\end{frame}
+\begin{frame}[fragile]{Modifier une liste}
+
+La taille d'une liste Python est \textbf{variable} :
+on peut ajouter ou supprimer des éléments après sa création.
+
+\vspace{0.3cm}
+
+\begin{exampleblock}{Ajouter un élément avec \texttt{append()}}
+\begin{lstlisting}[language=Python]
+fruits = ["pomme", "banane"]
+fruits.append("orange")
+print(fruits)  # ['pomme', 'banane', 'orange']
+\end{lstlisting}
+\end{exampleblock}
+
+\begin{exampleblock}{Supprimer un élément avec \texttt{remove()}}
+\begin{lstlisting}[language=Python]
+fruits.remove("banane")
+print(fruits)  # ['pomme', 'orange']
+\end{lstlisting}
+\end{exampleblock}
+
+\begin{alertblock}{À retenir}
+\begin{itemize}
+    \item \texttt{append(element)} ajoute un élément à la fin.
+    \item \texttt{remove(element)} supprime la première occurrence de cet élément.
+\end{itemize}
+\end{alertblock}
+
+\end{frame}
+\begin{frame}[fragile]{Accéder aux éléments d'une liste}
+
+Chaque élément d'une liste possède un \textbf{indice} qui indique sa position.
+
+\begin{itemize}
+    \item Le premier indice est \texttt{0}.
+    \item Pour une liste de longueur $n$, les indices vont de $0$ à $n-1$.
+    \item Un indice doit être un nombre entier.
+\end{itemize}
+
+\begin{exampleblock}{Exemple}
+\begin{lstlisting}[language=Python]
+transports = ["bus", "voiture", "velo", "trotinette"]
+
+print(transports[0])  # bus
+print(transports[2])  # velo
+\end{lstlisting}
+\end{exampleblock}
+
+\begin{alertblock}{Attention}
+Un indice qui n'existe pas dans la liste provoque une erreur.
+Pour une liste de 4 éléments, \texttt{transports[4]} est invalide.
+\end{alertblock}
+
+\end{frame}
+
+
+\begin{frame}[fragile]{Accéder aux éléments depuis la fin}
+
+Python permet aussi d'utiliser des \textbf{indices négatifs} :
+on compte alors à partir de la fin de la liste.
+
+\vspace{0.3cm}
+
+\begin{center}
+\begin{tabular}{c|c|c|c|c}
+Élément & bus & voiture & vélo & trottinette \\ \hline
+Indice positif & 0 & 1 & 2 & 3 \\ \hline
+Indice négatif & -4 & -3 & -2 & -1
+\end{tabular}
+\end{center}
+
+\begin{exampleblock}{Exemple}
+\begin{lstlisting}[language=Python]
+transports = ["bus", "voiture", "vélo", "trottinette"]
+
+print(transports[-1])  # trottinette
+print(transports[-2])  # vélo
+print(transports[0])   # bus
+print(transports[-4])  # bus
+\end{lstlisting}
+\end{exampleblock}
+
+\begin{block}{Avantage}
+Avec \texttt{-1} et \texttt{-2}, on accède au dernier et à
+l'avant-dernier élément sans connaître la longueur de la liste.
+\end{block}
+
+\end{frame}
+
+
+\begin{frame}[fragile]{Extraire une partie d'une liste : les tranches}
+
+Une \textbf{tranche} permet d'extraire plusieurs éléments d'une liste.
+
+\begin{block}{Syntaxe}
+\begin{itemize}
+    \item \texttt{L[m:k]} : éléments d'indice \texttt{m} à \texttt{k-1}.
+    \item \texttt{L[m:]} : de l'indice \texttt{m} jusqu'à la fin.
+    \item \texttt{L[:k]} : du début jusqu'à l'indice \texttt{k-1}.
+\end{itemize}
+\end{block}
+
+\begin{exampleblock}{Exemple}
+\begin{lstlisting}[language=Python]
+nombres = [2, 3, 5, 7, 11, 13, 17, 19, 21, 23]
+
+print(nombres[2:6])   # [5, 7, 11, 13]
+print(nombres[-8:-4]) # [5, 7, 11, 13]
+print(nombres[3:])    # [7, 11, 13, 17, 19, 21, 23]
+print(nombres[:5])    # [2, 3, 5, 7, 11]
+print(nombres[:-3])   # [2, 3, 5, 7, 11, 13, 17]
+\end{lstlisting}
+\end{exampleblock}
+
+La borne de fin est \textbf{exclue} : dans \texttt{L[m:k]},
+l'élément d'indice \texttt{k} n'est pas inclus.
+
+\end{frame}
+
+
+\begin{frame}[fragile]{Modifier les éléments d'une liste}
+
+Les listes sont des objets \textbf{mutables} :
+on peut modifier leur contenu après leur création.
+Pour remplacer un élément, on utilise son indice :
+\texttt{liste[i] = nouvelle\_valeur}.
+
+\begin{exampleblock}{Exemple}
+\begin{lstlisting}[language=Python]
+capitales = ["Paris", "Berlin", "Madrid", "Athènes", "Zagreb"]
+capitales[2] = "Dublin"
+print(capitales)
+# ['Paris', 'Berlin', 'Dublin', 'Athènes', 'Zagreb']
+\end{lstlisting}
+\end{exampleblock}
+
+\vspace{0.2cm}
+
+On peut aussi remplacer plusieurs éléments avec une tranche.
+
+\begin{exampleblock}{Remplacer une tranche}
+\begin{lstlisting}[language=Python]
+capitales[2:5] = ["Dublin", "Budapest", "Vienne"]
+print(capitales)
+# ['Paris', 'Berlin', 'Dublin', 'Budapest', 'Vienne']
+\end{lstlisting}
+\end{exampleblock}
+
+\end{frame}
+
+
+
+\begin{frame}[fragile]{Listes en compréhension : pourquoi ?}
+
+\textbf{Objectif :} créer une liste contenant les carrés
+des entiers de $0$ à $9$.
+
+\begin{exampleblock}{Méthode classique avec une boucle}
+\begin{lstlisting}[language=Python]
+racines = []
+for i in range(10):
+    racines.append(i**2)
+print(racines)
+\end{lstlisting}
+\end{exampleblock}
+
+\pause
+
+\begin{exampleblock}{Même résultat avec une compréhension}
+\begin{lstlisting}[language=Python]
+racines = [i**2 for i in range(10)]
+print(racines)
+\end{lstlisting}
+\end{exampleblock}
+
+\begin{block}{À retenir}
+Une compréhension permet de créer une liste de façon
+\textbf{plus concise}, à partir d'une séquence de valeurs.
+\end{block}
+
+\end{frame}
+
+
+\begin{frame}[fragile]{Comprendre la syntaxe}
+
+\begin{alertblock}{Syntaxe générale}
+\[
+\texttt{[expression for variable in sequence]}
+\]
+\end{alertblock}
+
+\begin{itemize}
+    \item \texttt{sequence} : les valeurs parcourues, par exemple \texttt{range(10)}.
+    \item \texttt{variable} : prend successivement chaque valeur.
+    \item \texttt{expression} : calcule la valeur ajoutée à la nouvelle liste.
+\end{itemize}
+
+\begin{exampleblock}{Exemple : les carrés des nombres de 0 à 9}
+\begin{lstlisting}[language=Python]
+carres = [x**2 for x in range(10)]
+print(carres)  # [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+\end{lstlisting}
+\end{exampleblock}
+
+\pause
+
+\begin{block}{Exercice}
+Créer, avec une seule instruction, une liste contenant
+la table de multiplication de 5, de $5 \times 1$ à $5 \times 10$.
+\end{block}
+
+\end{frame}
+\begin{frame}[fragile]{Tester l'appartenance à une liste}
+
+L'opérateur \texttt{in} permet de vérifier si un élément est présent
+dans une liste. Le résultat est un booléen : \texttt{True} ou \texttt{False}.
+
+\begin{exampleblock}{Exemple}
+\begin{lstlisting}[language=Python]
+nombres = [1, 3, 5, 7, 9, 11]
+print(3 in nombres)  # True
+print(2 in nombres)  # False
+\end{lstlisting}
+\end{exampleblock}
+
+\pause
+
+\begin{block}{Combiner plusieurs tests}
+On peut utiliser \texttt{and/or} pour vérifier plusieurs conditions,
+et \texttt{not in} pour tester l'absence d'un élément.
+\begin{lstlisting}[language=Python]
+print(5 in nombres and 7 in nombres)  # True
+print(4 not in nombres)               # True
+print(5 in nombres or 4 not in nombres)  # True
+\end{lstlisting}
+\end{block}
+
+\pause
+
+\begin{itemize}
+    \item \texttt{x in liste} : vrai si \texttt{x} est présent.
+    \item \texttt{x not in liste} : vrai si \texttt{x} est absent.
+\end{itemize}
+
+\end{frame}
+\begin{frame}[fragile]{Copier une liste : attention à \texttt{=}}
+
+\begin{columns}[T,onlytextwidth]
+\column{0.43\textwidth}
+
+\begin{exampleblock}{Qu'affiche ce programme?}
+\begin{lstlisting}[language=Python]
+L1 = [1, 2, 3, 4]
+L2 = L1
+L2.append(5)
+print(L1)
+print(L2)
+\end{lstlisting}
+\end{exampleblock}
+
+\pause
+
+\begin{alertblock}{Résultat}
+\begin{lstlisting}[language=Python]
+[1, 2, 3, 4, 5]
+[1, 2, 3, 4, 5]
+\end{lstlisting}
+\end{alertblock}
+
+\column{0.53\textwidth}
+\centering
+\begin{tikzpicture}[
+    font=\sffamily\small,
+    var/.style={draw, rounded corners, fill=gray!10,
+                minimum width=1cm, minimum height=0.55cm},
+    obj/.style={draw, rounded corners, fill=yellow!15,
+                minimum height=0.65cm, inner sep=5pt},
+    arr/.style={->, thick, >=stealth, blue!70}
+]
+\node[var] (v1) at (0,1.5) {\texttt{L1}};
+\node[var] (v2) at (0,0.5) {\texttt{L2}};
+
+\only<1>{
+    \node[obj] (liste) at (2.3,1) {\texttt{[1, 2, 3, 4]}};
+}
+\only<2->{
+    \node[obj] (liste) at (2.3,1) {\texttt{[1, 2, 3, 4, 5]}};
+}
+\draw[arr] (v1.east) -- (liste.west);
+\draw[arr] (v2.east) -- (liste.west);
+
+\only<2->{
+    \node[align=center] at (1,-0.5)
+    {\textcolor{red}{Même liste en mémoire}};
+}
+\end{tikzpicture}
+\end{columns}
+
+\vspace{0.2cm}
+
+\begin{block}{L'idée essentielle}
+\texttt{L2 = L1} ne crée pas une nouvelle liste :
+les deux variables désignent \textbf{le même objet}.
+Modifier la liste via l'une modifie donc ce que l'on observe via l'autre.
+\end{block}
+
+\end{frame}
+
+
+\begin{frame}[fragile]{Créer une copie avec une tranche}
+
+Pour obtenir deux listes indépendantes, on peut utiliser
+\texttt{L1[:]} : cette tranche reprend tous les éléments de \texttt{L1}.
+
+\begin{columns}[T,onlytextwidth]
+\column{0.43\textwidth}
+
+\begin{exampleblock}{Créer puis modifier la copie}
+\begin{lstlisting}[language=Python]
+L1 = [1, 2, 3, 4]
+L2 = L1[:]
+L2.append(5)
+print(L1)
+print(L2)
+\end{lstlisting}
+\end{exampleblock}
+
+\pause
+
+\begin{alertblock}{Résultat}
+\begin{lstlisting}[language=Python]
+[1, 2, 3, 4]
+[1, 2, 3, 4, 5]
+\end{lstlisting}
+\end{alertblock}
+
+\column{0.53\textwidth}
+\centering
+\begin{tikzpicture}[
+    font=\sffamily\small,
+    var/.style={draw, rounded corners, fill=gray!10,
+                minimum width=1cm, minimum height=0.55cm},
+    obj/.style={draw, rounded corners, fill=yellow!15,
+                minimum height=0.65cm, inner sep=5pt},
+    arr/.style={->, thick, >=stealth, blue!70}
+]
+\node[var] (v1) at (0,1.7) {\texttt{L1}};
+\node[var] (v2) at (0,0.3) {\texttt{L2}};
+
+\node[obj] (liste1) at (2.5,1.7) {\texttt{[1, 2, 3, 4]}};
+
+\only<1>{
+    \node[obj] (liste2) at (2.5,0.3) {\texttt{[1, 2, 3, 4]}};
+}
+\only<2->{
+    \node[obj] (liste2) at (2.5,0.3) {\texttt{[1, 2, 3, 4, 5]}};
+}
+
+\draw[arr] (v1.east) -- (liste1.west);
+\draw[arr] (v2.east) -- (liste2.west);
+
+\only<2->{
+    \node[align=center] at (1,-0.55)
+    {\textcolor{blue!70}{Deux listes distinctes}};
+}
+\end{tikzpicture}
+\end{columns}
+
+\vspace{0.2cm}
+
+\texttt{L2 = L1[:]} crée une nouvelle liste contenant les mêmes éléments.
+Ajouter ou supprimer un élément de \texttt{L2} ne modifie pas \texttt{L1}.
+
+\end{frame}
+
+
+\begin{frame}[fragile]{Une autre méthode : \texttt{list()}}
+
+La fonction \texttt{list()} permet également de créer une copie
+superficielle d'une liste.
+
+\begin{columns}[T,onlytextwidth]
+\column{0.43\textwidth}
+
+\begin{exampleblock}{Exemple}
+\begin{lstlisting}[language=Python]
+L1 = [1, 2, 3, 4]
+L2 = list(L1)
+L2.append(5)
+print(L1)
+print(L2)
+\end{lstlisting}
+\end{exampleblock}
+
+\begin{alertblock}{Résultat}
+\begin{lstlisting}[language=Python]
+[1, 2, 3, 4]
+[1, 2, 3, 4, 5]
+\end{lstlisting}
+\end{alertblock}
+
+\column{0.53\textwidth}
+\centering
+\begin{tikzpicture}[
+    font=\sffamily\small,
+    var/.style={draw, rounded corners, fill=gray!10,
+                minimum width=1cm, minimum height=0.55cm},
+    obj/.style={draw, rounded corners, fill=yellow!15,
+                minimum height=0.65cm, inner sep=5pt},
+    arr/.style={->, thick, >=stealth, blue!70}
+]
+\node[var] (v1) at (0,1.7) {\texttt{L1}};
+\node[var] (v2) at (0,0.3) {\texttt{L2}};
+
+\node[obj] (liste1) at (2.5,1.7) {\texttt{[1, 2, 3, 4]}};
+\node[obj] (liste2) at (2.5,0.3) {\texttt{[1, 2, 3, 4, 5]}};
+
+\draw[arr] (v1.east) -- (liste1.west);
+\draw[arr] (v2.east) -- (liste2.west);
+\end{tikzpicture}
+\end{columns}
+
+\vspace{0.2cm}
+
+\begin{block}{Deux façons de copier}
+\centering
+\texttt{L2 = L1[:]} \qquad ou \qquad \texttt{L2 = list(L1)}
+\end{block}
+
+\end{frame}
+\begin{frame}[fragile]{Concaténer deux listes}
+
+L'opérateur \texttt{+} permet de \textbf{rassembler deux listes}
+pour former une nouvelle liste.
+
+\begin{exampleblock}{Que va afficher ce programme ?}
+\begin{lstlisting}[language=Python]
+capitales1 = ["Paris", "Berlin", "Madrid"]
+capitales2 = ["Bruxelles", "Oslo"]
+
+capitales1 + capitales2
+print(capitales1)
+\end{lstlisting}
+\end{exampleblock}
+
+\pause
+
+\begin{alertblock}{Attention !}
+L'expression \texttt{capitales1 + capitales2} construit une nouvelle liste,
+mais ne modifie pas \texttt{capitales1} si le résultat n'est pas conservé.
+\end{alertblock}
+
+\pause
+
+\begin{exampleblock}{Créer une nouvelle liste}
+\begin{lstlisting}[language=Python]
+capitales3 = capitales1 + capitales2
+print(capitales3)
+# ['Paris', 'Berlin', 'Madrid', 'Bruxelles', 'Oslo']
+\end{lstlisting}
+\end{exampleblock}
+
+\end{frame}
+
+
+\begin{frame}[fragile]{Ajouter les éléments d'une liste à une autre}
+
+Si l'objectif est de modifier une liste existante, on peut utiliser
+\texttt{extend()}.
+
+\begin{exampleblock}{Exemple}
+\begin{lstlisting}[language=Python]
+capitales1 = ["Paris", "Berlin", "Madrid"]
+capitales2 = ["Bruxelles", "Oslo"]
+
+capitales1.extend(capitales2)
+print(capitales1)
+# ['Paris', 'Berlin', 'Madrid', 'Bruxelles', 'Oslo']
+\end{lstlisting}
+\end{exampleblock}
+
+\begin{block}{À retenir}
+\begin{itemize}
+    \item \texttt{L3 = L1 + L2} : crée une nouvelle liste.
+    \item \texttt{L1.extend(L2)} : ajoute les éléments de \texttt{L2} à \texttt{L1}.
+\end{itemize}
+\end{block}
+
+\end{frame}
+
+
+
+
+\begin{frame}[fragile]{Listes imbriquées : accéder aux éléments}
+
+Une \textbf{liste imbriquée} est une liste dont certains éléments
+sont eux-mêmes des listes.
+
+\begin{exampleblock}{Exemple}
+\begin{lstlisting}[language=Python]
+L = [[1, 2, 3], [4, 5], [6, 7, 8, 9]]
+\end{lstlisting}
+\end{exampleblock}
+
+\begin{center}
+\begin{tikzpicture}[
+    font=\sffamily,
+    listbox/.style={draw, rounded corners, fill=blue!8,
+                    minimum height=0.7cm, inner sep=5pt},
+    item/.style={draw, rounded corners, fill=yellow!15,
+                 minimum height=0.6cm, inner sep=5pt}
+]
+\node[listbox] (l0) at (0,1.5) {\texttt{L[0]}};
+\node[item] (a) at (2,1.5) {\texttt{[1, 2, 3]}};
+
+\node[listbox] (l1) at (0,0.5) {\texttt{L[1]}};
+\node[item] (b) at (2,0.5) {\texttt{[4, 5]}};
+
+\node[listbox] (l2) at (0,-0.5) {\texttt{L[2]}};
+\node[item] (c) at (2,-0.5) {\texttt{[6, 7, 8, 9]}};
+
+\draw[->, thick] (l0.east) -- (a.west);
+\draw[->, thick] (l1.east) -- (b.west);
+\draw[->, thick] (l2.east) -- (c.west);
+\end{tikzpicture}
+\end{center}
+
+\pause
+
+\begin{exampleblock}{Accéder à une liste ou à un élément}
+\begin{lstlisting}[language=Python]
+print(L[0])     # [1, 2, 3]
+print(L[1])     # [4, 5]
+print(L[2][1])  # 7
+\end{lstlisting}
+\end{exampleblock}
+
+\begin{block}{À retenir}
+\texttt{L[i]} désigne la liste d'indice \texttt{i}.
+\texttt{L[i][j]} désigne l'élément d'indice \texttt{j}
+dans cette liste.
+\end{block}
+
+\end{frame}
+
+
+\begin{frame}[fragile]{Parcourir une liste imbriquée}
+
+On veut calculer la somme de tous les nombres contenus dans \texttt{L}.
+
+\begin{exampleblock}{Deux boucles imbriquées}
+\begin{lstlisting}[language=Python]
+L = [[1, 2, 3], [4, 5], [6, 7, 8, 9]]
+somme = 0
+for sous_liste in L:
+    for nombre in sous_liste:
+        somme += nombre
+print(somme)  # 45
+\end{lstlisting}
+\end{exampleblock}
+
+\pause
+
+\begin{block}{Comment fonctionne le parcours ?}
+\begin{enumerate}
+    \item La première boucle parcourt chaque sous-liste.
+    \item La seconde boucle parcourt chaque nombre de cette sous-liste.
+    \item Chaque nombre est ajouté à \texttt{somme}.
+\end{enumerate}
+\end{block}
+
+\pause
+
+La liste contient trois sous-listes, mais elles n'ont pas toutes
+la même longueur. Les boucles \texttt{for} parcourent chaque élément
+sans avoir besoin de connaître ces longueurs à l'avance.
+\end{frame}
+
+
+
+
+\begin{frame}[fragile]{Créer une liste de listes : attention aux références}
+
+On veut créer une liste de $m$ lignes contenant chacune $n$ zéros.
+
+\begin{exampleblock}{Une première tentative}
+\begin{lstlisting}[language=Python]
+m, n = 3, 4
+L = [[0] * n] * m
+\end{lstlisting}
+\end{exampleblock}
+
+Cette instruction crée bien $m$ références vers des lignes, mais
+\textbf{toutes désignent la même liste}.
+
+\begin{columns}[T,onlytextwidth]
+\column{0.42\textwidth}
+
+\begin{exampleblock}{Modifier un élément}
+\begin{lstlisting}[language=Python]
+L[0][1] = 1
+\end{lstlisting}
+\end{exampleblock}
+
+\pause
+
+\begin{alertblock}{Résultat}
+\begin{lstlisting}[language=Python]
+[[0, 1, 0, 0],
+ [0, 1, 0, 0],
+ [0, 1, 0, 0]]
+\end{lstlisting}
+\end{alertblock}
+
+\column{0.54\textwidth}
+\centering
+
+\begin{tikzpicture}[
+    font=\sffamily\small,
+    frame/.style={
+        draw, fill=gray!10, rounded corners,
+        minimum width=0.65cm, minimum height=0.55cm
+    },
+    cell/.style={
+        draw, fill=blue!8, minimum width=0.8cm,
+        minimum height=0.65cm
+    },
+    object/.style={
+        draw, fill=yellow!15, rounded corners,
+        inner sep=5pt
+    },
+    arr/.style={->, thick, >=stealth, blue!65}
+]
+
+% Variable L
+\node[frame] (varL) at (0,2.1) {\texttt{L}};
+
+% Les trois références dans L
+\node[cell] (ref0) at (1.5,2.8) {\texttt{0}};
+\node[cell] (ref1) at (1.5,2.1) {\texttt{1}};
+\node[cell] (ref2) at (1.5,1.4) {\texttt{2}};
+
+% Indices au-dessus des cases
+\node[font=\scriptsize] at (1.5,3.25) {Indices};
+
+% La même sous-liste est partagée
+\node[object] (row) at (4,2.1) {
+    \texttt{[0, \textcolor{red}{1}, 0, 0]}
+};
+
+% L pointe vers la liste contenant les références
+\draw[arr] (varL.east) -- (1.0,2.1);
+
+% Chaque case pointe vers la même sous-liste
+\draw[arr] (ref0.east) to[out=0,in=150] (row.north west);
+\draw[arr] (ref1.east) -- (row.west);
+\draw[arr] (ref2.east) to[out=0,in=210] (row.south west);
+
+% Explication
+\node[align=center, text width=4.7cm] at (2,0.45)
+    {Les trois cases référencent la même sous-liste.};
+
+\end{tikzpicture}
+\end{columns}
+\end{frame}
+
+
+\begin{frame}[fragile]{La bonne méthode : créer chaque ligne séparément}
+
+Une compréhension de liste permet de créer une nouvelle ligne à chaque
+itération.
+
+\begin{exampleblock}{Créer une grille de zéros}
+\begin{lstlisting}[language=Python]
+m, n = 3, 4
+L = [[0] * n for i in range(m)]
+\end{lstlisting}
+\end{exampleblock}
+
+\begin{columns}[T,onlytextwidth]
+\column{0.43\textwidth}
+\begin{exampleblock}{Modifier un élément}
+\begin{lstlisting}[language=Python]
+L[0][1] = 1
+print(L)
+\end{lstlisting}
+\end{exampleblock}
+
+\pause
+
+\begin{alertblock}{Résultat}
+\begin{lstlisting}[language=Python]
+[[0, 1, 0, 0],
+ [0, 0, 0, 0],
+ [0, 0, 0, 0]]
+\end{lstlisting}
+\end{alertblock}
+
+\column{0.54\textwidth}
+\centering
+\begin{tikzpicture}[
+    font=\sffamily\small,
+    frame/.style={
+        draw, fill=gray!10, rounded corners,
+        minimum width=0.7cm, minimum height=0.55cm
+    },
+    cell/.style={
+        draw, fill=blue!8,
+        minimum width=0.7cm, minimum height=0.65cm
+    },
+    object/.style={
+        draw, fill=yellow!15, rounded corners,
+        inner sep=5pt
+    },
+    arr/.style={->, thick, >=stealth, blue!65}
+]
+
+% Variable L
+\node[frame] (varL) at (0,1.5) {\texttt{L}};
+
+% Liste contenant les références vers les lignes
+\node[cell] (ref0) at (1.5,2.2) {\texttt{0}};
+\node[cell] (ref1) at (1.5,1.5) {\texttt{1}};
+\node[cell] (ref2) at (1.5,0.8) {\texttt{2}};
+
+% Les trois sous-listes indépendantes
+\node[object] (r0) at (4,2.2) {\texttt{[0, 0, 0, 0]}};
+\node[object] (r1) at (4,1.5) {\texttt{[0, 0, 0, 0]}};
+\node[object] (r2) at (4,0.8) {\texttt{[0, 0, 0, 0]}};
+
+% L désigne la liste de références
+\draw[arr] (varL.east) -- (ref1.west);
+
+% Chaque case pointe vers sa propre sous-liste
+\draw[arr] (ref0.east) -- (r0.west);
+\draw[arr] (ref1.east) -- (r1.west);
+\draw[arr] (ref2.east) -- (r2.west);
+
+% Explication
+\node[align=center, text width=5cm] at (2.8,0)
+    {Chaque position désigne une ligne indépendante.};
+
+\end{tikzpicture}
+\end{columns}
+
+\begin{block}{À retenir}
+\texttt{[[0] * n for i in range(m)]} crée $m$ listes distinctes,
+chacune contenant $n$ zéros.
+\end{block}
+
+\end{frame}
+
+
+\begin{frame}[fragile]{Exercice : construire une matrice}
+
+Écrire une fonction \texttt{construire\_matrice(n)} qui construit
+une matrice carrée de taille $n$ suivant la règle :
+
+\[
+L_{i,j} =
+\begin{cases}
+1 & \text{si } i=j,\\
+2 & \text{si } i<j,\\
+0 & \text{si } i>j.
+\end{cases}
+\]
+
+Pour $n=4$, on veut obtenir :
+
+\[
+\begin{bmatrix}
+1 & 2 & 2 & 2\\
+0 & 1 & 2 & 2\\
+0 & 0 & 1 & 2\\
+0 & 0 & 0 & 1
+\end{bmatrix}
+\]
+
+\begin{block}{Consignes}
+\begin{itemize}
+    \item Créer d'abord une matrice remplie de zéros.
+    \item Compléter les éléments en parcourant les lignes et les colonnes.
+    \item La fonction doit \textbf{renvoyer} la matrice avec \texttt{return}.
+\end{itemize}
+\end{block}
+
+\end{frame}
+
+
+\begin{frame}[fragile]{Correction : construire une matrice}
+
+\begin{exampleblock}{Une solution avec deux boucles}
+\begin{lstlisting}[language=Python]
+def construire_matrice(n):
+    L = [[0] * n for i in range(n)]
+    for i in range(n):
+        for j in range(n):
+            if i == j:
+                L[i][j] = 1
+            elif i < j:
+                L[i][j] = 2
+    return L
+print(construire_matrice(4))
+\end{lstlisting}
+\end{exampleblock}
+
+\pause
+
+\begin{block}{Pourquoi cette solution fonctionne-t-elle ?}
+\begin{itemize}
+    \item La compréhension crée $n$ lignes indépendantes.
+    \item Les deux boucles parcourent chaque position $(i,j)$.
+    \item Les conditions déterminent la valeur à placer.
+    \item \texttt{return L} renvoie la matrice construite.
+\end{itemize}
+\end{block}
+
+\end{frame}
+
+
+\begin{frame}[fragile]{Une autre solution : construire chaque ligne}
+
+On peut aussi construire chaque ligne directement, sans modifier
+chaque élément séparément.
+
+\begin{exampleblock}{Correction compacte}
+\begin{lstlisting}[language=Python]
+def construire_matrice(n):
+    L = []
+    for i in range(n):
+        ligne = [0] * i + [1] + [2] * (n - i - 1)
+        L.append(ligne)
+    return L
+print(construire_matrice(4))
+\end{lstlisting}
+\end{exampleblock}
+
+\pause
+
+\begin{block}{Comprendre la construction d'une ligne}
+Pour la ligne d'indice \texttt{i}, on assemble :
+\begin{itemize}
+    \item \texttt{i} zéros ;
+    \item un \texttt{1} sur la diagonale ;
+    \item \texttt{n - i - 1} deux après la diagonale.
+\end{itemize}
+\end{block}
+
+\end{frame}
+
+
+
+
+
+
+
+
+\begin{comment}
 \begin{frame}[fragile]{Les listes}
 
 Un \textcolor{blue}{tableau} est une structure de données contenant une série
@@ -142,7 +1128,6 @@ print("La liste contient", len(liste), "éléments.")
 
 
 }
-
 
 \frame[containsverbatim]{
 \frametitle{Longueur d'une liste}
@@ -927,7 +1912,7 @@ print(L)
 \end{exampleblock}
 
 \end{frame}
-
+\end{comment}
 \end{document}
 
 
