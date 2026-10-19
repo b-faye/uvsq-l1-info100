@@ -353,10 +353,10 @@ des entiers de $0$ à $9$.
 
 \begin{exampleblock}{Méthode classique avec une boucle}
 \begin{lstlisting}[language=Python]
-racines = []
+carrees = []
 for i in range(10):
-    racines.append(i**2)
-print(racines)
+    carrees.append(i**2)
+print(carrees)
 \end{lstlisting}
 \end{exampleblock}
 
@@ -364,8 +364,8 @@ print(racines)
 
 \begin{exampleblock}{Même résultat avec une compréhension}
 \begin{lstlisting}[language=Python]
-racines = [i**2 for i in range(10)]
-print(racines)
+carrees = [i**2 for i in range(10)]
+print(carrees)
 \end{lstlisting}
 \end{exampleblock}
 
@@ -496,7 +496,7 @@ print(L2)
 
 \begin{block}{L'idée essentielle}
 \texttt{L2 = L1} ne crée pas une nouvelle liste :
-les deux variables désignent \textbf{le même objet}.
+les deux variables référencent  \textbf{le même objet}.
 Modifier la liste via l'une modifie donc ce que l'on observe via l'autre.
 \end{block}
 
@@ -840,6 +840,7 @@ L[0][1] = 1
 \node[font=\scriptsize] at (1.5,3.25) {Indices};
 
 % La même sous-liste est partagée
+
 \node[object] (row) at (4,2.1) {
     \texttt{[0, \textcolor{red}{1}, 0, 0]}
 };
