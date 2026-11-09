@@ -46,11 +46,50 @@
   \beamertemplateballitem
 }
 
+\usepackage{listings}
+\usepackage{xcolor}
+
+\lstset{
+	language=Python,
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{blue},
+	commentstyle=\color{gray},
+	stringstyle=\color{green!50!black},
+	showstringspaces=false,
+	frame=single,
+	numbers=none
+}
+\lstset{
+	language=Python,
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{blue},
+	commentstyle=\color{gray},
+	stringstyle=\color{green!50!black},
+	showstringspaces=false,
+	frame=single,
+	numbers=none,
+	literate=
+	{é}{{\'e}}1
+	{è}{{\`e}}1
+	{ê}{{\^e}}1
+	{ë}{{\"e}}1
+	{à}{{\`a}}1
+	{â}{{\^a}}1
+	{ä}{{\"a}}1
+	{ù}{{\`u}}1
+	{û}{{\^u}}1
+	{ü}{{\"u}}1
+	{ô}{{\^o}}1
+	{ö}{{\"o}}1
+	{î}{{\^i}}1
+	{ï}{{\"i}}1
+	{ç}{{\c c}}1
+}
 
 \title[IN100 Cours 7]{\textbf{Fondements informatiques I}\\
 Cours 7: Types et typage}
 
-\author[]{Sorina Ionica \texttt{sorina.ionica@uvsq.fr} \\~\\Sandrine Vial  \texttt{sandrine.vial@uvsq.fr} }
+\author[]{Sorina Ionica \texttt{sorina.ionica@uvsq.fr} \\~\\Bilal FAYE  \texttt{bilal.faye@uvsq.fr} }
 
 
 \institute{}
@@ -64,8 +103,739 @@ Cours 7: Types et typage}
 
 
 \frame{\titlepage}
+\begin{frame}[fragile]{Les séquences : définition et types}
+
+Une \textbf{séquence} est un ensemble fini et ordonné
+d'éléments. Chaque élément possède une position appelée
+\textbf{indice}, qui commence à 0.
+
+\medskip
+
+\begin{center}
+\begin{tikzpicture}[
+    box/.style={
+        draw,
+        minimum width=0.8cm,
+        minimum height=0.55cm
+    }
+]
+\node[box] (a) at (0,0) {12};
+\node[box] (b) at (0.8,0) {25};
+\node[box] (c) at (1.6,0) {38};
+\node[box] (d) at (2.4,0) {47};
+
+\node at (0,-0.45) {\scriptsize 0};
+\node at (0.8,-0.45) {\scriptsize 1};
+\node at (1.6,-0.45) {\scriptsize 2};
+\node at (2.4,-0.45) {\scriptsize 3};
+
+\node at (1.2,-0.9) {\small Indices des éléments};
+\end{tikzpicture}
+\end{center}
+
+En Python, on rencontre notamment quatre types de séquences :
+
+\begin{itemize}
+    \item \textbf{Listes} : modifiables (\texttt{list}).
+    \item \textbf{Tuples} : non modifiables (\texttt{tuple}).
+    \item \textbf{Chaînes de caractères} : non modifiables (\texttt{str}).
+    \item \textbf{Intervalles} : séquences d'entiers (\texttt{range}).
+\end{itemize}
+
+\begin{exampleblock}{Exemples}
+\begin{lstlisting}
+l = [12, 25, 38, 47]
+t = (12, 25, 38, 47)
+s = "Python"
+r = range(4)
+\end{lstlisting}
+\end{exampleblock}
+
+\end{frame}
+\begin{frame}[fragile]{Les séquences : opérations communes}
+
+Les mêmes opérations peuvent être utilisées sur les
+différents types de séquences.
+
+\medskip
+
+\small
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Opération} & \textbf{Signification} \\
+\hline
+\texttt{len(s)} & Nombre d'éléments de \texttt{s} \\
+\hline
+\texttt{s[i]} & Élément d'indice \texttt{i} \\
+\hline
+\texttt{s[i:j]} & Éléments de \texttt{i} à \texttt{j-1} \\
+\hline
+\texttt{s[i:j:k]} & Même principe, avec un pas de \texttt{k} \\
+\hline
+\texttt{x in s} & Vérifie si \texttt{x} appartient à \texttt{s} \\
+\hline
+\texttt{s + t} & Concaténation de deux séquences \\
+\hline
+\texttt{s * n} & Répétition de la séquence \texttt{n} fois \\
+\hline
+\end{tabular}
+\end{center}
+
+\normalsize
+
+\medskip
+
+\begin{exampleblock}{Exemple en Python}
+\begin{lstlisting}
+s = [10, 20, 30, 40, 50]
+
+print(s[0])       # 10
+print(s[1:3])     # [20, 30]
+print(len(s))     # 5
+print(30 in s)    # True
+\end{lstlisting}
+\end{exampleblock}
+
+\end{frame}
+\begin{frame}[fragile]{Les séquences : parcours avec une boucle}
+
+Les séquences sont des objets \textbf{itérables} :
+on peut parcourir leurs éléments un par un.
+La boucle \texttt{for} permet de réaliser ce parcours.
+
+\begin{exampleblock}{Exemple en Python}
+\begin{lstlisting}
+# Une chaine de caracteres
+ma_chaine = "Python"
+for carac in ma_chaine:
+    print(carac)
+# Une liste
+l = [55, 23, 103]
+for nb in l:
+    print(nb)
+# Un tuple
+t = (128, 0, 255)
+for nb in t:
+    print(nb)
+\end{lstlisting}
+\end{exampleblock}
 
 
+\textbf{La boucle \texttt{for} parcourt les éléments
+sans avoir besoin de manipuler leurs indices.}
+
+
+\end{frame}
+\begin{frame}[fragile]{Chaînes de caractères}
+
+Les chaînes de caractères sont des séquences :
+    on peut accéder à leurs caractères par indice et utiliser des tranches.
+
+
+\begin{exampleblock}{Accès aux caractères et tranches}
+\small
+\begin{lstlisting}
+chaine = 'Abracadabra!'
+print(chaine[2])     # r
+print(chaine[2:5])   # rac
+print(chaine[-1])    # !
+\end{lstlisting}
+\end{exampleblock}
+
+\textbf{Une particularité : les chaînes sont immuables}
+\begin{itemize}
+    \item Une chaîne ne peut pas être modifiée après sa création.
+    \item On ne peut donc pas remplacer directement l'un de ses caractères.
+\end{itemize}
+
+
+\begin{exampleblock}{Une modification interdite}
+\small
+\begin{lstlisting}
+chaine[2] = 'd'  # TypeError
+liste = ["Paris", "Londres", "Rome"]
+liste[1] = "Lille"       # Autorise : la liste est modifiable
+liste[1][0] = 'l'        # TypeError : la chaine ne l'est pas
+\end{lstlisting}
+\end{exampleblock}
+
+\end{frame}
+\begin{frame}[fragile]{Des caractères aux nombres}
+
+\begin{itemize}
+    \item Un ordinateur manipule des nombres : pour représenter du texte,
+    il faut associer un nombre à chaque caractère.
+    \item L'\textbf{ASCII} est un premier système : il associe 128 caractères
+    à des nombres de 0 à 127.
+    \item \textbf{Unicode} étend ce principe à un très grand nombre de
+    caractères (accents, alphabets, symboles, etc.).
+\end{itemize}
+
+\begin{block}{En Python : caractères et nombres}
+    \small
+    \begin{itemize}
+        \item \texttt{ord(c)} donne le point de code Unicode du caractère \texttt{c}.
+        \item \texttt{chr(n)} donne le caractère associé au point de code \texttt{n}.
+    \end{itemize}
+\end{block}
+
+\begin{exampleblock}{Observer la correspondance}
+\small
+\begin{lstlisting}
+print(ord('A'))  # 65
+print(chr(65))   # 'A'
+print(ord('é'))  # 233
+print(chr(233))  # 'é'
+\end{lstlisting}
+\end{exampleblock}
+
+
+
+
+\end{frame}
+\begin{frame}[fragile]{Du texte aux octets}
+
+\begin{itemize}
+    \item En Python, une chaîne (\texttt{str}) est une séquence de caractères
+    Unicode.
+    \item Pour enregistrer ou transmettre du texte, il faut le convertir
+    en octets : c'est le rôle de l'\textbf{encodage}.
+\end{itemize}
+
+\begin{exampleblock}{Encoder et décoder en UTF-8}
+\small
+\begin{lstlisting}
+texte = "é"
+octets = texte.encode("utf-8")
+print(octets)  # b'\xc3\xa9'
+texte_retrouve = octets.decode("utf-8")
+print(texte_retrouve)  # é
+\end{lstlisting}
+\end{exampleblock}
+
+\begin{center}
+\small
+\texttt{str} \quad $\xrightarrow{\texttt{encode}}$ \quad
+\texttt{bytes} \qquad
+\texttt{bytes} \quad $\xrightarrow{\texttt{decode}}$ \quad
+\texttt{str}
+\end{center}
+
+\begin{itemize}
+    \item UTF-8 est un encodage qui permet de représenter les caractères
+    Unicode sous forme d'octets.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]{Les ensembles}
+
+Un \textbf{ensemble (\texttt{set})} est une collection
+d'éléments dans laquelle chaque élément apparaît une seule fois.
+
+\begin{exampleblock}{Exemple}
+\small
+\begin{lstlisting}
+A = {1, 3, 10, 5, 2}
+B = {1, 10, 3, 3, 5, 2, 1}
+
+print(A)
+print(B)
+print(A == B)  # True
+\end{lstlisting}
+\end{exampleblock}
+
+\begin{itemize}
+    \item Les doublons sont automatiquement supprimés.
+    \item Les éléments ne sont pas ordonnés.
+    \item Un ensemble est modifiable : on peut ajouter ou supprimer
+    des éléments.
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}[fragile]{Créer des ensembles}
+
+On peut créer un ensemble directement avec des accolades
+ou à partir d'un objet itérable avec la fonction \texttt{set()}.
+
+\begin{exampleblock}{Différentes façons de créer un ensemble}
+\small
+\begin{lstlisting}
+# Avec des accolades
+a = {1, 2, 3, 4}
+
+# A partir d'une liste
+b = set([1, 3, 4, 3, 1])
+
+# A partir d'une chaine
+c = set("Python")
+
+# A partir de range()
+d = set(range(5))
+\end{lstlisting}
+\end{exampleblock}
+
+\begin{block}{Attention}
+\small
+Pour créer un ensemble vide, on utilise \texttt{set()}.
+
+Les accolades vides \texttt{\{\}} créent un dictionnaire.
+\end{block}
+
+\end{frame}
+\begin{frame}[fragile]{Parcourir un ensemble}
+
+Un ensemble est \textbf{itérable} : on peut parcourir ses
+éléments avec une boucle \texttt{for}.
+
+En revanche, il n'est pas ordonné : on ne peut pas accéder
+à un élément à partir de sa position.
+
+\begin{exampleblock}{Parcourir un ensemble}
+\small
+\begin{lstlisting}
+nombres = {10, 20, 30, 40}
+
+for element in nombres:
+    print(element)
+\end{lstlisting}
+\end{exampleblock}
+
+\begin{alertblock}{Attention}
+\small
+L'instruction \texttt{nombres[0]} provoque une erreur :
+un ensemble ne permet pas l'accès par indice.
+\end{alertblock}
+
+\end{frame}
+\begin{frame}[fragile]{Supprimer les doublons}
+
+Les ensembles sont particulièrement utiles pour supprimer
+les doublons d'une liste.
+
+\begin{block}{Problème}
+\small
+Écrire une fonction qui reçoit une liste et renvoie une
+nouvelle liste contenant les mêmes éléments, sans doublons.
+\end{block}
+
+\pause
+
+\begin{exampleblock}{Une solution avec les ensembles}
+\small
+\begin{lstlisting}
+def supprime_doublons(liste):
+    return list(set(liste))
+
+nombres = [1, 3, 3, 5, 6, 7, 3, 1]
+
+print(supprime_doublons(nombres))
+\end{lstlisting}
+\end{exampleblock}
+
+\begin{alertblock}{Remarque}
+\small
+L'ordre des éléments n'est pas nécessairement conservé.
+\end{alertblock}
+
+\end{frame}
+\begin{frame}{Opérations sur les ensembles}
+
+Les ensembles permettent de réaliser plusieurs opérations
+mathématiques.
+
+Soient deux ensembles :
+\[
+A = \{0,1,2,3,4\}, \qquad
+B = \{2,3,4,5\}
+\]
+
+\begin{itemize}
+    \item \textbf{Union} : éléments appartenant à $A$ ou à $B$.
+    \[
+    A \cup B = \{0,1,2,3,4,5\}
+    \]
+
+    \item \textbf{Intersection} : éléments communs à $A$ et $B$.
+    \[
+    A \cap B = \{2,3,4\}
+    \]
+
+    \item \textbf{Différence} : éléments appartenant à $A$
+    mais pas à $B$.
+    \[
+    A \setminus B = \{0,1\}
+    \]
+
+    \item \textbf{Différence symétrique} : éléments appartenant
+    à un seul des deux ensembles.
+    \[
+    A \triangle B = \{0,1,5\}
+    \]
+\end{itemize}
+
+\end{frame}
+\begin{frame}[fragile]{Opérations sur les ensembles en Python}
+
+Python propose des opérateurs pour réaliser les opérations
+sur les ensembles.
+
+\begin{center}
+\begin{tabular}{c|c}
+\textbf{Opérateur} & \textbf{Opération} \\
+\hline
+\texttt{|} & Union \\
+\texttt{\&} & Intersection \\
+\texttt{-} & Différence \\
+\texttt{\^} & Différence symétrique
+\end{tabular}
+\end{center}
+
+\begin{exampleblock}{Exemple}
+\small
+\begin{lstlisting}
+A = {0, 1, 2, 3, 4}
+B = {2, 3, 4, 5}
+
+print(A | B)  # Union
+print(A & B)  # Intersection
+print(A - B)  # Difference
+print(A ^ B)  # Difference symetrique
+\end{lstlisting}
+\end{exampleblock}
+
+\end{frame}
+\begin{frame}[fragile]{Les dictionnaires}
+
+Un \textbf{dictionnaire (\texttt{dict})} est une structure de données
+qui associe une \textbf{clé} à une \textbf{valeur}.
+
+\begin{itemize}
+    \item Chaque élément est un couple \texttt{clé : valeur}.
+    \item On accède à une valeur grâce à sa clé, et non par sa position.
+    \item Un dictionnaire est modifiable.
+\end{itemize}
+
+\begin{exampleblock}{Exemple : notes d'élèves}
+\small
+\begin{lstlisting}
+notes = {
+    "Gaetan": 14,
+    "Laure": 9,
+    "Kenza": 17,
+    "Gabriel": 14
+}
+
+print(notes["Laure"])  # 9
+\end{lstlisting}
+\end{exampleblock}
+
+\end{frame}
+\begin{frame}[fragile]{Créer un dictionnaire}
+
+On utilise des accolades \texttt{\{\}} pour créer un dictionnaire.
+Chaque entrée est composée d'une clé et d'une valeur, séparées
+par deux-points.
+
+\begin{exampleblock}{Créer un dictionnaire}
+\small
+\begin{lstlisting}
+eleve = {
+    "nom": "Martin",
+    "age": 18,
+    "note": 15
+}
+
+print(eleve)
+\end{lstlisting}
+\end{exampleblock}
+
+\begin{block}{Dictionnaire vide}
+\small
+On peut également créer un dictionnaire vide :
+\begin{lstlisting}
+dico = {}
+\end{lstlisting}
+\end{block}
+
+\end{frame}
+\begin{frame}[fragile]{Clés et valeurs}
+
+Dans un dictionnaire :
+
+\begin{itemize}
+    \item Les \textbf{clés sont uniques} : une même clé ne peut
+    désigner plusieurs entrées.
+    \item Les \textbf{valeurs peuvent être répétées}.
+    \item Les clés doivent être des objets \textbf{hachables},
+    comme les entiers ou les chaînes de caractères.
+\end{itemize}
+
+\begin{exampleblock}{Exemple}
+\small
+\begin{lstlisting}
+notes = {
+    "Gaetan": 14,
+    "Laure": 14,
+    "Kenza": 17
+}
+\end{lstlisting}
+\end{exampleblock}
+
+\begin{alertblock}{Attention}
+\small
+Si une clé est utilisée plusieurs fois lors de la création
+d'un dictionnaire, seule sa dernière valeur est conservée.
+\end{alertblock}
+
+\end{frame}
+\begin{frame}[fragile]{Accéder aux valeurs}
+
+Pour accéder à une valeur, on utilise sa clé entre crochets.
+
+\begin{exampleblock}{Accéder à une valeur}
+\small
+\begin{lstlisting}
+notes = {"Gaetan": 14, "Laure": 9, "Kenza": 17}
+
+print(notes["Kenza"])  # 17
+\end{lstlisting}
+\end{exampleblock}
+
+\begin{itemize}
+    \item Si la clé existe, Python renvoie la valeur associée.
+    \item Si la clé n'existe pas, Python déclenche une
+    \texttt{KeyError}.
+\end{itemize}
+
+\begin{exampleblock}{Vérifier l'existence d'une clé}
+\small
+\begin{lstlisting}
+if "Kenza" in notes:
+    print(notes["Kenza"])
+\end{lstlisting}
+\end{exampleblock}
+
+\end{frame}
+\begin{frame}[fragile]{Modifier un dictionnaire}
+
+Un dictionnaire est \textbf{modifiable} : on peut ajouter,
+modifier ou supprimer des entrées.
+
+\begin{exampleblock}{Ajouter et modifier une entrée}
+\small
+\begin{lstlisting}
+notes = {"Gaetan": 14, "Laure": 9}
+
+# Modifier une valeur existante
+notes["Gaetan"] = 12
+
+# Ajouter une nouvelle entrée
+notes["Kenza"] = 17
+
+print(notes)
+\end{lstlisting}
+\end{exampleblock}
+
+\begin{block}{À retenir}
+\small
+\begin{itemize}
+    \item Clé existante : la valeur est remplacée.
+    \item Nouvelle clé : une entrée est ajoutée.
+\end{itemize}
+\end{block}
+
+\end{frame}
+\begin{frame}[fragile]{Parcourir un dictionnaire}
+
+Une boucle \texttt{for} permet de parcourir les éléments
+d'un dictionnaire.
+
+\begin{exampleblock}{Parcourir les clés}
+\small
+\begin{lstlisting}
+for cle in notes:
+    print(cle)
+\end{lstlisting}
+\end{exampleblock}
+
+\begin{exampleblock}{Parcourir les valeurs et les couples}
+\small
+\begin{lstlisting}
+# Parcourir les valeurs
+for valeur in notes.values():
+    print(valeur)
+
+# Parcourir les couples cle-valeur
+for cle, valeur in notes.items():
+    print(cle, ":", valeur)
+\end{lstlisting}
+\end{exampleblock}
+
+\end{frame}
+\begin{frame}[fragile]{Le typage dynamique}
+
+En Python, le typage est \textbf{dynamique} :
+le type d'une variable est déterminé automatiquement
+à partir de la valeur qui lui est affectée.
+
+\begin{exampleblock}{Exemple}
+\small
+\begin{lstlisting}
+a = 5
+print(type(a))  # <class 'int'>
+
+a = "bonjour"
+print(type(a))  # <class 'str'>
+\end{lstlisting}
+\end{exampleblock}
+
+\begin{itemize}
+    \item Une variable peut recevoir des valeurs de types différents.
+    \item Il n'est pas nécessaire de déclarer son type à l'avance.
+    \item Les opérations doivent néanmoins être compatibles avec
+    les types des valeurs manipulées.
+\end{itemize}
+
+\begin{alertblock}{Attention}
+\small
+Le typage dynamique ne signifie pas que Python accepte
+toutes les opérations entre types différents.
+\end{alertblock}
+
+\end{frame}
+
+\begin{frame}[fragile]{Les opérations et les types}
+
+Une opération doit être compatible avec les types
+des valeurs manipulées.
+
+\begin{exampleblock}{Exemples}
+\small
+\begin{lstlisting}
+a = 5
+b = 7
+print(a + b)       # 12
+
+x = "salut"
+y = "hello"
+print(x + y)       # saluthello
+
+print(a + y)       # TypeError
+print(y / 2)       # TypeError
+\end{lstlisting}
+\end{exampleblock}
+
+\begin{itemize}
+    \item Deux entiers peuvent être additionnés.
+    \item Deux chaînes peuvent être concaténées.
+    \item Certaines opérations entre types différents
+    ne sont pas autorisées.
+\end{itemize}
+
+\end{frame}
+\begin{frame}[fragile]{Les annotations de type}
+
+Python permet d'ajouter des \textbf{annotations de type}
+pour indiquer le type attendu d'une variable.
+
+\begin{exampleblock}{Exemple}
+\small
+\begin{lstlisting}
+age: int = 18
+nom: str = "Alice"
+taille: float = 1.72
+
+notes: list[int] = [12, 15, 18]
+\end{lstlisting}
+\end{exampleblock}
+
+\begin{itemize}
+    \item \texttt{int} : entier.
+    \item \texttt{float} : nombre décimal.
+    \item \texttt{str} : chaîne de caractères.
+    \item \texttt{list[int]} : liste d'entiers.
+\end{itemize}
+
+\begin{block}{À retenir}
+\small
+Les annotations sont facultatives : elles aident à comprendre
+le programme, mais ne modifient pas le fonctionnement normal
+de Python.
+\end{block}
+
+\end{frame}
+\begin{frame}[fragile]{Annoter les paramètres d'une fonction}
+
+On peut préciser le type attendu pour chaque paramètre
+d'une fonction.
+
+\begin{exampleblock}{Exemple}
+\small
+\begin{lstlisting}
+def addition(a: int, b: int):
+    return a + b
+
+print(addition(5, 7))
+\end{lstlisting}
+\end{exampleblock}
+
+\begin{itemize}
+    \item \texttt{a: int} indique que le paramètre \texttt{a}
+    est attendu comme un entier.
+    \item \texttt{b: int} indique la même chose pour \texttt{b}.
+\end{itemize}
+
+\begin{alertblock}{Attention}
+\small
+Python ne vérifie pas automatiquement ces annotations
+à l'appel de la fonction.
+
+Elles servent notamment à guider le programmeur et les outils
+de vérification de types.
+\end{alertblock}
+
+\end{frame}
+\begin{frame}[fragile]{Annoter le type de retour}
+
+On peut également indiquer le type de valeur renvoyé
+par une fonction.
+
+L'annotation \texttt{-> int} indique que la fonction
+est censée renvoyer un entier.
+
+\begin{exampleblock}{Exemple}
+\small
+\begin{lstlisting}
+def somme(a: int, b: int) -> int:
+    return a + b
+
+resultat = somme(5, 7)
+print(resultat)  # 12
+\end{lstlisting}
+\end{exampleblock}
+
+\begin{block}{Vérification des types}
+\small
+Les annotations ne sont pas vérifiées automatiquement
+par Python.
+
+Un outil comme \texttt{mypy} permet d'analyser le programme
+et de détecter certaines incohérences de types.
+\end{block}
+
+\end{frame}
+
+
+
+
+
+
+
+\begin{comment}
 \frame[containsverbatim]{
 \frametitle{Les séquences}
 
@@ -131,6 +901,52 @@ for nb in t:
 
 
 }
+\begin{frame}[fragile]{Les séquences : parcours avec une boucle}
+
+Les séquences sont des objets \textbf{itérables} :
+on peut parcourir leurs éléments un par un.
+
+\medskip
+
+La boucle \texttt{for} permet de réaliser ce parcours.
+
+\begin{exampleblock}{Exemple en Python}
+\begin{lstlisting}
+# Une chaine de caracteres
+ma_chaine = "Python"
+
+for carac in ma_chaine:
+    print(carac)
+
+# Une liste
+l = [55, 23, 103]
+
+for nb in l:
+    print(nb)
+
+# Un tuple
+t = (128, 0, 255)
+
+for nb in t:
+    print(nb)
+\end{lstlisting}
+\end{exampleblock}
+
+\medskip
+
+\begin{center}
+\textbf{La boucle \texttt{for} parcourt les éléments
+sans avoir besoin de manipuler leurs indices.}
+\end{center}
+
+\end{frame}
+\begin{frame}[fragile]{Les séquences : parcours avec une boucle}
+
+Les séquences sont des objets \textbf{itérables} :
+on peut parcourir leurs éléments un par un.
+
+
+\end{frame}
 
 
 \begin{frame}[fragile]{Chaînes de caractères}
@@ -205,7 +1021,6 @@ En fait, Python repose sur l'encodage Unicode, qui comprend beaucoup plus de car
 \end{exampleblock}
 }
 \end{frame}
-
 
 \begin{frame}[fragile]{Les ensembles}
 
@@ -385,7 +1200,6 @@ print(a ^ b)
 
 
 }
-
 \frame[containsverbatim]{
 \frametitle{Dictionnaires}
 
@@ -499,7 +1313,6 @@ for i in dico_notes.items():
 
 
 }
-
 
 \begin{frame}[fragile]{Typage en Python}
 
@@ -615,6 +1428,6 @@ print(somme("salut","hello"))
 
 
 \end{frame}
-
+\end{comment}
 \end{document}
 

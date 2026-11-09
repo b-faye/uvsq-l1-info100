@@ -45,13 +45,52 @@
   %\beamertemplatetransparentcovereddynamic
   \beamertemplateballitem
 }
+\usepackage{listings}
+\usepackage{xcolor}
+
+\lstset{
+	language=Python,
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{blue},
+	commentstyle=\color{gray},
+	stringstyle=\color{green!50!black},
+	showstringspaces=false,
+	frame=single,
+	numbers=none
+}
+\lstset{
+	language=Python,
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{blue},
+	commentstyle=\color{gray},
+	stringstyle=\color{green!50!black},
+	showstringspaces=false,
+	frame=single,
+	numbers=none,
+	literate=
+	{é}{{\'e}}1
+	{è}{{\`e}}1
+	{ê}{{\^e}}1
+	{ë}{{\"e}}1
+	{à}{{\`a}}1
+	{â}{{\^a}}1
+	{ä}{{\"a}}1
+	{ù}{{\`u}}1
+	{û}{{\^u}}1
+	{ü}{{\"u}}1
+	{ô}{{\^o}}1
+	{ö}{{\"o}}1
+	{î}{{\^i}}1
+	{ï}{{\"i}}1
+	{ç}{{\c c}}1
+}
 
 
 
 \title[IN100 Cours 9]{\textbf{Fondements informatiques I}\\
 Cours 9: Algorithmes : manipuler des tableaux}
 
-\author[]{Sorina Ionica \texttt{sorina.ionica@uvsq.fr} \\~\\Sandrine Vial  \texttt{sandrine.vial@uvsq.fr} }
+\author[]{Sorina Ionica \texttt{sorina.ionica@uvsq.fr} \\~\\Bilal FAYE  \texttt{bilal.faye@uvsq.fr} }
 
 
 \institute{}
@@ -65,9 +104,543 @@ Cours 9: Algorithmes : manipuler des tableaux}
 
 
 \frame{\titlepage}
+\begin{frame}{Qu'est-ce qu'un algorithme ?}
+
+Un \textbf{algorithme} est une suite finie d'étapes permettant de
+résoudre un problème ou d'effectuer une tâche.
+
+\begin{exampleblock}{Exemple : analyser les notes d'un examen}
+On dispose d'un tableau de notes :
+\[
+\texttt{notes = [12, 8, 15, 10, 6]}
+\]
+
+On souhaite :
+\begin{itemize}
+    \item trouver la note la plus petite ;
+    \item trouver la note la plus grande ;
+    \item afficher les notes dans l'ordre croissant.
+\end{itemize}
+\end{exampleblock}
+
+\pause
+
+\begin{block}{Les trois éléments d'un algorithme}
+\begin{itemize}
+    \item \textbf{Entrée :} les données dont on dispose (ici, les notes).
+    \item \textbf{Traitement :} les étapes à effectuer.
+    \item \textbf{Sortie :} le résultat attendu.
+\end{itemize}
+\end{block}
+
+\end{frame}
+\begin{frame}{Avant de coder : réfléchir à la méthode}
+
+Pour résoudre un problème, il faut d'abord réfléchir
+aux étapes nécessaires, avant de les traduire en Python.
+
+\begin{exampleblock}{Exemple : trouver la plus petite note}
+Comment déterminer la plus petite valeur d'un tableau de notes ?
+
+\begin{enumerate}
+    \item Prendre la première note comme minimum provisoire.
+    \item Parcourir les autres notes une par une.
+    \item Si une note est plus petite, mettre à jour le minimum.
+    \item À la fin, le minimum provisoire est la plus petite note.
+\end{enumerate}
+\end{exampleblock}
+
+\pause
+
+\begin{alertblock}{Une bonne habitude}
+Avant de programmer, se poser trois questions :
+\begin{itemize}
+    \item Quelles sont les données en entrée ?
+    \item Quelles étapes permettent de résoudre le problème ?
+    \item Quel résultat doit-on obtenir ?
+\end{itemize}
+\end{alertblock}
+
+\end{frame}
+\begin{frame}{Minimum d'un tableau : l'algorithme}
+
+On dispose d'un tableau d'entiers. On souhaite trouver
+\textbf{l'indice de la plus petite valeur}.
+
+\begin{exampleblock}{Exemple}
+\[
+L = [12,\ 8,\ 15,\ 6,\ 10]
+\]
+La plus petite valeur est $6$, et son indice est $3$.
+\end{exampleblock}
+
+\pause
+
+\begin{block}{Algorithme}
+\begin{itemize}
+    \item \textbf{Entrée :} un tableau $L$ d'entiers non vide.
+    \item \textbf{Sortie :} l'indice du plus petit élément de $L$.
+\end{itemize}
+
+\medskip
+\begin{enumerate}
+    \item Initialiser $m$ à $0$ : on suppose que le premier élément est le minimum.
+    \item Parcourir les indices $i$ de $1$ à $\text{longueur}(L)-1$.
+    \item Si $L[i] < L[m]$, alors mettre $m$ à jour : $m \leftarrow i$.
+    \item Renvoyer $m$.
+\end{enumerate}
+\end{block}
+
+\end{frame}
+\begin{frame}[fragile]{Minimum d'un tableau : en Python}
+
+Les étapes de l'algorithme se traduisent directement en Python :
+
+\begin{exampleblock}{Implémentation}
+\begin{lstlisting}[language=Python]
+def minimum(L):
+    m = 0
+    for i in range(1, len(L)):
+        if L[i] < L[m]:
+            m = i
+    return m
+\end{lstlisting}
+\end{exampleblock}
+\begin{exampleblock}{Exemple d'utilisation}
+\begin{lstlisting}[language=Python]
+L = [12, 8, 15, 6, 10]
+indice = minimum(L)
+print(indice)    # 3
+print(L[indice]) # 6
+\end{lstlisting}
+\end{exampleblock}
+
+\textbf{Question :} comment adapter cet algorithme pour trouver
+l'indice du plus grand élément ?
+
+\end{frame}
+\begin{frame}{Trier un tableau : le tri par sélection}
+
+On souhaite ranger les éléments d'un tableau dans l'ordre
+croissant.
+
+\begin{exampleblock}{Exemple}
+\[
+T = [5,\ 1,\ -8,\ 2,\ -4,\ 7]
+\]
+On veut obtenir :
+\[
+[-8,\ -4,\ 1,\ 2,\ 5,\ 7]
+\]
+\end{exampleblock}
+
+\pause
+
+\begin{block}{Principe du tri par sélection}
+On construit progressivement la partie triée du tableau :
+
+\begin{enumerate}
+    \item On cherche le plus petit élément du tableau.
+    \item On le place au début, en l'échangeant avec le premier élément.
+    \item On recommence avec la partie restante du tableau,
+    en ignorant les éléments déjà placés.
+\end{enumerate}
+\end{block}
+
+\end{frame}
+\begin{frame}{Tri par sélection : déroulement}
+
+À chaque étape, on cherche le minimum dans la partie
+du tableau qui n'est pas encore triée, puis on l'échange
+avec le premier élément de cette partie.
+
+\begin{exampleblock}{Exemple : $T = [5,\ 1,\ -8,\ 2,\ -4,\ 7]$}
+\small
+\begin{itemize}
+    \item Départ : \quad $[5,\ 1,\ -8,\ 2,\ -4,\ 7]$
+    \pause
+    \item Étape 1 : minimum $=-8$ \quad
+    $[-8,\ 1,\ 5,\ 2,\ -4,\ 7]$
+    \pause
+    \item Étape 2 : minimum $=-4$ \quad
+    $[-8,\ -4,\ 5,\ 2,\ 1,\ 7]$
+    \pause
+    \item Étape 3 : minimum $=1$ \quad
+    $[-8,\ -4,\ 1,\ 2,\ 5,\ 7]$
+    \pause
+    \item Étapes suivantes : le tableau reste inchangé.
+\end{itemize}
+\end{exampleblock}
+
+\pause
+
+\begin{alertblock}{À retenir}
+À chaque étape, un élément est placé définitivement
+à sa position correcte. La partie triée grandit progressivement.
+\end{alertblock}
+
+\end{frame}
+\begin{frame}{Tri par sélection : l'algorithme}
+
+\begin{block}{Algorithme}
+\begin{itemize}
+    \item \textbf{Entrée :} un tableau $T$.
+    \item \textbf{Sortie :} le tableau $T$ trié dans l'ordre croissant.
+\end{itemize}
+
+\medskip
+
+Pour chaque indice $i$ de $0$ à $\text{longueur}(T)-2$ :
+
+\begin{enumerate}
+    \item Chercher l'indice $m$ du minimum dans $T[i:]$.
+    \item Échanger $T[i]$ et $T[i+m]$.
+\end{enumerate}
+\end{block}
+
+\pause
+
+\begin{alertblock}{Pourquoi $i+m$ ?}
+La recherche du minimum se fait dans le sous-tableau $T[i:]$.
+L'indice $m$ est relatif à ce sous-tableau : on ajoute donc $i$
+pour obtenir l'indice correspondant dans le tableau initial.
+\end{alertblock}
+
+\end{frame}
 
 
+\begin{frame}[fragile]{Tri par sélection : en Python}
 
+On réutilise la fonction \texttt{minimum} vue précédemment.
+
+\begin{exampleblock}{Implémentation}
+\begin{lstlisting}[language=Python]
+def tri_selection(T):
+    for i in range(len(T) - 1):
+        m = minimum(T[i:])
+        T[i], T[i + m] = T[i + m], T[i]
+    return T
+\end{lstlisting}
+\end{exampleblock}
+
+
+\begin{exampleblock}{Exemple d'utilisation}
+\begin{lstlisting}[language=Python]
+T = [5, 1, -8, 2, -4, 7]
+print(tri_selection(T))
+# [-8, -4, 1, 2, 5, 7]
+\end{lstlisting}
+\end{exampleblock}
+
+\end{frame}
+\begin{frame}{Construire un tableau trié progressivement}
+
+Une autre méthode consiste à construire le tableau trié
+\textbf{au fur et à mesure que l'on reçoit les éléments}.
+
+\begin{exampleblock}{Exemple}
+On reçoit successivement les nombres :
+\[
+5,\quad 1,\quad -8,\quad 2,\quad -4,\quad 7
+\]
+On veut construire un tableau trié dans l'ordre croissant.
+\end{exampleblock}
+
+\pause
+
+\begin{block}{Principe : l'insertion}
+À chaque nouvel élément :
+\begin{enumerate}
+    \item On cherche sa place dans le tableau déjà trié.
+    \item On décale les éléments suivants vers la droite pour libérer une place.
+    \item On insère le nouvel élément à sa bonne position.
+\end{enumerate}
+\end{block}
+
+\pause
+
+\begin{alertblock}{Idée essentielle}
+Le tableau est trié après chaque insertion.
+\end{alertblock}
+
+\end{frame}
+\begin{frame}{Insertion dans un tableau trié : exemple}
+
+Supposons que le tableau soit déjà trié :
+\[
+T = [-8,\ 1,\ 2,\ 5]
+\]
+
+On souhaite y insérer le nombre $-4$.
+
+\pause
+
+\begin{enumerate}
+    \item On parcourt le tableau jusqu'à trouver le premier élément
+    supérieur ou égal à $-4$ : ici, $1$.
+    \pause
+    \item On décale les éléments à partir de cette position vers la droite.
+    \pause
+    \item On place $-4$ dans la case libérée.
+\end{enumerate}
+
+\pause
+
+\begin{exampleblock}{Résultat}
+\[
+[-8,\ 1,\ 2,\ 5]
+\quad\longrightarrow\quad
+[-8,\ \boxed{-4},\ 1,\ 2,\ 5]
+\]
+\end{exampleblock}
+
+\end{frame}
+\begin{frame}{Insertion dans un tableau trié : algorithme}
+
+On suppose que le tableau $T$ est déjà trié dans l'ordre croissant.
+
+\begin{block}{Algorithme}
+\begin{itemize}
+    \item \textbf{Entrée :} un tableau trié $T$ et un élément $t$.
+    \item \textbf{Sortie :} le tableau $T$ avec $t$ inséré à la bonne place.
+\end{itemize}
+
+\medskip
+
+\begin{enumerate}
+    \item Initialiser $i$ à $0$.
+    \item Tant que $i < \text{longueur}(T)$ et $T[i] < t$,
+    avancer à l'indice suivant.
+    \item Décaler vers la droite les éléments à partir de l'indice $i$.
+    \item Placer $t$ à l'indice $i$.
+\end{enumerate}
+\end{block}
+
+\pause
+
+\begin{alertblock}{Comment trouver la position ?}
+On s'arrête dès que l'on rencontre un élément supérieur ou égal à $t$,
+ou lorsque l'on atteint la fin du tableau.
+\end{alertblock}
+
+\end{frame}
+\begin{frame}{Construire un tableau trié : exemple complet}
+
+On insère successivement les éléments de la séquence :
+$5,\ 1,\ -8,\ 2,\ -4,\ 7$.
+
+\small
+\begin{exampleblock}{Évolution du tableau}
+\begin{itemize}
+    \item Insertion de $5$ : \quad $[5]$
+    \pause
+    \item Insertion de $1$ : \quad $[1,\ 5]$
+    \pause
+    \item Insertion de $-8$ : \quad $[-8,\ 1,\ 5]$
+    \pause
+    \item Insertion de $2$ : \quad $[-8,\ 1,\ 2,\ 5]$
+    \pause
+    \item Insertion de $-4$ : \quad $[-8,\ -4,\ 1,\ 2,\ 5]$
+    \pause
+    \item Insertion de $7$ : \quad $[-8,\ -4,\ 1,\ 2,\ 5,\ 7]$
+\end{itemize}
+\end{exampleblock}
+
+\pause
+
+\begin{alertblock}{À retenir}
+Après chaque insertion, le tableau reste trié.
+À la fin, tous les éléments ont été insérés.
+\end{alertblock}
+
+\end{frame}
+\begin{frame}[fragile]{Insertion dans un tableau trié : en Python}
+
+On utilise \texttt{insert(i, t)} pour insérer l'élément
+\texttt{t} à l'indice \texttt{i}. Les éléments suivants
+sont automatiquement décalés vers la droite.
+
+\begin{exampleblock}{Insérer un élément}
+\begin{lstlisting}[language=Python]
+def insertion(t, T):
+    i = 0
+    while i < len(T) and T[i] < t:
+        i += 1
+    T.insert(i, t)
+\end{lstlisting}
+\end{exampleblock}
+
+\pause
+
+\begin{exampleblock}{Construire un tableau trié}
+\begin{lstlisting}[language=Python]
+T = []
+for t in [5, 1, -8, 2, -4, 7]:
+    insertion(t, T)
+
+print(T)
+# [-8, -4, 1, 2, 5, 7]
+\end{lstlisting}
+\end{exampleblock}
+
+\end{frame}
+\begin{frame}{Suite de Fibonacci}
+
+On étudie une suite de nombres dans laquelle chaque terme,
+à partir du troisième, est obtenu en additionnant les deux
+termes précédents.
+
+\begin{block}{Définition}
+La suite de Fibonacci est définie par :
+\[
+F_0 = 0,\qquad F_1 = 1
+\]
+et, pour tout $n \geq 2$ :
+\[
+F_n = F_{n-1} + F_{n-2}
+\]
+\end{block}
+
+\pause
+
+\begin{exampleblock}{Premiers termes}
+\[
+\begin{array}{c|cccccccc}
+n   & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7\\
+\hline
+F_n & 0 & 1 & 1 & 2 & 3 & 5 & 8 & 13
+\end{array}
+\]
+\end{exampleblock}
+
+\pause
+
+\textbf{Objectif :} calculer les termes de Fibonacci jusqu'au rang $n$.
+
+\end{frame}
+\begin{frame}{Fibonacci : construire le tableau des termes}
+
+Pour calculer tous les termes jusqu'au rang $n$,
+on mémorise les valeurs dans un tableau.
+
+\begin{block}{Principe}
+\begin{enumerate}
+    \item Initialiser le tableau avec les deux premiers termes :
+    $[0,1]$.
+    \item Calculer le terme suivant en additionnant les deux
+    derniers termes du tableau.
+    \item Ajouter ce nouveau terme au tableau.
+    \item Recommencer jusqu'au rang $n$.
+\end{enumerate}
+\end{block}
+
+\pause
+
+\begin{exampleblock}{Exemple : calcul jusqu'au rang 5}
+\[
+\begin{array}{c|l}
+\text{Étape} & \text{Tableau}\\
+\hline
+\text{Initialisation} & [0,1]\\
+\text{Ajout de } F_2 & [0,1,1]\\
+\text{Ajout de } F_3 & [0,1,1,2]\\
+\text{Ajout de } F_4 & [0,1,1,2,3]\\
+\text{Ajout de } F_5 & [0,1,1,2,3,5]
+\end{array}
+\]
+\end{exampleblock}
+
+\end{frame}
+\begin{frame}{Fibonacci : calculer seulement le terme $F_n$}
+
+Pour calculer le terme suivant, on a besoin que
+des deux termes précédents.
+
+\pause
+
+\begin{block}{Nouvelle idée}
+Au lieu de mémoriser tout le tableau, on utilise deux variables :
+\begin{itemize}
+    \item $a$ : le terme précédent ;
+    \item $b$ : le terme courant.
+\end{itemize}
+À chaque étape, on calcule le terme suivant et on met à jour
+les deux variables :
+$
+(a,b) \leftarrow (b,\ a+b)
+$
+\end{block}
+
+\pause
+
+\begin{exampleblock}{Exemple : calcul de $F_5$}
+\footnotesize
+\[
+\begin{array}{c|c|c}
+\text{Étape} & a & b\\
+\hline
+\text{Départ} & 0 & 1\\
+1 & 1 & 1\\
+2 & 1 & 2\\
+3 & 2 & 3\\
+4 & 3 & 5\\
+5 & 5 & 8
+\end{array}
+\]
+À la fin, $a=F_5=5$.
+\end{exampleblock}
+
+\end{frame}
+\begin{frame}[fragile]{Suite de Fibonacci : en Python}
+
+On utilise deux variables pour calculer directement
+le terme demandé.
+
+\begin{exampleblock}{Implémentation}
+\begin{lstlisting}[language=Python]
+def fibonacci(n):
+    a, b = 0, 1
+    for i in range(n):
+        a, b = b, a + b
+    return a
+\end{lstlisting}
+\end{exampleblock}
+
+\pause
+
+\begin{exampleblock}{Exemples}
+\begin{lstlisting}[language=Python]
+print(fibonacci(5))  # 5
+print(fibonacci(7))  # 13
+\end{lstlisting}
+\end{exampleblock}
+
+\end{frame}
+
+
+\begin{frame}{Bilan : concevoir un algorithme efficace}
+
+Deux méthodes permettent de calculer les termes de Fibonacci :
+
+\begin{itemize}
+    \item \textbf{Avec un tableau :} on mémorise tous les termes.
+    \item \textbf{Avec deux variables :} on ne conserve que les deux
+    derniers termes.
+\end{itemize}
+
+\pause
+
+\begin{alertblock}{À retenir}
+Un bon algorithme doit non seulement donner le bon résultat,
+mais aussi utiliser efficacement les ressources :
+\begin{itemize}
+    \item limiter la mémoire utilisée ;
+    \item limiter le nombre d'opérations effectuées.
+\end{itemize}
+\end{alertblock}
+
+\end{frame}
+\begin{comment}
 \frame[containsverbatim]{
 \frametitle{Qu'est-ce que c'est qu'un algorithme?}
 
@@ -118,7 +691,6 @@ Pour chaque fonction on précise les paramètres en entrée et en sortie. \\
 }
 
 
-
 \frame[containsverbatim]{
 \frametitle{Minimum d'un tableau}
 
@@ -166,6 +738,8 @@ def minimum(L):
 Et pour calculer le maximum? 
 
 }
+
+
 
 
 \begin{frame}[fragile]{Tri par séléction}
@@ -225,6 +799,7 @@ print(tri_selection(L))
 
 
 }
+
 
 
 
@@ -338,10 +913,6 @@ La suite de Fibonacci est définie par la relation suivante :
 F_0 = 0, \quad F_1 = 1, \quad \text{et pour tout } n \ge 2, \quad F_n = F_{n-1} + F_{n-2}.
 \]
 
-%\begin{itemize}
-%\item[1.] Écrire une fonction \texttt{fibonacci} qui prend en entrée un entier $n$ et qui calcule le $n$-ième nombre de Fibonnaci. 
-%\item[2.] Écrire une fonction  \texttt{est\_fibonacci}  qui prend en entrée un entier $x$. La fonction devra  générer la suite jusqu’à dépasser la valeur \texttt{x}, puis vérifier si \texttt{x} y apparaît.
-%\end{itemize}
 
 On veut calculer toutes les éléments de la suite de Fibonnaci, jusqu'au $n$-ième. 
 
@@ -424,7 +995,7 @@ def fibonacci(n):
 
 
 }
-
+\end{comment}
 
 
 

@@ -46,12 +46,51 @@
   \beamertemplateballitem
 }
 
+\usepackage{listings}
+\usepackage{xcolor}
+
+\lstset{
+	language=Python,
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{blue},
+	commentstyle=\color{gray},
+	stringstyle=\color{green!50!black},
+	showstringspaces=false,
+	frame=single,
+	numbers=none
+}
+\lstset{
+	language=Python,
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{blue},
+	commentstyle=\color{gray},
+	stringstyle=\color{green!50!black},
+	showstringspaces=false,
+	frame=single,
+	numbers=none,
+	literate=
+	{é}{{\'e}}1
+	{è}{{\`e}}1
+	{ê}{{\^e}}1
+	{ë}{{\"e}}1
+	{à}{{\`a}}1
+	{â}{{\^a}}1
+	{ä}{{\"a}}1
+	{ù}{{\`u}}1
+	{û}{{\^u}}1
+	{ü}{{\"u}}1
+	{ô}{{\^o}}1
+	{ö}{{\"o}}1
+	{î}{{\^i}}1
+	{ï}{{\"i}}1
+	{ç}{{\c c}}1
+}
 
 
 \title[IN100 Cours 9]{\textbf{Fondements informatiques I}\\
 Cours 9: Algorithmes : piles et files}
 
-\author[]{Sorina Ionica \texttt{sorina.ionica@uvsq.fr} \\~\\Sandrine Vial  \texttt{sandrine.vial@uvsq.fr} }
+\author[]{Sorina Ionica \texttt{sorina.ionica@uvsq.fr} \\~\\Bilal FAYE  \texttt{bilal.faye@uvsq.fr} }
 
 
 \institute{}
@@ -66,8 +105,746 @@ Cours 9: Algorithmes : piles et files}
 
 \frame{\titlepage}
 
+\begin{frame}[fragile]{File : définition et principe}
+
+Une \textbf{file} (en anglais, \textit{queue}) est une structure
+de données dans laquelle :
+
+\begin{itemize}
+    \item les éléments sont ajoutés à la fin de la file ;
+    \item les éléments sont retirés au début de la file.
+\end{itemize}
+
+\begin{exampleblock}{Exemple concret}
+Comme dans une file d'attente à la caisse :
+la première personne arrivée est la première à être servie.
+\end{exampleblock}
+
+\pause
+
+\begin{center}
+\textbf{FIFO : First In, First Out}
+\end{center}
 
 
+\begin{tikzpicture}[
+    box/.style={draw, minimum width=0.6cm, minimum height=0.6cm, anchor=west},
+    node distance=0cm,
+    >=stealth
+]
+
+% === File initiale ===
+\node[box] (a1) at (0,0) {3};
+\node[box, right=of a1] (a2) {5};
+\node[box, right=of a2] (a3) {7};
+
+% === File après ajout de 4 et 6 ===
+\node[box] (b1) at (5,0) {3};
+\node[box, right=of b1] (b2) {5};
+\node[box, right=of b2] (b3) {7};
+\node[box, right=of b3] (b4) {\textcolor{red}{4}};
+\node[box, right=of b4] (b5) {\textcolor{red}{6}};
+
+% Flèche d'ajout
+\node[draw=none, anchor=west] at (2.5,0.2) {\small{Rajouter 4, 6}};
+\draw[->, thick] (a3.east) -- (b1.west);
+
+% === File après un premier retrait ===
+\node[box] (c1) at (6.3,-2) {5};
+\node[box, right=of c1] (c2) {7};
+\node[box, right=of c2] (c3) {4};
+\node[box, right=of c3] (c4) {6};
+
+% === File après un deuxième retrait ===
+\node[box] (d1) at (10.3,-2) {7};
+\node[box, right=of d1] (d2) {4};
+\node[box, right=of d2] (d3) {6};
+
+% Flèche de retrait après ajout
+\node[draw=none, anchor=west] at (6.5,-0.7) {\small{Enlever}};
+\draw[->, thick] (b5.east) .. controls +(0.9,-2.2) and +(-0.8,2.2) .. (c1.west);
+
+% Flèche entre les deux retraits
+\node[draw=none, anchor=west] at (8.8,-1.8) {\small{Enlever}};
+\draw[->, thick] (c4.east) -- (d1.west);
+
+\end{tikzpicture}
+
+
+\pause
+
+\textbf{Applications :}
+\begin{itemize}
+    \item traitement des tâches dans leur ordre d'arrivée ;
+    \item gestion des demandes d'impression ;
+    \item transmission de données dans un réseau.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]{File : les opérations principales}
+
+Pour manipuler une file, on utilise deux opérations :
+
+\begin{itemize}
+    \item \textbf{Ajouter :} insérer un élément à la fin de la file.
+    \item \textbf{Enlever :} retirer l'élément situé au début de la file.
+\end{itemize}
+
+\medskip
+\begin{tikzpicture}[
+    box/.style={draw, minimum width=0.6cm, minimum height=0.6cm, anchor=west},
+    node distance=0cm,
+    >=stealth
+]
+
+% === File initiale ===
+\node[box] (a1) at (0,0) {3};
+\node[box, right=of a1] (a2) {5};
+\node[box, right=of a2] (a3) {7};
+
+% === File après ajout de 4 et 6 ===
+\node[box] (b1) at (5,0) {3};
+\node[box, right=of b1] (b2) {5};
+\node[box, right=of b2] (b3) {7};
+\node[box, right=of b3] (b4) {\textcolor{red}{4}};
+\node[box, right=of b4] (b5) {\textcolor{red}{6}};
+
+% Flèche d'ajout
+\node[draw=none, anchor=west] at (2.5,0.2) {\small{Rajouter 4, 6}};
+\draw[->, thick] (a3.east) -- (b1.west);
+
+% === File après un premier retrait ===
+\node[box] (c1) at (6.3,-2) {5};
+\node[box, right=of c1] (c2) {7};
+\node[box, right=of c2] (c3) {4};
+\node[box, right=of c3] (c4) {6};
+
+% === File après un deuxième retrait ===
+\node[box] (d1) at (10.3,-2) {7};
+\node[box, right=of d1] (d2) {4};
+\node[box, right=of d2] (d3) {6};
+
+% Flèche de retrait après ajout
+\node[draw=none, anchor=west] at (6.5,-0.7) {\small{Enlever}};
+\draw[->, thick] (b5.east) .. controls +(0.9,-2.2) and +(-0.8,2.2) .. (c1.west);
+
+% Flèche entre les deux retraits
+\node[draw=none, anchor=west] at (8.8,-1.8) {\small{Enlever}};
+\draw[->, thick] (c4.east) -- (d1.west);
+
+\end{tikzpicture}
+
+
+\pause
+
+\begin{exampleblock}{Exemple}
+\begin{lstlisting}[language=Python]
+file = [3, 5, 7]
+ajouter(file, 4)
+ajouter(file, 6)
+enlever(file)
+enlever(file)
+\end{lstlisting}
+\end{exampleblock}
+
+\pause
+
+Les éléments sont retirés dans le même ordre que celui
+dans lequel ils ont été ajoutés.
+
+\end{frame}
+\begin{frame}[fragile]{Ajouter dans une file}
+
+On suppose que la file est représentée par un tableau dynamique.
+
+\medskip
+
+\begin{block}{Principe}
+Un nouvel élément est toujours ajouté à la
+\textbf{fin de la file}.
+\end{block}
+
+\medskip
+
+\begin{exampleblock}{Algorithme : ajouter(f,e)}
+\begin{verbatim}
+Entrée : une file f et un élément e
+Sortie : la file f modifiée
+
+Ajouter e à la fin de f
+\end{verbatim}
+\end{exampleblock}
+
+\medskip
+
+\begin{center}
+\begin{tikzpicture}[
+    box/.style={draw, minimum width=0.7cm,
+    minimum height=0.65cm},
+    >=stealth
+]
+\node[box] (a) at (0,0) {3};
+\node[box,right=0cm of a] (b) {5};
+\node[box,right=0cm of b] (c) {7};
+
+\node at (1,-0.65) {\small File initiale};
+
+\node[box] (d) at (4,0) {3};
+\node[box,right=0cm of d] (e1) {5};
+\node[box,right=0cm of e1] (f1) {7};
+\node[box,right=0cm of f1,fill=red!15] (g) {4};
+
+\draw[->,thick] (2,0)--(3.4,0);
+\node at (5.1,-0.65) {\small Après ajout de 4};
+\end{tikzpicture}
+\end{center}
+
+\end{frame}
+
+\begin{frame}[fragile]{Enlever dans une file}
+
+On retire toujours l'élément situé au
+\textbf{début de la file}.
+
+\medskip
+
+\textbf{Principe: }
+L'élément retiré est le premier élément de la file.
+Les autres éléments avancent d'une position.
+
+\medskip
+
+\begin{exampleblock}{Algorithme : enlever(f)}
+\begin{verbatim}
+Entrée : une file f
+Sortie : l'élément retiré et la file modifiée
+Si f est vide :
+    Signaler que la file est vide
+Sinon :
+    e <- premier élément de f
+    Supprimer le premier élément de f
+Retourner e
+\end{verbatim}
+\end{exampleblock}
+
+\medskip
+
+\begin{center}
+\begin{tikzpicture}[
+    box/.style={draw, minimum width=0.7cm,
+    minimum height=0.65cm},
+    >=stealth
+]
+\node[box,fill=red!15] (a) at (0,0) {3};
+\node[box,right=0cm of a] (b) {5};
+\node[box,right=0cm of b] (c) {7};
+
+\node at (1,-0.65) {\small Avant retrait};
+
+\draw[->,thick] (3,0)--(4,0);
+
+\node[box] (d) at (4.5,0) {5};
+\node[box,right=0cm of d] (e) {7};
+
+\node at (5.2,-0.65) {\small Après retrait};
+\node at (0,-0.85) {\small Élément retiré : 3};
+\end{tikzpicture}
+\end{center}
+
+\end{frame}
+
+\begin{frame}[fragile]{Une file en Python}
+
+En Python, on peut utiliser une liste pour représenter une file.
+
+\begin{columns}[T]
+
+\column{0.49\textwidth}
+
+\begin{block}{Ajouter un élément}
+\begin{lstlisting}
+def ajouter(f, e):
+    f.append(e)
+\end{lstlisting}
+\end{block}
+L'élément est ajouté à la fin de la liste.
+
+\column{0.49\textwidth}
+
+\begin{block}{Enlever un élément}
+\begin{lstlisting}
+def enlever(f):
+    if len(f) > 0:
+        return f.pop(0)
+    return None
+\end{lstlisting}
+\end{block}
+Le premier élément est retiré et renvoyé.
+
+\end{columns}
+
+\medskip
+
+\begin{exampleblock}{Exemple d'utilisation}
+\begin{lstlisting}
+f = [3, 5, 7]
+ajouter(f, 4)
+print(f)          # [3, 5, 7, 4]
+e = enlever(f)
+print(e)          # 3
+print(f)          # [5, 7, 4]
+\end{lstlisting}
+\end{exampleblock}
+
+\end{frame}
+\begin{frame}[fragile]{Suivre les opérations sur une file}
+
+On considère la file initiale :
+
+\begin{center}
+\texttt{f = [3, 5, 7]}
+\end{center}
+
+\medskip
+
+\begin{exampleblock}{Instructions Python}
+\begin{lstlisting}
+ajouter(f, 4)
+ajouter(f, 6)
+e1 = enlever(f)
+e2 = enlever(f)
+print(f)
+print(e1, e2)
+\end{lstlisting}
+\end{exampleblock}
+
+\pause
+
+\begin{block}{Résultat}
+\begin{itemize}
+    \item File finale : \texttt{[7, 4, 6]}
+    \item Premier élément retiré : \texttt{3}
+    \item Deuxième élément retiré : \texttt{5}
+\end{itemize}
+\end{block}
+
+\medskip
+
+\begin{center}
+\textbf{Les premiers éléments ajoutés sont les premiers retirés.}
+\end{center}
+
+\end{frame}
+\begin{frame}[fragile]{Exemple d'utilisation : gestion des impressions}
+
+Une imprimante reçoit plusieurs demandes d'impression.
+
+
+
+\begin{exampleblock}{Situation initiale}
+Trois documents sont en attente :
+$
+f = [\texttt{Doc1},\texttt{Doc2},\texttt{Doc3}]
+$
+Un nouveau document \texttt{Doc4} arrive.
+\end{exampleblock}
+
+\medskip
+
+\begin{block}{Programme Python}
+\begin{lstlisting}
+f = ["Doc1", "Doc2", "Doc3"]
+ajouter(f, "Doc4")
+while len(f) > 0:
+    document = enlever(f)
+    print("Impression :", document)
+\end{lstlisting}
+\end{block}
+
+\pause
+
+\begin{exampleblock}{Résultat}
+\begin{verbatim}
+Impression : Doc1
+Impression : Doc2
+Impression : Doc3
+Impression : Doc4
+\end{verbatim}
+\end{exampleblock}
+
+\end{frame}
+
+% ============================================================
+% SLIDE 1 : DEFINITION ET PRINCIPE D'UNE PILE
+% ============================================================
+
+\begin{frame}[fragile]{Pile : définition et principe}
+
+Une \textbf{pile} (en anglais, \textit{stack}) est une structure
+de données dans laquelle :
+
+\begin{itemize}
+    \item les éléments sont ajoutés au sommet de la pile ;
+    \item les éléments sont retirés du sommet de la pile.
+\end{itemize}
+
+\begin{exampleblock}{Exemple concret}
+Comme une pile d'assiettes : on pose une assiette au-dessus
+des autres et on retire toujours celle du dessus.
+\end{exampleblock}
+
+\begin{center}
+\textbf{LIFO : Last In, First Out}
+\end{center}
+
+\begin{center}
+\begin{tikzpicture}[
+    rect/.style={
+        draw,
+        minimum width=0.55cm,
+        minimum height=0.35cm,
+        align=center
+    },
+    >=stealth,
+    scale=0.85,
+    transform shape
+]
+
+% === Pile initiale : 3, 5, 7 ===
+\begin{scope}[xshift=0cm]
+    \node[rect] (s1_1) at (0,0) {3};
+    \node[rect] (s1_2) at (0,0.4) {5};
+    \node[rect] (s1_3) at (0,0.8) {7};
+\end{scope}
+
+% === Après empiler 4 ===
+\begin{scope}[xshift=2.5cm]
+    \node[rect] (s2_1) at (0,0) {3};
+    \node[rect] (s2_2) at (0,0.4) {5};
+    \node[rect] (s2_3) at (0,0.8) {7};
+    \node[rect,fill=red!15] (s2_4) at (0,1.2) {4};
+\end{scope}
+
+% === Après empiler 6 ===
+\begin{scope}[xshift=5cm]
+    \node[rect] (s3_1) at (0,0) {3};
+    \node[rect] (s3_2) at (0,0.4) {5};
+    \node[rect] (s3_3) at (0,0.8) {7};
+    \node[rect] (s3_4) at (0,1.2) {4};
+    \node[rect,fill=red!15] (s3_5) at (0,1.6) {6};
+\end{scope}
+
+% === Après dépiler 6 ===
+\begin{scope}[xshift=7.5cm]
+    \node[rect] (s4_1) at (0,0) {3};
+    \node[rect] (s4_2) at (0,0.4) {5};
+    \node[rect] (s4_3) at (0,0.8) {7};
+    \node[rect] (s4_4) at (0,1.2) {4};
+\end{scope}
+
+% === Après dépiler 4 ===
+\begin{scope}[xshift=10cm]
+    \node[rect] (s5_1) at (0,0) {3};
+    \node[rect] (s5_2) at (0,0.4) {5};
+    \node[rect] (s5_3) at (0,0.8) {7};
+\end{scope}
+
+% === Flèches entre les piles ===
+\draw[->,thick]
+    (s1_3.east) .. controls +(right:8mm) and +(left:8mm) ..
+    node[midway,above] {\scriptsize Empiler 4}
+    (s2_4.west);
+
+\draw[->,thick]
+    (s2_4.east) .. controls +(right:8mm) and +(left:8mm) ..
+    node[midway,above] {\scriptsize Empiler 6}
+    (s3_5.west);
+
+\draw[->,thick]
+    (s3_5.east) .. controls +(right:8mm) and +(left:8mm) ..
+    node[midway,above] {\scriptsize Dépiler}
+    (s4_4.west);
+
+\draw[->,thick]
+    (s4_4.east) .. controls +(right:8mm) and +(left:8mm) ..
+    node[midway,above] {\scriptsize Dépiler}
+    (s5_3.west);
+
+% === Légende ===
+\node at (0,-0.45) {\scriptsize Initiale};
+\node at (2.5,-0.45) {\scriptsize Après ajout};
+\node at (5,-0.45) {\scriptsize Après ajout};
+\node at (7.5,-0.45) {\scriptsize Après retrait};
+\node at (10,-0.45) {\scriptsize Après retrait};
+
+\end{tikzpicture}
+\end{center}
+
+\medskip
+
+\textbf{Applications :}
+\begin{itemize}
+    \item inversion d'une séquence ;
+    \item évaluation d'expressions arithmétiques ;
+    \item historique de navigation dans un navigateur.
+\end{itemize}
+
+\end{frame}
+
+
+% ============================================================
+% SLIDE 2 : REPRESENTATION ET EMPILER
+% ============================================================
+
+\begin{frame}[fragile]{Pile : représentation et empilement}
+
+On représente la pile par un tableau dynamique.
+
+\begin{itemize}
+    \item Le sommet correspond à la dernière case du tableau.
+    \item Empiler consiste à ajouter un élément à la fin.
+\end{itemize}
+
+\medskip
+
+\begin{exampleblock}{Algorithme : empiler(p,e)}
+\begin{lstlisting}
+Entree : une pile p et un element e
+Sortie : la pile p modifiee
+
+Ajouter e a la fin de p
+\end{lstlisting}
+\end{exampleblock}
+
+\medskip
+
+\begin{center}
+\begin{tikzpicture}[
+    box/.style={
+        draw,
+        minimum width=0.7cm,
+        minimum height=0.55cm
+    },
+    >=stealth
+]
+
+\node[box] (a) at (0,0) {3};
+\node[box] (b) at (0.7,0) {5};
+\node[box] (c) at (1.4,0) {7};
+
+\node at (0.7,-0.55) {\small Avant};
+
+\draw[->,thick] (2.2,0)--(3.1,0)
+    node[midway,above] {\small Empiler 4};
+
+\node[box] (d) at (3.8,0) {3};
+\node[box] (e) at (4.5,0) {5};
+\node[box] (f) at (5.2,0) {7};
+\node[box,fill=red!15] (g) at (5.9,0) {4};
+
+\node at (4.85,-0.55) {\small Après};
+
+\node at (1.4,0.65) {\small Sommet};
+\draw[->] (1.4,0.55)--(1.4,0.3);
+
+\node at (5.9,0.65) {\small Nouveau sommet};
+\draw[->] (5.9,0.55)--(5.9,0.3);
+
+\end{tikzpicture}
+\end{center}
+
+\end{frame}
+
+
+% ============================================================
+% SLIDE 3 : DEPILER
+% ============================================================
+
+\begin{frame}[fragile]{Pile : dépiler}
+
+Dépiler consiste à retirer l'élément situé au sommet de la pile.
+
+\medskip
+
+\begin{exampleblock}{Algorithme : depiler(p)}
+\begin{lstlisting}
+Entree : une pile p
+Sortie : l'element retire
+
+Si p est vide :
+    Signaler que la pile est vide
+Sinon :
+    e <- dernier element de p
+    Supprimer le dernier element de p
+    Retourner e
+\end{lstlisting}
+\end{exampleblock}
+
+\medskip
+
+\begin{center}
+\begin{tikzpicture}[
+    box/.style={
+        draw,
+        minimum width=0.7cm,
+        minimum height=0.55cm
+    },
+    >=stealth
+]
+
+\node[box] (a) at (0,0) {3};
+\node[box] (b) at (0.7,0) {5};
+\node[box,fill=red!15] (c) at (1.4,0) {7};
+
+\node at (0.7,-0.55) {\small Avant};
+
+\draw[->,thick] (2.2,0)--(3.1,0)
+    node[midway,above] {\small Dépiler};
+
+\node[box] (d) at (3.8,0) {3};
+\node[box] (e) at (4.5,0) {5};
+
+\node at (4.15,-0.55) {\small Après};
+
+\node at (1.4,0.65) {\small Sommet};
+\draw[->] (1.4,0.55)--(1.4,0.3);
+
+\node at (6,0) {\small Élément retiré : 7};
+
+\end{tikzpicture}
+\end{center}
+
+\end{frame}
+
+
+% ============================================================
+% SLIDE 4 : IMPLEMENTATION EN PYTHON
+% ============================================================
+
+\begin{frame}[fragile]{Une pile en Python}
+
+En Python, on utilise une liste pour représenter une pile.
+
+
+\begin{columns}[T]
+
+\column{0.48\textwidth}
+
+\begin{block}{Empiler}
+\begin{lstlisting}
+def empiler(p, e):
+    p.append(e)
+\end{lstlisting}
+
+Ajoute l'element au sommet.
+\end{block}
+
+\column{0.48\textwidth}
+
+\begin{block}{Dépiler}
+\begin{lstlisting}
+def depiler(p):
+    if len(p) > 0:
+        return p.pop()
+    return None
+\end{lstlisting}
+
+Retire et renvoie le sommet.
+\end{block}
+
+\end{columns}
+
+\medskip
+
+\begin{exampleblock}{Exemple d'utilisation}
+\begin{lstlisting}
+p = [3, 5, 7]
+empiler(p, 4)
+empiler(p, 6)
+print(p)          # [3, 5, 7, 4, 6]
+depiler(p)
+depiler(p)
+print(p)          # [3, 5, 7]
+\end{lstlisting}
+\end{exampleblock}
+
+\end{frame}
+
+
+% ============================================================
+% SLIDE 5 : APPLICATION - INVERSER UNE SEQUENCE
+% ============================================================
+
+\begin{frame}[fragile]{Exemple d'utilisation : inverser une séquence}
+
+Une pile permet d'inverser l'ordre des éléments d'un tableau.
+
+\medskip
+
+\begin{block}{Principe}
+On retire successivement les éléments du tableau
+et on les empile dans une nouvelle pile.
+\end{block}
+
+\medskip
+
+\begin{exampleblock}{Programme Python}
+\begin{lstlisting}
+a = [3, 5, 7, 2]
+inverse = []
+while len(a) > 0:
+    e = depiler(a)
+    empiler(inverse, e)
+print(inverse)
+\end{lstlisting}
+\end{exampleblock}
+
+\pause
+
+\begin{center}
+\begin{tikzpicture}[
+    box/.style={
+        draw,
+        minimum width=0.7cm,
+        minimum height=0.55cm
+    },
+    >=stealth
+]
+
+% Tableau initial
+\node[box] (a) at (0,0) {3};
+\node[box] (b) at (0.7,0) {5};
+\node[box] (c) at (1.4,0) {7};
+\node[box,fill=red!15] (d) at (2.1,0) {2};
+
+\node at (1,-0.55) {\small Tableau initial};
+
+\draw[->,thick] (3,0)--(4,0)
+    node[midway,above] {\small Inverser};
+
+% Tableau inversé
+\node[box,fill=red!15] (e) at (4.8,0) {2};
+\node[box] (f) at (5.5,0) {7};
+\node[box] (g) at (6.2,0) {5};
+\node[box] (h) at (6.9,0) {3};
+
+\node at (5.9,-0.55) {\small Séquence inversée};
+
+\end{tikzpicture}
+\end{center}
+
+\end{frame}
+
+
+
+
+
+
+
+
+
+\begin{comment}
 \begin{frame}[fragile]{File}
 
 Une file (en anglais queue) est une structure de données basée sur le principe que les premiers éléments ajoutés dans la file seront les premiers à en être retirés.
@@ -220,8 +997,6 @@ enlever(file)
 
 
 \end{frame}
-
-
 
 \frame[containsverbatim]{
 \frametitle{Ajouter dans le file}
@@ -404,7 +1179,6 @@ print("montant restant", montant)
 
 
 \end{frame}
-
 
 \begin{frame}[fragile]{Pile}
 
@@ -625,7 +1399,7 @@ print(inverse)
 \end{frame}
 
 
-
+\end{comment}
 
 
 

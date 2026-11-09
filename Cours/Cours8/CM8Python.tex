@@ -1,7 +1,6 @@
 \documentclass[10pt]{beamer}
 
 \usepackage{verbatim}
-\usepackage[latin1]{inputenc}
 \usepackage{amssymb,amsmath,amsfonts,url}
 \usepackage{graphicx,color}
 \usepackage{pgf,pgfarrows,pgfnodes,pgfautomata,pgfheaps,pgfshade}
@@ -26,6 +25,46 @@
   \beamertemplatetransparentcovereddynamic
   \beamertemplateballitem
 }
+\usepackage{listings}
+\usepackage{xcolor}
+
+
+\lstset{
+	language=Python,
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{blue},
+	commentstyle=\color{gray},
+	stringstyle=\color{green!50!black},
+	showstringspaces=false,
+	frame=single,
+	numbers=none
+}
+\lstset{
+	language=Python,
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{blue},
+	commentstyle=\color{gray},
+	stringstyle=\color{green!50!black},
+	showstringspaces=false,
+	frame=single,
+	numbers=none,
+	literate=
+	{é}{{\'e}}1
+	{è}{{\`e}}1
+	{ê}{{\^e}}1
+	{ë}{{\"e}}1
+	{à}{{\`a}}1
+	{â}{{\^a}}1
+	{ä}{{\"a}}1
+	{ù}{{\`u}}1
+	{û}{{\^u}}1
+	{ü}{{\"u}}1
+	{ô}{{\^o}}1
+	{ö}{{\"o}}1
+	{î}{{\^i}}1
+	{ï}{{\"i}}1
+	{ç}{{\c c}}1
+}
 
 
 \newcommand{\alertonce}[1]{\addtocounter{beamerpauses}{-1}\alert<+>{#1}}
@@ -46,7 +85,7 @@
 \title[IN100 Cours 8]{\textbf{Fondements informatiques I}\\
 Cours 8: Modules et fichiers}
 
-\author[]{Sorina Ionica \texttt{sorina.ionica@uvsq.fr} \\~\\Sandrine Vial  \texttt{sandrine.vial@uvsq.fr} }
+\author[]{Sorina Ionica \texttt{sorina.ionica@uvsq.fr} \\~\\Bilal FAYE  \texttt{bilal.faye@uvsq.fr} }
 
 
 \institute{}
@@ -61,9 +100,269 @@ Cours 8: Modules et fichiers}
 
 \frame{\titlepage}
 
+\begin{frame}{Pourquoi utiliser des modules ?}
 
+Imaginons que l'on souhaite programmer une petite
+application de calculatrice.
 
+Le programme pourrait contenir :
+\begin{itemize}
+    \item des fonctions pour effectuer des calculs ;
+    \item des fonctions pour gérer l'affichage ;
+    \item un programme principal qui utilise ces fonctions.
+\end{itemize}
 
+\begin{alertblock}{Problème}
+\small
+Regrouper toutes les fonctions dans un seul fichier peut rendre
+le programme difficile à lire et à maintenir.
+\end{alertblock}
+
+\begin{block}{Solution : les modules}
+\small
+On peut répartir les fonctions dans plusieurs fichiers Python,
+en regroupant celles qui ont un rôle commun.
+\end{block}
+
+\end{frame}
+\begin{frame}[fragile]{Créer son propre module}
+
+Un \textbf{module} est un fichier Python portant l'extension
+\texttt{.py}.
+
+On peut y définir des fonctions qui pourront être réutilisées
+dans d'autres programmes.
+
+\begin{exampleblock}{Fichier \texttt{calculs.py}}
+\small
+\begin{lstlisting}
+def carre(x):
+    return x * x
+
+def moyenne(a, b):
+    return (a + b) / 2
+\end{lstlisting}
+\end{exampleblock}
+
+\begin{itemize}
+    \item Le fichier \texttt{calculs.py} constitue un module.
+    \item Il contient deux fonctions réutilisables.
+\end{itemize}
+
+\end{frame}
+\begin{frame}[fragile]{Importer son propre module}
+
+Pour utiliser les fonctions du module \texttt{calculs},
+on utilise l'instruction \texttt{import}.
+
+\begin{exampleblock}{Fichier \texttt{main.py}}
+\small
+\begin{lstlisting}
+import calculs
+
+print(calculs.carre(5))
+print(calculs.moyenne(10, 20))
+\end{lstlisting}
+\end{exampleblock}
+
+\begin{itemize}
+    \item \texttt{import calculs} importe le module.
+    \item On utilise ensuite le nom du module suivi d'un point
+    pour accéder à ses fonctions.
+\end{itemize}
+
+\begin{block}{Organisation des fichiers}
+\small
+Les deux fichiers \texttt{calculs.py} et \texttt{main.py}
+doivent être placés dans le même dossier pour cet exemple.
+\end{block}
+
+\end{frame}
+\begin{frame}[fragile]{Importer directement une fonction}
+
+Il est également possible d'importer uniquement les fonctions
+dont on a besoin.
+
+\begin{exampleblock}{Fichier \texttt{main.py}}
+\small
+\begin{lstlisting}
+from calculs import carre
+
+print(carre(5))
+\end{lstlisting}
+\end{exampleblock}
+
+\begin{itemize}
+    \item \texttt{from calculs import carre} importe uniquement
+    la fonction \texttt{carre}.
+    \item On utilise directement son nom, sans préfixer
+    par \texttt{calculs.}.
+\end{itemize}
+
+\begin{block}{À retenir}
+\small
+\texttt{import calculs} permet d'utiliser le module entier.
+
+\texttt{from calculs import carre} permet d'importer
+une fonction particulière.
+\end{block}
+
+\end{frame}
+\begin{frame}[fragile]{Quelques modules de Python}
+
+Python fournit de nombreux modules contenant des fonctions
+prêtes à être utilisées.
+
+\begin{block}{Le module \texttt{math}}
+\small
+Il contient des fonctions et constantes mathématiques.
+\begin{lstlisting}
+import math
+
+print(math.sqrt(25))  # Racine carree
+print(math.pi)        # Constante pi
+\end{lstlisting}
+\end{block}
+
+\begin{block}{Le module \texttt{random}}
+\small
+Il permet de générer des valeurs aléatoires.
+\begin{lstlisting}
+import random
+
+nombre = random.randint(1, 10)
+print(nombre)
+\end{lstlisting}
+\end{block}
+
+\end{frame}
+\begin{frame}[fragile]{Importer une fonction d'un module}
+
+On peut également importer directement une fonction
+d'un module fourni par Python.
+
+\begin{exampleblock}{Exemple avec le module \texttt{math}}
+\small
+\begin{lstlisting}
+from math import sqrt, pi
+
+print(sqrt(49))
+print(pi)
+\end{lstlisting}
+\end{exampleblock}
+
+\begin{alertblock}{Une pratique à éviter}
+\small
+L'instruction \texttt{from math import *} importe de nombreux
+noms sans préciser leur origine.
+
+Il est préférable d'utiliser \texttt{import math}
+ou d'importer explicitement les fonctions nécessaires.
+\end{alertblock}
+
+\end{frame}
+\begin{frame}{Pourquoi utiliser des fichiers ?}
+
+Jusqu'à présent, nous avons stocké les informations
+dans des variables.
+
+Mais que deviennent ces informations lorsque le programme
+s'arrête ?
+
+\begin{itemize}
+    \item Les variables disparaissent à la fin de l'exécution.
+    \item Les fichiers permettent de conserver des informations
+    sur le disque.
+    \item Ces informations pourront être relues lors d'une
+    prochaine exécution du programme.
+\end{itemize}
+
+\begin{exampleblock}{Exemples d'utilisation}
+\small
+Enregistrer les notes d'un élève, conserver une liste de noms
+ou sauvegarder un résultat de calcul.
+\end{exampleblock}
+
+\end{frame}
+\begin{frame}[fragile]{Écrire dans un fichier}
+
+La fonction \texttt{open()} permet d'ouvrir un fichier.
+
+Pour écrire dans un fichier, on utilise le mode \texttt{"w"}.
+
+\begin{exampleblock}{Écrire dans \texttt{notes.txt}}
+\small
+\begin{lstlisting}
+with open("notes.txt", "w", encoding="utf-8") as f:
+    f.write("Alice : 15\n")
+    f.write("Bob : 12\n")
+\end{lstlisting}
+\end{exampleblock}
+
+\begin{itemize}
+    \item \texttt{"w"} : ouvre le fichier en écriture.
+    \item \texttt{write()} : écrit du texte dans le fichier.
+    \item \texttt{\textbackslash n} : permet de passer à la ligne.
+\end{itemize}
+
+\begin{alertblock}{Attention}
+\small
+Le mode \texttt{"w"} crée le fichier s'il n'existe pas.
+S'il existe déjà, son ancien contenu est effacé.
+\end{alertblock}
+
+\end{frame}
+\begin{frame}[fragile]{Lire un fichier}
+
+Pour lire le contenu d'un fichier, on utilise le mode \texttt{"r"}.
+
+La méthode \texttt{read()} permet de récupérer tout son contenu.
+
+\begin{exampleblock}{Lire \texttt{notes.txt}}
+\small
+\begin{lstlisting}
+with open("notes.txt", "r", encoding="utf-8") as f:
+    contenu = f.read()
+
+print(contenu)
+\end{lstlisting}
+\end{exampleblock}
+
+\begin{itemize}
+    \item \texttt{"r"} : ouvre le fichier en lecture.
+    \item \texttt{read()} : récupère tout le texte du fichier.
+    \item Le contenu peut ensuite être stocké dans une variable.
+\end{itemize}
+
+\end{frame}
+\begin{frame}[fragile]{Ajouter du contenu dans un fichier}
+
+Pour ajouter du texte sans effacer le contenu existant,
+on utilise le mode \texttt{"a"}.
+
+\begin{exampleblock}{Ajouter une nouvelle note}
+\small
+\begin{lstlisting}
+with open("notes.txt", "a", encoding="utf-8") as f:
+    f.write("Claire : 18\n")
+\end{lstlisting}
+\end{exampleblock}
+
+\begin{block}{Les trois modes à connaître}
+\small
+\begin{center}
+\begin{tabular}{c|l}
+\textbf{Mode} & \textbf{Utilisation} \\
+\hline
+\texttt{"r"} & Lire un fichier \\
+\texttt{"w"} & Écrire (remplace le contenu) \\
+\texttt{"a"} & Ajouter à la fin du fichier
+\end{tabular}
+\end{center}
+\end{block}
+
+\end{frame}
+\begin{comment}
 \section{Les modules}
 
 \frame[containsverbatim]{
@@ -230,7 +529,7 @@ help(random.randint)
 }
 
 
-
+\end{comment}
 
 \end{document}
 
